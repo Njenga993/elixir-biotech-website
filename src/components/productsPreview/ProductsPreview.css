@@ -1,0 +1,342 @@
+/* ── VARIABLES ──────────────────────────────────────────────────────────── */
+:root {
+  --pp-bg:     #112418;
+  --pp-deep:   #0c1e12;
+  --pp-sage:   #6aaa84;
+  --pp-cream:  #f2ede0;
+  --pp-warm:   #c07840;
+  --pp-hand:   "Caveat", cursive;
+  --pp-body:   "Lora", serif;
+}
+
+/* ── BASE ───────────────────────────────────────────────────────────────── */
+.products-preview {
+  position: relative;
+  background: var(--pp-bg);
+  overflow: hidden;
+  padding: clamp(5rem, 10vw, 8rem) 0;
+}
+
+/* ── NOISE GRAIN ────────────────────────────────────────────────────────── */
+.pp-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* ── GHOST WORD ─────────────────────────────────────────────────────────── */
+.pp-ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  font-family: var(--pp-hand);
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 700;
+  color: var(--pp-sage);
+  opacity: 0.025;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  letter-spacing: -2px;
+}
+
+/* ── HEADING ────────────────────────────────────────────────────────────── */
+.pp-heading {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+/* Rubber Stamp */
+.pp-stamp {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  transform: rotate(-1deg);
+}
+
+.pp-stamp span {
+  position: relative;
+  z-index: 1;
+  font-family: var(--pp-hand);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--pp-cream);
+  padding: 0.25rem 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.stamp-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--pp-sage);
+  opacity: 0.5;
+}
+
+.pp-heading h2 {
+  font-family: var(--pp-hand);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.1;
+  color: var(--pp-cream);
+  margin: 0 0 28px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+}
+
+.pp-mark {
+  position: relative;
+  background: none;
+  color: var(--pp-sage);
+  padding: 0 4px;
+}
+
+.pp-mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.05em;
+  width: 100%;
+  height: 0.3em;
+  background: rgba(106, 170, 132, 0.2);
+  z-index: -1;
+  transform: skewX(-4deg);
+}
+
+.pp-heading-squiggle {
+  display: block;
+  width: 100%;
+  height: 8px;
+  margin-top: 4px;
+  color: var(--pp-sage);
+  opacity: 0.4;
+}
+
+.pp-heading p {
+  font-family: var(--pp-body);
+  max-width: 640px;
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: rgba(242, 237, 224, 0.55);
+}
+
+/* ── GRID & SPECIMEN CARDS ─────────────────────────────────────────────── */
+.pp-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.specimen-card {
+  position: relative;
+  background: var(--pp-deep);
+  border: 1px dashed rgba(106, 170, 132, 0.2);
+  padding: 28px 24px 32px;
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+  
+  /* Animation Start State */
+  opacity: 0;
+  transform: translateY(40px);
+}
+
+.is-visible .specimen-card {
+  animation: revealUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 0.15s + 0.1s);
+}
+
+@keyframes revealUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.specimen-card:hover {
+  border-color: rgba(106, 170, 132, 0.5);
+  background: rgba(12, 30, 18, 0.6);
+  transform: translateY(-4px);
+}
+
+/* Ghost Index Number */
+.specimen-ghost-num {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-family: var(--pp-hand);
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--pp-sage);
+  opacity: 0.08;
+  line-height: 1;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.specimen-card:hover .specimen-ghost-num {
+  opacity: 0.15;
+}
+
+/* Hand-drawn corner accent */
+.specimen-corner {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  width: 20px;
+  height: 20px;
+  color: var(--pp-sage);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.specimen-card:hover .specimen-corner {
+  opacity: 0.4;
+}
+
+/* ── IMAGE (Taped Photo Effect) ─────────────────────────────────────────── */
+.specimen-image-wrap {
+  position: relative;
+  margin: -44px 10px 24px; /* Pull up to overlap top border slightly */
+  z-index: 2;
+}
+
+/* The piece of tape */
+.specimen-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+  width: 60px;
+  height: 18px;
+  background: rgba(242, 237, 224, 0.18);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 3;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.specimen-photo {
+  background: var(--pp-cream);
+  padding: 6px 6px 28px 6px; /* Thick bottom for polaroid look */
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+  transform: rotate(0.8deg);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s ease;
+}
+
+.specimen-card:hover .specimen-photo {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
+.specimen-photo img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+  filter: saturate(0.8) contrast(1.05);
+  transition: filter 0.4s ease;
+}
+
+.specimen-card:hover .specimen-photo img {
+  filter: saturate(1) contrast(1.05);
+}
+
+/* ── CONTENT ────────────────────────────────────────────────────────────── */
+.specimen-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.specimen-content h3 {
+  font-family: var(--pp-hand);
+  font-size: 1.65rem;
+  line-height: 1.2;
+  color: var(--pp-cream);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.specimen-content p {
+  font-family: var(--pp-body);
+  line-height: 1.75;
+  color: rgba(242, 237, 224, 0.5);
+  font-size: 0.95rem;
+  margin-bottom: 28px;
+  flex: 1;
+}
+
+/* ── BUTTON ─────────────────────────────────────────────────────────────── */
+.specimen-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(106, 170, 132, 0.2);
+  color: var(--pp-sage);
+  font-family: var(--pp-hand);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: gap 0.3s ease, color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+}
+
+.specimen-btn:hover {
+  color: var(--pp-cream);
+  border-color: var(--pp-sage);
+  background: rgba(106, 170, 132, 0.08);
+  gap: 14px;
+}
+
+/* ── REDUCED MOTION ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .specimen-card {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .specimen-photo, .specimen-btn, .specimen-card {
+    transition-duration: 0.01s !important;
+  }
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .pp-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .specimen-photo img {
+    height: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pp-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .specimen-photo img {
+    height: 240px;
+  }
+}
+
+@media (max-width: 540px) {
+  .specimen-content h3 {
+    font-size: 1.4rem;
+  }
+}

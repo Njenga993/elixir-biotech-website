@@ -1,0 +1,571 @@
+/* ── VARIABLES ──────────────────────────────────────────────────────────── */
+:root {
+  --ap-bg:     #f0e8d5;
+  --ap-deep:   #0c1e12;
+  --ap-panel:  #112418;
+  --ap-sage:   #6aaa84;
+  --ap-cream:  #f2ede0;
+  --ap-warm:   #c07840;
+  --ap-hand:   "Caveat", cursive;
+  --ap-body:   "Lora", serif;
+}
+
+/* ── PAGE BASE ──────────────────────────────────────────────────────────── */
+.ap-page {
+  position: relative;
+  background: var(--ap-bg);
+  overflow: hidden;
+  padding-top: 100px; /* Navbar offset */
+}
+
+.ap-noise {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* ── SECTION HEADERS ────────────────────────────────────────────────────── */
+.ap-section-header {
+  margin-bottom: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ap-section-header.center { align-items: center; text-align: center; }
+.ap-section-header.alt { align-items: flex-end; text-align: right; }
+.ap-section-header.center.alt { align-items: center; text-align: center; }
+
+.ap-section-header h2 {
+  font-family: var(--ap-hand);
+  font-size: clamp(2rem, 4vw, 3rem);
+  color: var(--ap-deep);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.ap-section-header.alt h2 { color: var(--ap-cream); }
+
+.ap-header-rule {
+  height: 1.5px;
+  max-width: 120px;
+  background: rgba(106, 170, 132, 0.3);
+}
+
+.ap-section-header.alt .ap-header-rule { background: rgba(242, 237, 224, 0.2); }
+
+/* ── HERO ───────────────────────────────────────────────────────────────── */
+.ap-hero {
+  position: relative;
+  z-index: 2;
+  background: var(--ap-deep);
+  padding: 6rem 0 5rem;
+  text-align: center;
+}
+
+.ap-hero-content { max-width: 800px; margin: 0 auto; }
+
+.ap-ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-10deg);
+  font-family: var(--ap-hand);
+  font-size: clamp(8rem, 25vw, 22rem);
+  font-weight: 700;
+  color: var(--ap-sage);
+  opacity: 0.02;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+}
+
+.ap-stamp {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  transform: rotate(-1deg);
+}
+
+.ap-stamp span {
+  position: relative;
+  z-index: 1;
+  font-family: var(--ap-hand);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ap-cream);
+  padding: 0.25rem 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.stamp-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--ap-sage);
+  opacity: 0.5;
+}
+
+.ap-hero h1 {
+  font-family: var(--ap-hand);
+  font-size: clamp(3rem, 6vw, 5rem);
+  line-height: 1.05;
+  color: var(--ap-cream);
+  margin: 0 0 24px;
+  font-weight: 600;
+  display: inline-block;
+  position: relative;
+}
+
+.ap-mark {
+  position: relative;
+  background: none;
+  color: var(--ap-sage);
+  padding: 0 6px;
+}
+
+.ap-mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.05em;
+  width: 100%;
+  height: 0.3em;
+  background: rgba(106, 170, 132, 0.2);
+  z-index: -1;
+  transform: skewX(-4deg);
+}
+
+.ap-heading-squiggle {
+  display: block;
+  width: 100%;
+  height: 10px;
+  margin-top: 8px;
+  color: var(--ap-sage);
+  opacity: 0.4;
+}
+
+.ap-hero p {
+  font-family: var(--ap-body);
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: rgba(242, 237, 224, 0.6);
+}
+
+/* ── FIELD OBSERVATIONS ─────────────────────────────────────────────────── */
+.ap-observations {
+  position: relative;
+  z-index: 2;
+  padding: 6rem 0;
+  background: var(--ap-bg);
+}
+
+.ap-obs-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.ap-obs-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1.5px dashed rgba(12, 30, 18, 0.12);
+  padding: 40px 32px 36px;
+  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
+}
+
+.ap-obs-card:hover {
+  border-color: rgba(106, 170, 132, 0.5);
+  background: rgba(255, 255, 255, 0.65);
+  transform: translateY(-4px);
+}
+
+.obs-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(106, 170, 132, 0.3);
+  color: var(--ap-sage);
+  margin-bottom: 24px;
+}
+
+.obs-stat {
+  display: block;
+  font-family: var(--ap-hand);
+  font-size: 3.2rem;
+  font-weight: 700;
+  color: var(--ap-warm);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.ap-obs-card h3 {
+  font-family: var(--ap-hand);
+  font-size: 1.6rem;
+  color: var(--ap-deep);
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.ap-obs-card p {
+  font-family: var(--ap-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(12, 30, 18, 0.6);
+}
+
+.obs-corner {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  width: 20px;
+  height: 20px;
+  color: var(--ap-sage);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.ap-obs-card:hover .obs-corner { opacity: 0.4; }
+
+/* ── GENESIS LOG ────────────────────────────────────────────────────────── */
+.ap-genesis {
+  position: relative;
+  z-index: 2;
+  background: var(--ap-panel);
+  padding: 6rem 0;
+}
+
+.ap-genesis-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.ap-genesis-content p {
+  font-family: var(--ap-body);
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: rgba(242, 237, 224, 0.6);
+  margin-bottom: 20px;
+}
+
+/* Schematic Card */
+.ap-genesis-schematic { position: relative; }
+
+.schematic-card {
+  position: relative;
+  background: rgba(242, 237, 224, 0.04);
+  border: 1.5px dashed rgba(106, 170, 132, 0.3);
+  padding: 40px 24px 32px;
+}
+
+.schematic-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(1deg);
+  width: 60px;
+  height: 18px;
+  background: rgba(242, 237, 224, 0.12);
+  backdrop-filter: blur(2px);
+  z-index: 3;
+}
+
+.schematic-card h4 {
+  font-family: var(--ap-hand);
+  font-size: 1.4rem;
+  color: var(--ap-sage);
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.schematic-flow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.flow-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--ap-cream);
+}
+
+.flow-node span {
+  font-family: var(--ap-hand);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.flow-node.highlight { color: var(--ap-warm); }
+
+.flow-line {
+  width: 32px;
+  height: 16px;
+  color: var(--ap-sage);
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* ── MANDATE & HORIZON (Mission & Vision) ───────────────────────────────── */
+.ap-mandate {
+  position: relative;
+  z-index: 2;
+  background: var(--ap-bg);
+  padding: 6rem 0;
+}
+
+.ap-mandate-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: stretch;
+}
+
+.ap-mandate-card {
+  position: relative;
+  background: var(--ap-deep);
+  border: 1.5px dashed rgba(106, 170, 132, 0.25);
+  padding: 48px 40px 40px;
+  transition: border-color 0.3s ease, transform 0.3s ease;
+}
+
+.ap-mandate-card:hover {
+  border-color: var(--ap-sage);
+  transform: translateY(-4px);
+}
+
+.mandate-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 60px;
+  height: 18px;
+  background: rgba(242, 237, 224, 0.12);
+  backdrop-filter: blur(2px);
+}
+
+.ap-mandate-card h3 {
+  font-family: var(--ap-hand);
+  font-size: 2.4rem;
+  color: var(--ap-cream);
+  margin-bottom: 4px;
+  font-weight: 700;
+}
+
+.ap-mandate-card.vision h3 {
+  color: var(--ap-sage);
+}
+
+.mandate-sub {
+  display: block;
+  font-family: var(--ap-body);
+  font-style: italic;
+  font-size: 0.9rem;
+  color: rgba(242, 237, 224, 0.35);
+  margin-bottom: 16px;
+}
+
+.mandate-squiggle {
+  width: 40px;
+  margin-bottom: 24px;
+  color: var(--ap-sage);
+}
+
+.ap-mandate-card p {
+  font-family: var(--ap-body);
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: rgba(242, 237, 224, 0.65);
+  margin: 0;
+}
+
+.mandate-bracket {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 80px;
+  color: var(--ap-sage);
+  opacity: 0.3;
+}
+
+.ap-mandate-card:not(.vision) .mandate-bracket {
+  right: -12px;
+}
+
+.ap-mandate-card.vision .mandate-bracket {
+  left: -12px;
+}
+
+/* ── EXPEDITION TENETS ──────────────────────────────────────────────────── */
+.ap-tenets {
+  position: relative;
+  z-index: 2;
+  background: var(--ap-deep);
+  padding: 6rem 0;
+}
+
+.ap-tenets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+
+.ap-tenet-card {
+  position: relative;
+  background: var(--ap-panel);
+  border: 1.5px dashed rgba(106, 170, 132, 0.25);
+  padding: 40px 28px 32px;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.ap-tenet-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--ap-sage);
+}
+
+.tenet-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 52px;
+  height: 18px;
+  background: rgba(242, 237, 224, 0.12);
+  backdrop-filter: blur(2px);
+}
+
+.ap-tenet-card h3 {
+  font-family: var(--ap-hand);
+  font-size: 1.8rem;
+  color: var(--ap-cream);
+  margin-bottom: 12px;
+}
+
+.tenet-squiggle {
+  width: 40px;
+  margin: 0 auto 16px;
+  color: var(--ap-sage);
+}
+
+.ap-tenet-card p {
+  font-family: var(--ap-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(242, 237, 224, 0.55);
+}
+
+/* ── FIELD LOG (Timeline) ───────────────────────────────────────────────── */
+.ap-log {
+  position: relative;
+  z-index: 2;
+  background: var(--ap-bg);
+  padding: 6rem 0;
+}
+
+.ap-timeline {
+  position: relative;
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 40px;
+}
+
+/* Vertical Dashed Rule */
+.ap-timeline::before {
+  content: "";
+  position: absolute;
+  left: 12px;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-left: 2px dashed rgba(12, 30, 18, 0.2);
+}
+
+.ap-timeline-entry {
+  position: relative;
+  margin-bottom: 40px;
+  display: flex;
+  gap: 24px;
+  align-items: baseline;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -33px; 
+  top: 50%;
+  transform: translateY(-50%);
+  width: 10px;
+  height: 10px;
+  background: var(--ap-sage);
+  border-radius: 50%;
+  border: 2px solid var(--ap-bg);
+}
+
+.timeline-year {
+  font-family: var(--ap-hand);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--ap-deep);
+  flex-shrink: 0;
+  min-width: 60px;
+}
+
+.ap-timeline-entry p {
+  font-family: var(--ap-body);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: rgba(12, 30, 18, 0.7);
+  margin: 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(12, 30, 18, 0.08);
+}
+
+/* ── REDUCED MOTION ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .ap-obs-card, .ap-tenet-card, .ap-mandate-card {
+    transition-duration: 0.01s !important;
+  }
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media (max-width: 992px) {
+  .ap-obs-grid, .ap-tenets-grid {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+  
+  .ap-genesis-grid, .ap-mandate-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .ap-section-header.alt { align-items: flex-start; text-align: left; }
+  .ap-section-header.center.alt { align-items: center; text-align: center; }
+
+  .mandate-bracket { display: none; }
+}
+
+@media (max-width: 768px) {
+  .ap-hero { padding: 4rem 0; }
+  .ap-hero h1 { font-size: 2.8rem; }
+  
+  .schematic-flow { flex-direction: column; }
+  .flow-line { transform: rotate(90deg); }
+}

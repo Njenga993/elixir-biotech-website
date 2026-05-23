@@ -1,0 +1,303 @@
+/* ── VARIABLES ──────────────────────────────────────────────────────────── */
+:root {
+  --im-bg:     #f0e8d5;
+  --im-deep:   #0c1e12;
+  --im-green:  #1a3a25;
+  --im-sage:   #6aaa84;
+  --im-cream:  #f2ede0;
+  --im-warm:   #c07840;
+  --im-hand:   "Caveat", cursive;
+  --im-body:   "Lora", serif;
+}
+
+/* ── BASE ───────────────────────────────────────────────────────────────── */
+.impact-section {
+  position: relative;
+  background: var(--im-bg);
+  overflow: hidden;
+  padding: clamp(5rem, 10vw, 8rem) 0;
+}
+
+/* ── NOISE GRAIN ────────────────────────────────────────────────────────── */
+.im-noise {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+/* ── GHOST WORD ─────────────────────────────────────────────────────────── */
+.im-ghost {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(10deg);
+  font-family: var(--im-hand);
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 700;
+  color: var(--im-deep);
+  opacity: 0.025;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 0;
+  user-select: none;
+  letter-spacing: -2px;
+}
+
+/* ── HEADING ────────────────────────────────────────────────────────────── */
+.im-heading {
+  position: relative;
+  z-index: 2;
+  max-width: 800px;
+  margin-bottom: clamp(3rem, 6vw, 5rem);
+}
+
+.im-stamp {
+  position: relative;
+  display: inline-block;
+  margin-bottom: 1.5rem;
+  transform: rotate(-1deg);
+}
+
+.im-stamp span {
+  position: relative;
+  z-index: 1;
+  font-family: var(--im-hand);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--im-deep);
+  padding: 0.25rem 0.75rem;
+  letter-spacing: 0.5px;
+}
+
+.stamp-border {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--im-deep);
+  opacity: 0.35;
+}
+
+.im-heading h2 {
+  font-family: var(--im-hand);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1.1;
+  color: var(--im-deep);
+  margin: 0 0 28px;
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+}
+
+.im-mark {
+  position: relative;
+  background: none;
+  color: var(--im-sage);
+  padding: 0 4px;
+}
+
+.im-mark::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0.05em;
+  width: 100%;
+  height: 0.3em;
+  background: rgba(106, 170, 132, 0.25);
+  z-index: -1;
+  transform: skewX(-4deg);
+}
+
+.im-heading-squiggle {
+  display: block;
+  width: 100%;
+  height: 8px;
+  margin-top: 4px;
+  color: var(--im-sage);
+  opacity: 0.5;
+}
+
+.im-heading p {
+  font-family: var(--im-body);
+  max-width: 640px;
+  font-size: 1.02rem;
+  line-height: 1.85;
+  color: rgba(12, 30, 18, 0.6);
+}
+
+/* ── GRID & TICKETS ─────────────────────────────────────────────────────── */
+.im-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.impact-ticket {
+  position: relative;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1.5px dashed rgba(12, 30, 18, 0.12);
+  padding: 48px 32px 36px;
+  transition: border-color 0.4s ease, background 0.4s ease, transform 0.4s ease;
+
+  /* Animation start state */
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.is-visible .impact-ticket {
+  animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--i, 0) * 0.12s + 0.1s);
+}
+
+@keyframes revealUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.impact-ticket:hover {
+  border-color: rgba(106, 170, 132, 0.5);
+  background: rgba(255, 255, 255, 0.65);
+  transform: translateY(-4px);
+}
+
+/* ── Pin/Tape Element ───────────────────────────────────────────────────── */
+.ticket-tape {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-2deg);
+  width: 52px;
+  height: 18px;
+  background: rgba(242, 237, 224, 0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  z-index: 3;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.impact-ticket:hover .ticket-tape {
+  transform: translateX(-50%) rotate(0deg);
+}
+
+/* ── Ticket Typography ──────────────────────────────────────────────────── */
+.impact-ticket h3 {
+  font-family: var(--im-hand);
+  font-size: 3.8rem;
+  line-height: 1;
+  color: var(--im-warm); /* Warm accent makes the numbers pop like a highlighter */
+  margin-bottom: 8px;
+  font-weight: 700;
+  letter-spacing: -1px;
+  transition: transform 0.3s ease;
+}
+
+.impact-ticket:hover h3 {
+  transform: scale(1.04);
+}
+
+.impact-ticket h4 {
+  font-family: var(--im-hand);
+  font-size: 1.3rem;
+  line-height: 1.4;
+  color: var(--im-green);
+  margin-bottom: 20px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ── Squiggle Divider ───────────────────────────────────────────────────── */
+.ticket-squiggle {
+  width: 40px;
+  height: 6px;
+  color: var(--im-sage);
+  opacity: 0.5;
+  margin-bottom: 20px;
+  transition: width 0.4s ease, opacity 0.4s ease;
+}
+
+.impact-ticket:hover .ticket-squiggle {
+  width: 60px;
+  opacity: 0.8;
+}
+
+.impact-ticket p {
+  font-family: var(--im-body);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: rgba(12, 30, 18, 0.6);
+}
+
+/* ── Hand-drawn corner accent ───────────────────────────────────────────── */
+.ticket-corner {
+  position: absolute;
+  bottom: 12px;
+  right: 14px;
+  width: 20px;
+  height: 20px;
+  color: var(--im-sage);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.impact-ticket:hover .ticket-corner {
+  opacity: 0.4;
+}
+
+/* ── REDUCED MOTION ─────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .impact-ticket {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .impact-ticket,
+  .ticket-tape,
+  .ticket-squiggle,
+  .impact-ticket h3 {
+    transition-duration: 0.01s !important;
+  }
+}
+
+/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .im-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 28px;
+  }
+}
+
+@media (max-width: 768px) {
+  .im-grid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+    gap: 24px;
+  }
+
+  .impact-ticket {
+    padding: 40px 28px 32px;
+  }
+
+  .impact-ticket h3 {
+    font-size: 3.2rem;
+  }
+}
+
+@media (max-width: 540px) {
+  .impact-ticket h3 {
+    font-size: 2.8rem;
+  }
+
+  .impact-ticket h4 {
+    font-size: 1.2rem;
+  }
+}
