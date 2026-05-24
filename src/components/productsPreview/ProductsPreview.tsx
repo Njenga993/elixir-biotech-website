@@ -18,7 +18,7 @@ const products = [
     image: insertImage,
     title: "Adaptive Stove Insert",
     description:
-      "An efficient stove insert engineered to work with existing household setups, eliminating the need for expensive stove replacements.",
+      "An efficient stove insert engineered to work with existing household setups, eliminating the need to purchase expensive new equipment.",
   },
   {
     image: refillImage,
@@ -29,7 +29,7 @@ const products = [
 ];
 
 const ProductsPreview = () => {
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -55,69 +55,38 @@ const ProductsPreview = () => {
       className={`products-preview ${isVisible ? "is-visible" : ""}`}
       ref={sectionRef}
     >
-      {/* Noise grain */}
-      <div className="pp-noise" aria-hidden="true" />
-      
-      {/* Ghost background word */}
-      <div className="pp-ghost" aria-hidden="true">FUEL</div>
-
       <div className="container">
-        <div className="pp-heading">
-          {/* Rubber stamp tag */}
-          <div className="pp-stamp">
-            <span>Product Ecosystem</span>
-            <svg className="stamp-border" viewBox="0 0 200 36" fill="none" aria-hidden="true">
-              <rect x="1" y="1" width="198" height="34" rx="0" stroke="currentColor" strokeWidth="1" strokeDasharray="4 3"/>
-            </svg>
-          </div>
-
-          <h2>
-            Designed for practical, <mark className="pp-mark">everyday</mark> clean cooking
-            <svg className="pp-heading-squiggle" viewBox="0 0 200 8" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0 4 Q25 0 50 4 Q75 8 100 4 Q125 0 150 4 Q175 8 200 4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-            </svg>
+        <div className="products-heading">
+          <span className="products-subtitle">Our Products</span>
+          <h2 className="products-title">
+            Sustainable Solutions for <br />
+            Cleaner Cooking
           </h2>
-
-          <p>
+          <p className="products-description">
             Elixir Biotech combines clean fuel innovation, refill systems, and
             adaptive cooking solutions into a scalable ecosystem tailored for
-            households, food vendors, and growing urban communities.
+            households and communities.
           </p>
         </div>
 
-        <div className="pp-grid">
+        <div className="products-grid">
           {products.map((product, index) => (
             <div 
-              className="specimen-card" 
+              className="product-card" 
               key={index}
               style={{ "--i": index } as React.CSSProperties}
             >
-              {/* Ghost Index */}
-              <span className="specimen-ghost-num" aria-hidden="true">
-                0{index + 1}
-              </span>
-
-              {/* Taped Image */}
-              <div className="specimen-image-wrap">
-                <div className="specimen-tape" aria-hidden="true" />
-                <div className="specimen-photo">
-                  <img src={product.image} alt={product.title} />
-                </div>
+              <div className="product-card-image">
+                <img src={product.image} alt={product.title} />
+                <div className="product-card-overlay"></div>
               </div>
-
-              {/* Content */}
-              <div className="specimen-content">
-                <h3>{product.title}</h3>
-                <p>{product.description}</p>
-                <button className="specimen-btn">
-                  Learn More <ArrowRight size={16} strokeWidth={1.5} />
-                </button>
+              <div className="product-card-content">
+                <h3 className="product-card-title">{product.title}</h3>
+                <p className="product-card-description">{product.description}</p>
+                <a href="/products" className="product-card-link">
+                  Learn More <ArrowRight size={16} />
+                </a>
               </div>
-
-              {/* Hand-drawn corner accent */}
-              <svg className="specimen-corner" viewBox="0 0 28 28" fill="none" aria-hidden="true">
-                <path d="M2 26 Q2 2 26 2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-              </svg>
             </div>
           ))}
         </div>

@@ -1,4 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+/* ── VARIABLES ── */
+:root {
+  --primary-yellow: #0f1a20;       /* Your new Dark Logo Accent */
+  --primary-yellow-dark: #0a1215;  /* Even darker for hover states */
+  --primary-green: #82AF24;        /* Your Logo Green */
+  --primary-green-light: #9BC43F;  /* Lighter version for hovers */
+  --primary-green-dark: #6E931E;   /* Darker version for deep accents */
+  --text-light: #ffffff;
+  --text-dark: #0f1a20;           /* Updated dark text to match the new accent */
+  --text-muted: #666666;
+  --font-primary: "Poppins", sans-serif;
+}
 
 *{
   margin:0;

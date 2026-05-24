@@ -1,600 +1,358 @@
-/* ── VARIABLES ──────────────────────────────────────────────────────────── */
+/* ── VARIABLES ── */
 :root {
-  --cp-bg:     #0c1e12;
-  --cp-panel:  #112418;
-  --cp-sage:   #6aaa84;
-  --cp-cream:  #f2ede0;
-  --cp-warm:   #c07840;
-  --cp-hand:   "Caveat", cursive;
-  --cp-body:   "Lora", serif;
+  --primary-yellow: #0f1a20;       
+  --primary-yellow-dark: #0a1215;  
+  --primary-green: #82AF24;        
+  --primary-green-light: #9BC43F;  
+  --primary-green-dark: #6E931E;   
+  --text-light: #ffffff;
+  --text-dark: #0f1a20;           
+  --text-muted: #666666;
+  --font-primary: "Poppins", sans-serif;
 }
 
-/* ── PAGE BASE ──────────────────────────────────────────────────────────── */
-.cp-page {
-  position: relative;
-  background: var(--cp-bg);
-  overflow: hidden;
-  padding-top: 100px; /* Navbar offset */
+/* ── CONTACT PAGE ── */
+.contact-page {
+  padding-top: 38px; /* Account for top bar */
+  background: #f8f9fa;
+  min-height: 100vh;
 }
 
-.cp-noise {
-  position: fixed; /* Fixed for full page scroll effect */
-  inset: 0;
-  z-index: 1;
-  pointer-events: none;
-  opacity: 0.03;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
-}
-
-/* ── HERO ───────────────────────────────────────────────────────────────── */
-.cp-hero {
-  position: relative;
-  z-index: 2;
-  padding: 5rem 0 4rem;
+/* ── HERO ── */
+.contact-hero {
+  background: var(--primary-green); /* Bright Green Background */
+  padding: 80px 0 60px;
   text-align: center;
 }
 
-.cp-ghost {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) rotate(-12deg);
-  font-family: var(--cp-hand);
-  font-size: clamp(8rem, 25vw, 22rem);
-  font-weight: 700;
-  color: var(--cp-sage);
-  opacity: 0.02;
-  white-space: nowrap;
-  pointer-events: none;
-  z-index: -1;
-  user-select: none;
+.contact-hero .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.cp-hero-content {
+.contact-hero-content {
   max-width: 700px;
   margin: 0 auto;
 }
 
-.cp-stamp {
-  position: relative;
+.contact-hero-subtitle {
   display: inline-block;
-  margin-bottom: 1.5rem;
-  transform: rotate(-1deg);
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(15, 26, 32, 0.7); /* Dark text on bright green */
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
 }
 
-.cp-stamp span {
-  position: relative;
-  z-index: 1;
-  font-family: var(--cp-hand);
+.contact-hero-title {
+  font-family: var(--font-primary);
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: var(--text-dark); /* Dark navy text for maximum readability */
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.contact-hero-description {
+  font-family: var(--font-primary);
   font-size: 1.05rem;
-  font-weight: 600;
-  color: var(--cp-cream);
-  padding: 0.25rem 0.75rem;
-  letter-spacing: 0.5px;
+  line-height: 1.7;
+  color: rgba(15, 26, 32, 0.8); /* Dark text */
+  max-width: 550px;
+  margin: 0 auto;
 }
 
-.stamp-border {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  color: var(--cp-sage);
-  opacity: 0.5;
+/* ── MAIN CONTENT ── */
+.contact-main {
+  padding: 80px 0;
 }
 
-.cp-hero h1 {
-  font-family: var(--cp-hand);
-  font-size: clamp(3.5rem, 7vw, 5.5rem);
-  line-height: 1;
-  color: var(--cp-cream);
-  margin: 0 0 24px;
-  font-weight: 600;
-  position: relative;
-  display: inline-block;
+.contact-main .container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
-.cp-mark {
-  position: relative;
-  background: none;
-  color: var(--cp-sage);
-  padding: 0 6px;
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 60px;
+  align-items: flex-start;
 }
 
-.cp-mark::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0.05em;
-  width: 100%;
-  height: 0.3em;
-  background: rgba(106, 170, 132, 0.2);
-  z-index: -1;
-  transform: skewX(-4deg);
+/* ── LEFT: Contact Information ── */
+.contact-info-col {
+  padding: 40px;
+  background: var(--primary-yellow); /* Dark Navy Background */
+  border-radius: 8px;
+  color: var(--text-light);
 }
 
-.cp-heading-squiggle {
-  display: block;
-  width: 100%;
-  height: 10px;
-  margin-top: 8px;
-  color: var(--cp-sage);
-  opacity: 0.4;
+.contact-info-title {
+  font-family: var(--font-primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-light);
+  margin-bottom: 16px;
 }
 
-.cp-hero p {
-  font-family: var(--cp-body);
-  font-size: 1.1rem;
-  line-height: 1.85;
-  color: rgba(242, 237, 224, 0.6);
+.contact-info-description {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 32px;
 }
 
-/* ── SECTION HEADERS ────────────────────────────────────────────────────── */
-.cp-section-header {
-  margin-bottom: 3rem;
+.contact-details {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
+  margin-bottom: 32px;
 }
 
-.cp-section-header h2 {
-  font-family: var(--cp-hand);
-  font-size: clamp(2rem, 4vw, 3rem);
-  color: var(--cp-cream);
-  font-weight: 600;
-  line-height: 1;
+.contact-detail-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
 }
 
-.cp-header-rule {
-  height: 1.5px;
-  max-width: 120px;
-  background: rgba(106, 170, 132, 0.3);
+.contact-icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: rgba(130, 175, 36, 0.15); /* Green tint on dark background */
+  border-radius: 50%;
+  color: var(--primary-green-light); /* Bright green icon */
+  flex-shrink: 0;
 }
 
-/* ── DISPATCH STATIONS ──────────────────────────────────────────────────── */
-.cp-stations {
-  position: relative;
-  z-index: 2;
-  padding: 4rem 0 6rem;
-}
-
-.cp-stations-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 32px;
-}
-
-.cp-station-card {
-  position: relative;
-  background: var(--cp-panel);
-  border: 1.5px dashed rgba(106, 170, 132, 0.2);
-  padding: 40px 32px 36px;
-  transition: border-color 0.3s ease, background 0.3s ease, transform 0.3s ease;
-}
-
-.cp-station-card:hover {
-  border-color: rgba(106, 170, 132, 0.5);
-  background: rgba(17, 36, 24, 0.8);
-  transform: translateY(-3px);
-}
-
-.station-tape {
-  position: absolute;
-  top: -8px;
-  left: 50%;
-  transform: translateX(-50%) rotate(-1deg);
-  width: 60px;
-  height: 18px;
-  background: rgba(242, 237, 224, 0.12);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  z-index: 3;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.station-callsign {
-  font-family: var(--cp-hand);
-  font-size: 1rem;
-  color: rgba(106, 170, 132, 0.4);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+.contact-detail-label {
   display: block;
-  margin-bottom: 20px;
+  font-family: var(--font-primary);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 2px;
 }
 
-.station-icon-wrap {
+.contact-detail-value {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  color: var(--text-light);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a.contact-detail-value:hover {
+  color: var(--primary-green-light);
+}
+
+/* ── Map ── */
+.contact-map-wrapper {
+  margin-top: 32px;
+}
+
+.contact-map {
+  border-radius: 8px;
+  overflow: hidden;
+  height: 220px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  /* Subtle filter to make the map fit the moody dark card */
+  filter: grayscale(20%) brightness(0.9);
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ── RIGHT: Dispatch Directory ── */
+.contact-departments-col {
+  position: relative;
+}
+
+.contact-departments-title {
+  font-family: var(--font-primary);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary-green);
+  margin-bottom: 12px;
+}
+
+.contact-departments-description {
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+
+/* ── Station Cards Grid ── */
+.contact-stations-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.contact-station-card {
+  background: var(--text-light);
+  border-radius: 8px;
+  padding: 28px 24px;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  border-top: 4px solid var(--primary-green); /* Bright green top border accent */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.contact-station-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  border-top-color: var(--primary-yellow); /* Dark navy top border on hover */
+}
+
+.station-icon-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 48px;
   height: 48px;
+  background: rgba(130, 175, 36, 0.1);
   border-radius: 50%;
-  border: 1.5px solid rgba(106, 170, 132, 0.3);
-  color: var(--cp-sage);
-  margin-bottom: 20px;
-  transition: background 0.3s ease;
+  color: var(--primary-green);
 }
 
-.cp-station-card:hover .station-icon-wrap {
-  background: rgba(106, 170, 132, 0.1);
+.station-content {
+  flex: 1;
 }
 
-.cp-station-card h3 {
-  font-family: var(--cp-hand);
-  font-size: 1.8rem;
-  color: var(--cp-cream);
+.station-title {
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  margin-bottom: 6px;
+}
+
+.station-description {
+  font-family: var(--font-primary);
+  font-size: 0.88rem;
+  line-height: 1.5;
+  color: var(--text-muted);
   margin-bottom: 12px;
-  font-weight: 600;
-  line-height: 1.1;
 }
 
-.cp-station-card p {
-  font-family: var(--cp-body);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(242, 237, 224, 0.5);
-  margin-bottom: 28px;
-}
-
-.station-email-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-family: var(--cp-hand);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--cp-warm);
-  text-decoration: none;
-  transition: color 0.2s ease, gap 0.2s ease;
-}
-
-.station-email-btn:hover {
-  color: var(--cp-cream);
-  gap: 14px;
-}
-
-.station-corner {
-  position: absolute;
-  bottom: 12px;
-  right: 14px;
-  width: 20px;
-  height: 20px;
-  color: var(--cp-sage);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-.cp-station-card:hover .station-corner {
-  opacity: 0.4;
-}
-
-/* ── BASECAMP & MAP ─────────────────────────────────────────────────────── */
-.cp-basecamp {
-  position: relative;
-  z-index: 2;
-  padding: 0 0 6rem;
-}
-
-.cp-basecamp-grid {
-  display: grid;
-  grid-template-columns: 1.2fr 0.8fr;
-  gap: 48px;
-  align-items: start;
-}
-
-/* Map */
-.cp-map-frame {
-  position: relative;
-  background: var(--cp-cream);
-  padding: 10px 10px 48px 10px; 
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-  transform: rotate(-0.8deg);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.cp-map-frame:hover {
-  transform: rotate(0deg) translateY(-4px);
-}
-
-.cp-map-tape {
-  position: absolute;
-  top: -10px;
-  left: 50%;
-  transform: translateX(-50%) rotate(2deg);
-  width: 80px;
-  height: 22px;
-  background: rgba(242, 237, 224, 0.15);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  z-index: 3;
-}
-
-.cp-map-frame iframe {
-  display: block;
-  width: 100%;
-  height: 400px;
-  border: none;
-  filter: grayscale(1) contrast(1.15) brightness(0.65) sepia(0.2);
-  transition: filter 0.4s ease;
-}
-
-.cp-map-frame:hover iframe {
-  filter: grayscale(0.8) contrast(1.1) brightness(0.7) sepia(0.15);
-}
-
-.cp-map-pin {
-  position: absolute;
-  top: 35%;
-  left: 55%;
-  transform: translate(-50%, -100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  z-index: 2;
-  pointer-events: none;
-  animation: pin-bob 3s ease-in-out infinite;
-}
-
-.cp-map-pin svg {
-  width: 32px;
-  height: 46px;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
-}
-
-.cp-pin-label {
-  margin-top: 4px;
-  font-family: var(--cp-hand);
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: var(--cp-cream);
-  background: rgba(12, 30, 18, 0.85);
-  padding: 2px 10px;
-  white-space: nowrap;
-}
-
-@keyframes pin-bob {
-  0%, 100% { transform: translate(-50%, -100%) translateY(0); }
-  50% { transform: translate(-50%, -100%) translateY(-4px); }
-}
-
-.cp-map-corner {
-  position: absolute;
-  bottom: 14px;
-  right: 16px;
-  width: 20px;
-  height: 20px;
-  color: var(--cp-sage);
-  opacity: 0.3;
-}
-
-/* Location Details */
-.cp-location-details {
-  display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.cp-detail-block {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-.cp-detail-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid rgba(106, 170, 132, 0.3);
-  color: var(--cp-sage);
-  flex-shrink: 0;
-}
-
-.cp-detail-block h4 {
-  font-family: var(--cp-hand);
-  font-size: 1.3rem;
-  color: var(--cp-cream);
-  margin: 0 0 8px;
-  font-weight: 600;
-}
-
-.cp-detail-block p {
-  font-family: var(--cp-body);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: rgba(242, 237, 224, 0.6);
-  margin: 0;
-}
-
-/* Field Notes */
-.cp-field-notes h4 {
-  font-family: var(--cp-hand);
-  font-size: 1.3rem;
-  color: var(--cp-sage);
-  margin: 0 0 12px;
-  font-weight: 600;
-}
-
-.cp-notebook-paper {
-  background: rgba(255, 255, 255, 0.03);
-  border-left: 2px solid rgba(106, 170, 132, 0.2);
-  padding: 16px 20px;
-  border-radius: 0 4px 4px 0;
-}
-
-.cp-notebook-paper p {
-  font-family: var(--cp-body);
-  font-style: italic;
-  font-size: 0.95rem;
-  line-height: 1.8;
-  color: rgba(242, 237, 224, 0.55);
-  margin: 0;
-}
-
-/* ── COMMS & RENDEZVOUS ─────────────────────────────────────────────────── */
-.cp-comms {
-  position: relative;
-  z-index: 2;
-  padding: 0 0 6rem;
-}
-
-.cp-comms-grid {
-  display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 32px;
-}
-
-.cp-comms-card, .cp-rendezvous-card {
-  background: var(--cp-panel);
-  border: 1.5px dashed rgba(106, 170, 132, 0.2);
-  padding: 40px;
-}
-
-.cp-comms-card h3, .cp-rendezvous-card h3 {
-  font-family: var(--cp-hand);
-  font-size: 1.8rem;
-  color: var(--cp-cream);
-  margin: 0 0 28px;
-  font-weight: 600;
-}
-
-.cp-comms-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.comms-label {
-  display: block;
-  font-family: var(--cp-hand);
-  font-size: 0.95rem;
-  color: rgba(242, 237, 224, 0.4);
-  margin-bottom: 4px;
-}
-
-.cp-comms-list li a {
-  font-family: var(--cp-body);
-  font-size: 1.1rem;
-  color: var(--cp-sage);
-  text-decoration: none;
+.station-email {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  transition: color 0.2s ease;
+  font-family: var(--font-primary);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--primary-green);
+  transition: color 0.3s ease, gap 0.3s ease;
 }
 
-.cp-comms-list li a:hover {
-  color: var(--cp-cream);
+.contact-station-card:hover .station-email {
+  color: var(--primary-yellow-dark);
+  gap: 10px;
 }
 
-/* Rendezvous */
-.rendezvous-stamp {
-  position: relative;
-  display: inline-block;
-  margin-bottom: 1.5rem;
-  transform: rotate(1.5deg);
-}
-
-.rendezvous-stamp span {
-  position: relative;
-  z-index: 1;
-  font-family: var(--cp-hand);
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--cp-warm);
-  padding: 0.2rem 0.6rem;
-  letter-spacing: 0.5px;
-}
-
-.cp-rendezvous-card p {
-  font-family: var(--cp-body);
-  font-size: 1rem;
-  line-height: 1.8;
-  color: rgba(242, 237, 224, 0.5);
-  margin-bottom: 32px;
-}
-
-.cp-booking-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 12px;
-  font-family: var(--cp-hand);
-  font-size: 1.3rem;
-  font-weight: 600;
-  background: var(--cp-sage);
-  color: var(--cp-bg);
-  padding: 14px 28px 16px;
-  text-decoration: none;
-  transition: transform 0.2s ease, background 0.2s ease;
-}
-
-.cp-booking-btn:hover {
-  background: #7fc49a;
-  transform: translateY(-2px) rotate(-0.8deg);
-}
-
-.cp-booking-btn:focus-visible {
-  outline: 2px solid var(--cp-cream);
-  outline-offset: 3px;
-}
-
-/* ── REDUCED MOTION ─────────────────────────────────────────────────────── */
-@media (prefers-reduced-motion: reduce) {
-  .cp-map-pin {
-    animation: none;
-  }
-  .cp-map-frame, .cp-station-card, .cp-booking-btn {
-    transition-duration: 0.01s !important;
-  }
-}
-
-/* ── RESPONSIVE ─────────────────────────────────────────────────────────── */
-@media (max-width: 1100px) {
-  .cp-stations-grid {
+/* ── RESPONSIVE ── */
+@media (max-width: 992px) {
+  .contact-grid {
     grid-template-columns: 1fr;
-    max-width: 550px;
-    margin: 0 auto;
+    gap: 40px;
   }
   
-  .cp-basecamp-grid {
-    grid-template-columns: 1fr;
-    gap: 3rem;
-  }
-
-  .cp-map-frame iframe {
-    height: 350px;
+  .contact-info-col {
+    padding: 32px;
   }
 }
 
 @media (max-width: 768px) {
-  .cp-page {
-    padding-top: 80px;
+  .contact-page {
+    padding-top: 32px;
   }
-
-  .cp-comms-grid {
+  
+  .contact-hero {
+    padding: 60px 0 40px;
+  }
+  
+  .contact-main {
+    padding: 60px 0;
+  }
+  
+  .contact-stations-grid {
     grid-template-columns: 1fr;
   }
-
-  .cp-map-frame iframe {
-    height: 280px;
+  
+  .contact-info-col {
+    padding: 28px;
   }
-
-  .cp-hero h1 {
-    font-size: 3rem;
+  
+  .contact-hero-title {
+    font-size: 2rem;
+  }
+  
+  .contact-map {
+    height: 180px;
   }
 }
 
-@media (max-width: 540px) {
-  .cp-station-card, .cp-comms-card, .cp-rendezvous-card {
-    padding: 28px 24px;
+@media (max-width: 480px) {
+  .contact-hero {
+    padding: 40px 0 30px;
   }
   
-  .cp-map-frame {
-    padding: 6px 6px 36px 6px;
+  .contact-main {
+    padding: 40px 0;
+  }
+  
+  .contact-info-col {
+    padding: 20px;
+  }
+  
+  .contact-info-title {
+    font-size: 1.4rem;
+  }
+  
+  .contact-departments-title {
+    font-size: 1.4rem;
+  }
+  
+  .contact-detail-item {
+    gap: 12px;
+  }
+  
+  .contact-icon-wrapper {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .contact-map {
+    height: 150px;
+  }
+  
+  .contact-station-card {
+    padding: 20px;
+  }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+  .contact-station-card:hover {
+    transform: none !important;
   }
 }

@@ -1,19 +1,20 @@
+import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import "./AboutSection.css";
-import { useEffect, useRef, useState,  } from "react";
-import type { CSSProperties } from "react";
 import aboutImage from "../../assets/images/image.png";
+import { ArrowRight, Leaf, Target, CheckCircle2 } from "lucide-react";
 
-type CSS = CSSProperties & { [key: `--${string}`]: string | number };
-
-/* ── Scroll-reveal hook ──────────────────────────────────────────────── */
-function useInView(threshold = 0.15) {
+/* ── Scroll-reveal hook ── */
+function useInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); obs.disconnect(); } },
+      ([entry]) => {
+        if (entry.isIntersecting) { setInView(true); obs.disconnect(); }
+      },
       { threshold }
     );
     obs.observe(el);
@@ -22,151 +23,133 @@ function useInView(threshold = 0.15) {
   return { ref, inView };
 }
 
-/* ── Counter hook ────────────────────────────────────────────────────── */
-function useCounter(end: number, duration: number, active: boolean): number {
-  const [val, setVal] = useState(0);
-  useEffect(() => {
-    if (!active) return;
-    let start: number | null = null;
-    const tick = (t: number) => {
-      if (!start) start = t;
-      const p = Math.min((t - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 4);
-      setVal(Math.floor(eased * end));
-      if (p < 1) requestAnimationFrame(tick);
-      else setVal(end);
-    };
-    requestAnimationFrame(tick);
-  }, [end, duration, active]);
-  return val;
-}
-
-const FEATURES = [
+const CARDS = [
   {
-    n: "01",
-    title: "Cleaner Indoor Air",
-    body: "Reducing smoke and toxic fume exposure for healthier kitchens and homes.",
+    icon: <Target size={18} strokeWidth={1.8} />,
+    title: "Our Vision",
+    text: "A future where African biotech innovations lead globally in clean energy, waste valorization, and community-driven climate solutions.",
   },
   {
-    n: "02",
-    title: "Waste-to-Energy Innovation",
-    body: "Organic waste diverted and converted into efficient bioethanol gel fuel.",
-  },
-  {
-    n: "03",
-    title: "Built For Existing Stoves",
-    body: "Adaptive inserts eliminate the need to purchase expensive new equipment.",
-  },
-  {
-    n: "04",
-    title: "Community-Led Distribution",
-    body: "Local refill agents and waste collectors create lasting economic opportunity.",
+    icon: <Leaf size={18} strokeWidth={1.8} />,
+    title: "Our Mission",
+    text: "To harness biotechnology and circular design to convert everyday challenges into sustainable solutions that improve health, energy, and livelihoods across Africa.",
   },
 ];
 
-const AboutSection = () => {
-  const { ref: leftRef,  inView: leftIn  } = useInView(0.1);
-  const { ref: rightRef, inView: rightIn } = useInView(0.1);
-  const { ref: statRef,  inView: statIn  } = useInView(0.3);
+const PROOF_POINTS = [
+  "Closed-loop production & distribution model",
+  "Packaging recycled back into the system",
+  "Local waste collectors as supply partners",
+];
 
-  const count = useCounter(30, 1800, statIn);
+const AboutSection = () => {
+  const { ref: leftRef, inView: leftIn } = useInView(0.12);
+  const { ref: rightRef, inView: rightIn } = useInView(0.12);
 
   return (
     <section className="about-section">
-      {/* Noise grain */}
-      <div className="about-noise" aria-hidden="true" />
-
-      {/* Ghost background word */}
-      <div className="about-ghost" aria-hidden="true">CLEAN</div>
+      {/* Decorative background geometry */}
+      <div className="about-bg-blob" aria-hidden="true" />
+      <div className="about-bg-dots"  aria-hidden="true" />
 
       <div className="container about-container">
 
-        {/* ── LEFT: Photo + Stat ── */}
+        {/* ── LEFT: Image stack ── */}
         <div
-          ref={leftRef}
           className={`about-left ${leftIn ? "is-in" : ""}`}
+          ref={leftRef}
         >
-          {/* Polaroid-style photo */}
-          <div className="polaroid">
-            <div className="polaroid-frame">
-              <img
-                src={aboutImage}
-                alt="Organic waste processing for clean cooking energy"
-              />
+          {/* Offset frame */}
+          <div className="about-frame-accent" aria-hidden="true" />
+
+          <div className="about-image-wrapper">
+            <div className="about-image-container">
+              <img src={aboutImage} alt="Elixir Biotech clean cooking solutions" />
+              {/* Gradient wash at the bottom */}
+              <div className="about-img-overlay" aria-hidden="true" />
             </div>
-            {/* Hand-drawn bracket accent */}
-            <svg className="polaroid-bracket" viewBox="0 0 24 120" fill="none" aria-hidden="true">
-              <path d="M20 4 L4 4 L4 116 L20 116" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
+
+            {/* Primary floating badge */}
+            <div className="about-badge about-badge-primary">
+              <span className="badge-number">110<span className="badge-plus">+</span></span>
+              <span className="badge-text">Households<br />Served</span>
+            </div>
+
+            {/* Secondary floating chip */}
+            <div className="about-badge about-badge-secondary">
+              <span className="badge-chip-dot" aria-hidden="true" />
+              <span className="badge-chip-label">Est. Nairobi, Kenya</span>
+            </div>
           </div>
 
-          {/* Stat sticky-note */}
-          <div ref={statRef} className="stat-note">
-            <span className="stat-note-num">
-              {count}<span className="stat-note-suffix">M+</span>
-            </span>
-            <p>People in Kenya still rely on harmful cooking fuels daily.</p>
-            {/* Hand-drawn underline */}
-            <svg className="stat-underline" viewBox="0 0 180 8" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0 4 Q22 0 44 4 Q66 8 88 4 Q110 0 132 4 Q154 8 180 4" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round"/>
-            </svg>
-          </div>
-
-          {/* Decorative ruled lines — notebook feel */}
-          <div className="notebook-lines" aria-hidden="true">
-            <span /><span /><span />
-          </div>
+          {/* Decorative green bar beside image */}
+          <div className="about-side-bar" aria-hidden="true" />
         </div>
 
-        {/* ── RIGHT: Copy + Features ── */}
+        {/* ── RIGHT: Content ── */}
         <div
-          ref={rightRef}
           className={`about-right ${rightIn ? "is-in" : ""}`}
+          ref={rightRef}
         >
-          {/* Rubber stamp tag */}
-          <div className="section-stamp">
-            <span>Rethinking Everyday Cooking</span>
-            <svg className="stamp-border" viewBox="0 0 220 38" fill="none" aria-hidden="true">
-              <rect x="1" y="1" width="218" height="36" rx="0" stroke="currentColor" strokeWidth="1" strokeDasharray="4 3"/>
-            </svg>
-          </div>
+          <div className="about-content">
 
-          <h2 className="about-heading">
-            <span className="ah-line" style={{ "--d": "0.05s" } as CSS}>Clean cooking should be</span>
-            <span className="ah-line ah-marked" style={{ "--d": "0.2s" } as CSS}>
-              <mark className="word-mark">affordable,</mark>{" "}
-              <mark className="word-mark">safe,</mark>
-            </span>
-            <span className="ah-line" style={{ "--d": "0.35s" } as CSS}>
-              and accessible to every household.
-            </span>
-          </h2>
+            {/* Section label */}
+            <div className="about-label">
+              <span className="label-dot" aria-hidden="true" />
+              About Elixir Biotech
+            </div>
 
-          <div className="about-body">
-            <p style={{ "--d": "0.45s" } as CSS}>
-              Across many African communities, cooking still depends on charcoal, kerosene, and firewood — fuels that are expensive, harmful to health, and destructive to the environment.
+            <h2 className="about-title">
+              Our Vision for<br />
+              <span className="about-title-accent">
+                Cleaner Cooking
+                <span className="title-underline" aria-hidden="true" />
+              </span>
+            </h2>
+
+            <p className="about-description">
+              Elixir Biotech operates a closed-loop production and distribution
+              model — transforming discarded organic materials into affordable,
+              low-emission cooking fuel, then cycling the packaging right back
+              into the system.
             </p>
-            <p style={{ "--d": "0.55s" } as CSS}>
-              Elixir Biotech builds a cleaner alternative through waste-derived bioethanol gel fuel designed for modern African households — transforming organic waste into practical cooking energy that fits naturally into existing routines.
-            </p>
-          </div>
 
-          {/* Journal-style feature list */}
-          <ul className="feature-journal" role="list">
-            {FEATURES.map((f, i) => (
-              <li
-                key={f.n}
-                className="feature-entry"
-                style={{ "--fi": i } as CSS}
-              >
-                <span className="feature-ghost-num" aria-hidden="true">{f.n}</span>
-                <div className="feature-content">
-                  <h3>{f.title}</h3>
-                  <p>{f.body}</p>
+            {/* Proof points */}
+            <ul className="about-proof-list">
+              {PROOF_POINTS.map((pt, i) => (
+                <li key={i} className="about-proof-item">
+                  <CheckCircle2 size={15} className="proof-check" strokeWidth={2} />
+                  {pt}
+                </li>
+              ))}
+            </ul>
+
+            {/* Vision / Mission cards */}
+            <div className="about-cards">
+              {CARDS.map((card, i) => (
+                <div
+                  key={i}
+                  className="about-card"
+                  style={{ "--card-delay": `${rightIn ? i * 0.12 : 0}s` } as React.CSSProperties}
+                >
+                  <div className="about-card-header">
+                    <div className="about-card-icon">{card.icon}</div>
+                    <h3 className="about-card-title">{card.title}</h3>
+                  </div>
+                  <p className="about-card-text">{card.text}</p>
+                  {/* Hover accent line */}
+                  <span className="card-line" aria-hidden="true" />
                 </div>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <Link to="/about" className="about-cta">
+              <span>Discover More</span>
+              <ArrowRight size={16} className="cta-arrow" />
+              <span className="cta-shimmer" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

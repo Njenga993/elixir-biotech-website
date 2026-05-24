@@ -1,163 +1,226 @@
 import "./Footer.css";
 
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, ArrowUpRight } from "lucide-react";
-
+import {
+  Mail, Phone, MapPin,
+  Home, TrendingUp, Recycle, Award,
+  ChevronRight, ArrowUpRight,
+} from "lucide-react";
 import logo from "../../assets/images/logo_tech.jpeg";
 
+/* ── COUNT-UP HOOK ── */
+function useCountUp(target: number, duration = 1800, active = false) {
+  const [value, setValue] = useState(0);
+  useEffect(() => {
+    if (!active) return;
+    let start: number | null = null;
+    const step = (ts: number) => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      // Ease-out cubic
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setValue(Math.floor(eased * target));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [active, target, duration]);
+  return value;
+}
+
+/* ── STAT ITEM ── */
+type StatProps = {
+  icon: React.ReactNode;
+  rawValue: number;
+  suffix: string;
+  prefix?: string;
+  label: string;
+  active: boolean;
+};
+
+const StatItem = ({ icon, rawValue, suffix, prefix = "", label, active }: StatProps) => {
+  const count = useCountUp(rawValue, 1600, active);
+  return (
+    <div className="footer-stat">
+      <div className="stat-icon-wrap">{icon}</div>
+      <div className="stat-info">
+        <span className="stat-number">
+          {prefix}{count.toLocaleString()}{suffix}
+        </span>
+        <span className="stat-label">{label}</span>
+      </div>
+    </div>
+  );
+};
+
+/* ── FOOTER ── */
 const Footer = () => {
+  const statsRef = useRef<HTMLDivElement>(null);
+  const [statsVisible, setStatsVisible] = useState(false);
+
+  useEffect(() => {
+    const el = statsRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setStatsVisible(true); obs.disconnect(); } },
+      { threshold: 0.3 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const STATS = [
+    { icon: <Home size={28} strokeWidth={1.5} />, rawValue: 110, suffix: "+", label: "Households Served" },
+    { icon: <TrendingUp size={28} strokeWidth={1.5} />, rawValue: 83, suffix: "%", label: "Repeat Customers" },
+    { icon: <Recycle size={28} strokeWidth={1.5} />, rawValue: 10, suffix: "+", label: "Waste Collectors" },
+    { icon: <Award size={28} strokeWidth={1.5} />, rawValue: 10200, suffix: "", prefix: "$", label: "Grant Funding Secured" },
+  ];
+
+  const NAV_LINKS = [
+    { to: "/", label: "Home" },
+    { to: "/about", label: "About Us" },
+    { to: "/products", label: "Products" },
+    { to: "/contact", label: "Contact" },
+  ];
+
   return (
     <footer className="footer">
-      {/* ── SVG LANDSCAPE HORIZON ── */}
-      <div className="footer-horizon" aria-hidden="true">
-        <svg viewBox="0 0 1440 180" fill="none" preserveAspectRatio="none">
-          {/* Back hill */}
-          <path
-            d="M0 180V120C120 95 240 80 360 70C480 60 600 65 720 75C840 85 960 95 1080 88C1200 81 1320 70 1440 60V180H0Z"
-            fill="rgba(26, 58, 37, 0.4)"
-          />
-          {/* Front hill */}
-          <path
-            d="M0 180V140C180 110 360 95 540 100C720 105 900 120 1080 110C1260 100 1440 90 1440 90V180H0Z"
-            fill="rgba(26, 58, 37, 0.7)"
-          />
-          {/* Tree silhouettes (hand-drawn pines) */}
-          <g fill="#1a2e24" opacity="0.9">
-            <polygon points="120,100 130,60 140,100" />
-            <polygon points="150,105 162,55 174,105" />
-            <polygon points="190,100 200,65 210,100" />
-            
-            <polygon points="800,110 812,60 824,110" />
-            <polygon points="850,108 860,68 870,108" />
-            
-            <polygon points="1200,95 1212,45 1224,95" />
-            <polygon points="1250,100 1260,55 1270,100" />
-            <polygon points="1280,98 1290,60 1300,98" />
-          </g>
-          {/* Ground line */}
-          <path d="M0 160 Q360 148 720 156 Q1080 164 1440 150" stroke="rgba(106, 170, 132, 0.15)" strokeWidth="1.5" fill="none"/>
-        </svg>
+      {/* Decorative top border */}
+      <div className="footer-top-accent" aria-hidden="true" />
+
+      {/* ── STATS BAR ── */}
+      <div className="footer-stats-bar" ref={statsRef}>
+        <div className="container footer-stats-container">
+          {STATS.map((s, i) => (
+            <StatItem key={i} {...s} active={statsVisible} />
+          ))}
+        </div>
       </div>
 
-      {/* ── MAIN CONTENT ── */}
-      <div className="footer-content">
-        {/* Compass Watermark */}
-        <div className="footer-compass" aria-hidden="true">
-          <svg viewBox="0 0 200 200" fill="none">
-            <circle cx="100" cy="100" r="90" stroke="currentColor" strokeWidth="1" strokeDasharray="4 4"/>
-            <circle cx="100" cy="100" r="65" stroke="currentColor" strokeWidth="0.5"/>
-            <circle cx="100" cy="100" r="4" fill="currentColor"/>
-            {/* Points */}
-            <path d="M100 10 L104 25 L100 22 L96 25 Z" fill="currentColor"/>
-            <path d="M100 190 L104 175 L100 178 L96 175 Z" fill="currentColor"/>
-            <path d="M10 100 L25 96 L22 100 L25 104 Z" fill="currentColor"/>
-            <path d="M190 100 L175 96 L178 100 L175 104 Z" fill="currentColor"/>
-            {/* Cross lines */}
-            <line x1="100" y1="20" x2="100" y2="180" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 4"/>
-            <line x1="20" y1="100" x2="180" y2="100" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2 4"/>
-          </svg>
-        </div>
+      {/* ── MAIN FOOTER CONTENT ── */}
+      <div className="footer-main">
+        {/* Decorative background elements */}
+        <div className="footer-bg-circle footer-bg-circle-1" aria-hidden="true" />
+        <div className="footer-bg-circle footer-bg-circle-2" aria-hidden="true" />
 
         <div className="container footer-grid">
-          {/* ── Brand Column (The Stamp) ── */}
-          <div className="footer-brand">
-            <div className="brand-stamp">
-              {/* Hand-drawn border frame */}
-              <svg className="stamp-frame" viewBox="0 0 240 110" fill="none" aria-hidden="true">
-                <rect x="1" y="1" width="238" height="108" stroke="currentColor" strokeWidth="1.5" strokeDasharray="6 4" rx="0"/>
-              </svg>
-              <div className="stamp-inner">
-                <div className="footer-logo">
-                  <img src={logo} alt="Elixir Biotech" />
+          {/* ── Column 1: Brand ── */}
+          <div className="footer-column footer-brand-col">
+            <Link to="/" className="footer-logo-link">
+              <div className="footer-logo">
+                <div className="footer-logo-img-wrap">
+                  <img src={logo} alt="Elixir Biotech" className="footer-logo-img" />
                 </div>
-                <p className="footer-tagline">Transforming Waste into Wealth</p>
+                <div className="footer-logo-text-group">
+                  <span className="footer-logo-name">Elixir Biotech</span>
+                  <span className="footer-logo-tagline">Life Science Solutions</span>
+                </div>
               </div>
+            </Link>
+
+            <div className="footer-mission-chip">
+              <span className="mission-dot" aria-hidden="true" />
+              Clean fuel. Circular economy.
             </div>
+
             <p className="footer-description">
-              Pioneering clean cooking solutions and circular economy practices 
-              to build climate-smart communities across Africa.
+              Converting organic waste into affordable bioethanol gel fuel —
+              replacing charcoal, kerosene, and firewood with a cleaner
+              alternative that fits the way families already cook.
             </p>
-            {/* Decorative squiggle */}
-            <svg className="footer-squiggle" viewBox="0 0 120 8" aria-hidden="true">
-              <path d="M0 4 Q15 0 30 4 Q45 8 60 4 Q75 0 90 4 Q105 8 120 4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
-            </svg>
+
+            <Link to="/contact" className="footer-cta-link">
+              Partner With Us <ArrowUpRight size={15} />
+            </Link>
           </div>
 
-          {/* ── Navigation Column ── */}
+          {/* ── Column 2: Quick Links ── */}
           <div className="footer-column">
-            <h4>Company</h4>
-            <ul className="field-list">
-              <li><Link to="/about"><span className="fl-num" aria-hidden="true">01</span>Our Mission</Link></li>
-              <li><Link to="/products"><span className="fl-num" aria-hidden="true">02</span>Clean Fuel</Link></li>
-              <li><Link to="/about"><span className="fl-num" aria-hidden="true">03</span>Circular Economy</Link></li>
-              <li><Link to="/contact"><span className="fl-num" aria-hidden="true">04</span>Partner With Us</Link></li>
+            <h4 className="footer-heading">
+              <span className="heading-accent" aria-hidden="true" />
+              Quick Links
+            </h4>
+            <ul className="footer-links">
+              {NAV_LINKS.map(({ to, label }) => (
+                <li key={to}>
+                  <Link to={to}>
+                    <ChevronRight size={14} className="link-arrow" />
+                    {label}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* ── Resources Column ── */}
+          {/* ── Column 3: Contact ── */}
           <div className="footer-column">
-            <h4>Resources</h4>
-            <ul className="field-list">
-              <li><Link to="/"><span className="fl-num" aria-hidden="true">05</span>Impact Report</Link></li>
-              <li><Link to="/"><span className="fl-num" aria-hidden="true">06</span>Clean Cooking Standards</Link></li>
-              <li><Link to="/"><span className="fl-num" aria-hidden="true">07</span>Waste Collection</Link></li>
-              <li><Link to="/"><span className="fl-num" aria-hidden="true">08</span>FAQ</Link></li>
-            </ul>
-          </div>
-
-          {/* ── Contact Column ── */}
-          <div className="footer-column">
-            <h4>Field Notes</h4>
-            <ul className="footer-contact-list">
+            <h4 className="footer-heading">
+              <span className="heading-accent" aria-hidden="true" />
+              Contact Us
+            </h4>
+            <ul className="footer-contact">
               <li>
-                <span className="contact-icon">
-                  <Mail size={14} strokeWidth={1.5} />
-                </span>
-                <a href="mailto:info@elixirbiotech.com">info@elixirbiotech.com</a>
-              </li>
-              <li>
-                <span className="contact-icon">
-                  <Phone size={14} strokeWidth={1.5} />
-                </span>
+                <div className="contact-icon-wrap"><Phone size={15} /></div>
                 <a href="tel:+254700000000">+254 700 000 000</a>
               </li>
               <li>
-                <span className="contact-icon">
-                  <MapPin size={14} strokeWidth={1.5} />
-                </span>
+                <div className="contact-icon-wrap"><Mail size={15} /></div>
+                <a href="mailto:info@elixirbiotech.com">info@elixirbiotech.com</a>
+              </li>
+              <li>
+                <div className="contact-icon-wrap"><MapPin size={15} /></div>
                 <span>Nairobi, Kenya</span>
               </li>
             </ul>
           </div>
+
+          {/* ── Column 4: Social ── */}
+          <div className="footer-column">
+            <h4 className="footer-heading">
+              <span className="heading-accent" aria-hidden="true" />
+              Follow Us
+            </h4>
+            <div className="footer-socials">
+              <a href="#" aria-label="Facebook" className="social-card">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                </svg>
+                <span>Facebook</span>
+              </a>
+              <a href="#" aria-label="Twitter / X" className="social-card">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/>
+                </svg>
+                <span>Twitter</span>
+              </a>
+              <a href="#" aria-label="LinkedIn" className="social-card">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                  <rect x="2" y="9" width="4" height="12"/>
+                  <circle cx="4" cy="4" r="2"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+
+            <div className="footer-hours">
+              <p className="hours-label">Office Hours</p>
+              <p className="hours-value">Mon – Fri &nbsp;·&nbsp; 8:00 AM – 5:00 PM</p>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* ── BOTTOM BAR (Archival Ticket) ── */}
+      {/* ── BOTTOM BAR ── */}
       <div className="footer-bottom">
-        {/* Torn paper edge effect */}
-        <div className="torn-edge" aria-hidden="true">
-          <svg viewBox="0 0 1200 20" fill="none" preserveAspectRatio="none">
-            <path d="M0 20 V8 Q30 2 60 8 Q90 14 120 8 Q150 2 180 8 Q210 14 240 8 Q270 2 300 8 Q330 14 360 8 Q390 2 420 8 Q450 14 480 8 Q510 2 540 8 Q570 14 600 8 Q630 2 660 8 Q690 14 720 8 Q750 2 780 8 Q810 14 840 8 Q870 2 900 8 Q930 14 960 8 Q990 2 1020 8 Q1050 14 1080 8 Q1110 2 1140 8 Q1170 14 1200 8 V20 Z" fill="#1f3a2e"/>
-          </svg>
-        </div>
-
+        <div className="footer-bottom-rule" aria-hidden="true" />
         <div className="container footer-bottom-container">
-          <p>&copy; {new Date().getFullYear()} Elixir Biotech. All rights reserved.</p>
-          
-          <div className="footer-bottom-links">
-            <Link to="/">Privacy Policy</Link>
-            <span className="footer-divider-dot"></span>
-            <Link to="/">Terms of Service</Link>
-          </div>
-
-          <a 
-            href="https://linkedin.com" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="footer-social"
-          >
-            LinkedIn <ArrowUpRight size={14} strokeWidth={1.5} />
-          </a>
+          <p className="footer-copy">
+            &copy; {new Date().getFullYear()} Elixir Biotech. All Rights Reserved.
+          </p>
+          <p className="footer-made">
+            Built with purpose, powered by science.
+          </p>
         </div>
       </div>
     </footer>
