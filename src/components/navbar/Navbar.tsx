@@ -52,7 +52,7 @@ const Navbar = () => {
           <div className="top-bar-left">
             <a href="tel:+254711965228" className="top-item top-item-link">
               <Phone size={13} />
-              <span>+254 7</span>
+              <span>+254 711 965 228</span>
             </a>
             <a href="mailto:info@elixirbiotech.co.ke" className="top-item top-item-link">
               <Mail size={13} />
