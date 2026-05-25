@@ -12,7 +12,7 @@
   --green-faint:  rgba(130, 175, 36, 0.07);
   --green-glow:   rgba(130, 175, 36, 0.22);
   --white:        #ffffff;
-  --off-white:    #f7f8f5;        /* very faint green-tinted white */
+  --off-white:    #f7f8f5;
   --text-body:    #4a5260;
   --text-dark:    #0f1a20;
   --border:       rgba(130, 175, 36, 0.15);
@@ -33,7 +33,6 @@
   overflow: hidden;
 }
 
-/* Large faint green radial blob — top-right */
 .about-bg-blob {
   position: absolute;
   top: -120px;
@@ -45,7 +44,6 @@
   pointer-events: none;
 }
 
-/* Subtle dot-grid texture */
 .about-bg-dots {
   position: absolute;
   inset: 0;
@@ -84,7 +82,6 @@
   transform: translateX(0);
 }
 
-/* Offset green frame behind image */
 .about-frame-accent {
   position: absolute;
   top: 20px;
@@ -125,19 +122,18 @@
   transform: scale(1.04);
 }
 
-/* Bottom image overlay — green gradient wash */
+/* Subtle bottom fade — replaces the heavy green tint */
 .about-img-overlay {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 45%;
-  background: linear-gradient(to top, rgba(110,147,30,0.72), transparent);
+  height: 35%;
+  background: linear-gradient(to top, rgba(15, 26, 32, 0.45), transparent);
   pointer-events: none;
   border-radius: 0 0 6px 6px;
 }
 
-/* Vertical green accent bar to the right of image */
 .about-side-bar {
   position: absolute;
   top: 15%;
@@ -158,7 +154,7 @@
   z-index: 3;
 }
 
-/* Primary stat badge — bottom-left */
+/* Primary stat badge */
 .about-badge-primary {
   bottom: -20px;
   left: -24px;
@@ -172,12 +168,23 @@
   gap: 4px;
   min-width: 130px;
   border: 1px solid rgba(130, 175, 36, 0.2);
+  overflow: hidden;
   transition: transform 0.35s var(--ease-spring), box-shadow 0.35s ease;
 }
 
 .about-badge-primary:hover {
   transform: translateY(-4px);
   box-shadow: 0 20px 50px rgba(15, 26, 32, 0.40);
+}
+
+/* Top accent line on primary badge */
+.badge-accent-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--green-dark), var(--green-light), transparent);
 }
 
 .badge-number {
@@ -208,7 +215,7 @@
   line-height: 1.4;
 }
 
-/* Secondary chip — top-right */
+/* Secondary chip */
 .about-badge-secondary {
   top: 20px;
   right: -16px;
@@ -253,7 +260,7 @@
 
 
 /* ─────────────────────────────────────────────
-   RIGHT COLUMN — scroll reveal
+   RIGHT COLUMN — scroll reveal + stagger
 ───────────────────────────────────────────── */
 .about-right {
   opacity: 0;
@@ -269,6 +276,25 @@
 .about-content {
   max-width: 540px;
 }
+
+/* Cascade children on reveal */
+.about-label,
+.about-title,
+.about-description,
+.about-proof-block,
+.about-cards,
+.about-cta {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.about-right.is-in .about-label        { opacity:1; transform:none; transition-delay: 0.15s; }
+.about-right.is-in .about-title        { opacity:1; transform:none; transition-delay: 0.25s; }
+.about-right.is-in .about-description  { opacity:1; transform:none; transition-delay: 0.35s; }
+.about-right.is-in .about-proof-block  { opacity:1; transform:none; transition-delay: 0.45s; }
+.about-right.is-in .about-cards        { opacity:1; transform:none; transition-delay: 0.55s; }
+.about-right.is-in .about-cta          { opacity:1; transform:none; transition-delay: 0.65s; }
 
 
 /* ─────────────────────────────────────────────
@@ -344,20 +370,27 @@
   font-size: 0.96rem;
   line-height: 1.78;
   color: var(--text-body);
-  margin: 0 0 22px;
+  margin: 0 0 24px;
 }
 
 
 /* ─────────────────────────────────────────────
-   PROOF POINTS
+   PROOF POINTS — grouped with left border
 ───────────────────────────────────────────── */
+.about-proof-block {
+  margin-bottom: 28px;
+}
+
 .about-proof-list {
   list-style: none;
-  padding: 0;
-  margin: 0 0 28px;
+  padding: 16px 0 16px 20px;
+  margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 12px;
+  border-left: 3px solid var(--green);
+  background: linear-gradient(90deg, var(--green-faint), transparent);
+  border-radius: 0 6px 6px 0;
 }
 
 .about-proof-item {
@@ -368,6 +401,7 @@
   font-size: 0.88rem;
   font-weight: 500;
   color: var(--text-dark);
+  padding-right: 16px;
 }
 
 .proof-check {
@@ -377,11 +411,11 @@
 
 
 /* ─────────────────────────────────────────────
-   VISION / MISSION CARDS
+   VISION / MISSION CARDS — 2-col grid
 ───────────────────────────────────────────── */
 .about-cards {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 28px;
 }
@@ -389,14 +423,13 @@
 .about-card {
   position: relative;
   background: var(--navy);
-  padding: 22px 24px 20px;
+  padding: 22px 20px 20px;
   border-radius: 8px;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.04);
   transition:
     transform   0.30s var(--ease-spring),
     box-shadow  0.30s ease;
-  /* Staggered entrance when right col comes in */
   opacity: 0;
   transform: translateY(16px);
 }
@@ -411,7 +444,6 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Faint green glow in top-right corner */
 .about-card::before {
   content: "";
   position: absolute;
@@ -457,7 +489,7 @@
 
 .about-card-title {
   font-family: var(--font-main);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
   font-weight: 700;
   color: var(--white);
   margin: 0;
@@ -466,13 +498,12 @@
 
 .about-card-text {
   font-family: var(--font-body);
-  font-size: 0.86rem;
-  line-height: 1.68;
+  font-size: 0.82rem;
+  line-height: 1.62;
   color: rgba(255,255,255,0.60);
   margin: 0;
 }
 
-/* Bottom sweep accent on hover */
 .card-line {
   position: absolute;
   bottom: 0;
@@ -490,7 +521,7 @@
 
 
 /* ─────────────────────────────────────────────
-   CTA BUTTON
+   CTA BUTTON — Green primary for high contrast
 ───────────────────────────────────────────── */
 .about-cta {
   display: inline-flex;
@@ -499,9 +530,9 @@
   font-family: var(--font-main);
   font-size: 0.88rem;
   font-weight: 600;
-  background: var(--navy);
-  color: var(--green-light);
-  padding: 13px 26px;
+  background: var(--green);
+  color: var(--navy-deep);
+  padding: 13px 28px;
   border-radius: 6px;
   text-decoration: none;
   position: relative;
@@ -510,7 +541,7 @@
   transition:
     transform   0.25s var(--ease-spring),
     box-shadow  0.25s ease,
-    color       0.25s ease;
+    background  0.25s ease;
 }
 
 .cta-arrow {
@@ -528,7 +559,7 @@
   left: -80%;
   width: 55%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.09), transparent);
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
   transform: skewX(-15deg);
 }
 
@@ -542,9 +573,9 @@
 }
 
 .about-cta:hover {
-  color: var(--white);
+  background: var(--green-light);
   transform: translateY(-2px);
-  box-shadow: 0 8px 28px rgba(15, 26, 32, 0.28), 0 2px 8px rgba(15, 26, 32, 0.16);
+  box-shadow: 0 8px 28px rgba(130, 175, 36, 0.35), 0 2px 8px rgba(130, 175, 36, 0.20);
 }
 
 
@@ -578,7 +609,6 @@
   }
 
   .about-left {
-    /* On mobile slide up instead of left */
     transform: translateY(24px);
   }
 
@@ -588,6 +618,7 @@
 
   .about-right {
     transform: translateY(24px);
+    transition-delay: 0s;
   }
 
   .about-right.is-in {
@@ -598,6 +629,11 @@
     height: 340px;
   }
 
+  /* Hide the dark gradient overlay on smaller screens so it doesn't block the image */
+  .about-img-overlay {
+    display: none; 
+  }
+
   .about-frame-accent {
     left: 8px;
     top: 12px;
@@ -606,7 +642,7 @@
   }
 
   .about-badge-primary {
-    left: -12px;
+    left: 12px;
     bottom: -16px;
     padding: 16px 18px;
     min-width: 110px;
@@ -628,6 +664,11 @@
   .about-content {
     max-width: 100%;
   }
+
+  /* Stack cards vertically on tablet */
+  .about-cards {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 480px) {
@@ -640,7 +681,7 @@
   }
 
   .about-badge-primary {
-    left: -8px;
+    left: 8px;
     bottom: -14px;
     padding: 12px 14px;
   }
@@ -663,10 +704,22 @@
   }
 }
 
+
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
   .about-left,
   .about-right {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .about-label,
+  .about-title,
+  .about-description,
+  .about-proof-block,
+  .about-cards,
+  .about-cta {
     transition: none !important;
     opacity: 1 !important;
     transform: none !important;

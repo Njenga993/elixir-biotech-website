@@ -98,7 +98,7 @@ const Navbar = () => {
               </div>
               <div className="logo-text-group">
                 <span className="logo-name">Elixir Biotech</span>
-                <span className="logo-tagline">Life Science Solutions</span>
+                
               </div>
             </div>
           </Link>

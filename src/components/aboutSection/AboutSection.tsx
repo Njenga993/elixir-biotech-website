@@ -48,7 +48,6 @@ const AboutSection = () => {
 
   return (
     <section className="about-section">
-      {/* Decorative background geometry */}
       <div className="about-bg-blob" aria-hidden="true" />
       <div className="about-bg-dots"  aria-hidden="true" />
 
@@ -59,30 +58,26 @@ const AboutSection = () => {
           className={`about-left ${leftIn ? "is-in" : ""}`}
           ref={leftRef}
         >
-          {/* Offset frame */}
           <div className="about-frame-accent" aria-hidden="true" />
 
           <div className="about-image-wrapper">
             <div className="about-image-container">
               <img src={aboutImage} alt="Elixir Biotech clean cooking solutions" />
-              {/* Gradient wash at the bottom */}
               <div className="about-img-overlay" aria-hidden="true" />
             </div>
 
-            {/* Primary floating badge */}
             <div className="about-badge about-badge-primary">
+              <div className="badge-accent-bar" aria-hidden="true" />
               <span className="badge-number">110<span className="badge-plus">+</span></span>
               <span className="badge-text">Households<br />Served</span>
             </div>
 
-            {/* Secondary floating chip */}
             <div className="about-badge about-badge-secondary">
               <span className="badge-chip-dot" aria-hidden="true" />
               <span className="badge-chip-label">Est. Nairobi, Kenya</span>
             </div>
           </div>
 
-          {/* Decorative green bar beside image */}
           <div className="about-side-bar" aria-hidden="true" />
         </div>
 
@@ -93,14 +88,13 @@ const AboutSection = () => {
         >
           <div className="about-content">
 
-            {/* Section label */}
             <div className="about-label">
               <span className="label-dot" aria-hidden="true" />
               About Elixir Biotech
             </div>
 
             <h2 className="about-title">
-              Our Vision for<br />
+              Pioneering The Future Of<br />
               <span className="about-title-accent">
                 Cleaner Cooking
                 <span className="title-underline" aria-hidden="true" />
@@ -115,29 +109,30 @@ const AboutSection = () => {
             </p>
 
             {/* Proof points */}
-            <ul className="about-proof-list">
-              {PROOF_POINTS.map((pt, i) => (
-                <li key={i} className="about-proof-item">
-                  <CheckCircle2 size={15} className="proof-check" strokeWidth={2} />
-                  {pt}
-                </li>
-              ))}
-            </ul>
+            <div className="about-proof-block">
+              <ul className="about-proof-list">
+                {PROOF_POINTS.map((pt, i) => (
+                  <li key={i} className="about-proof-item">
+                    <CheckCircle2 size={15} className="proof-check" strokeWidth={2} />
+                    {pt}
+                  </li>
+                ))}
+              </ul>
+            </div>
 
-            {/* Vision / Mission cards */}
+            {/* Vision / Mission cards — side by side */}
             <div className="about-cards">
               {CARDS.map((card, i) => (
                 <div
                   key={i}
                   className="about-card"
-                  style={{ "--card-delay": `${rightIn ? i * 0.12 : 0}s` } as React.CSSProperties}
+                  style={{ "--card-delay": `${rightIn ? 0.3 + i * 0.12 : 0}s` } as React.CSSProperties}
                 >
                   <div className="about-card-header">
                     <div className="about-card-icon">{card.icon}</div>
                     <h3 className="about-card-title">{card.title}</h3>
                   </div>
                   <p className="about-card-text">{card.text}</p>
-                  {/* Hover accent line */}
                   <span className="card-line" aria-hidden="true" />
                 </div>
               ))}
