@@ -715,3 +715,59 @@
     transition: none !important;
   }
 }
+
+/* ── Add these rules to your Footer.css ──────────────────────────
+   Drop them anywhere after .footer-bottom-container             */
+
+/* Three-column bottom bar so credit sits naturally in the middle */
+.footer-bottom-container {
+  grid-template-columns: 1fr auto 1fr;   /* override the flex layout */
+  display: grid;
+  align-items: center;
+  justify-items: start;
+}
+
+/* Middle column — centred credit */
+.footer-dev-credit {
+  font-family: var(--font-body);
+  font-size: 0.78rem;
+  color: var(--white-50);
+  margin: 0;
+  text-align: center;
+  justify-self: center;
+  white-space: nowrap;
+}
+
+/* "Kspace" link */
+.footer-dev-link {
+  font-weight: 700;
+  color: var(--green-light);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(155, 196, 63, 0.30);
+  padding-bottom: 1px;
+  transition: color 0.20s ease, border-color 0.20s ease;
+}
+
+.footer-dev-link:hover {
+  color: var(--white);
+  border-color: var(--white-50);
+}
+
+/* Right column — push tagline to the right */
+.footer-made {
+  justify-self: end;
+  text-align: right;
+}
+
+/* ── Mobile: stack vertically, all centred ── */
+@media (max-width: 600px) {
+  .footer-bottom-container {
+    display: flex;               /* revert to flex for single-column stack */
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
+  }
+
+  .footer-made { text-align: center; }
+}

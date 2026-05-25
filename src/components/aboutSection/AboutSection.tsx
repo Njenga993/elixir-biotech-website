@@ -103,7 +103,7 @@ const AboutSection = () => {
 
             <p className="about-description">
               Elixir Biotech operates a closed-loop production and distribution
-              model — transforming discarded organic materials into affordable,
+              model  transforming discarded organic materials into affordable,
               low-emission cooking fuel, then cycling the packaging right back
               into the system.
             </p>

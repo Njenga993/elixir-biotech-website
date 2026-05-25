@@ -27,14 +27,14 @@ const CONTACT_DETAILS = [
   {
     icon: <Phone size={18} strokeWidth={1.8} />,
     label: "Phone",
-    value: "+254 700 000 000",
-    href: "tel:+254700000000",
+    value: "+254 711 965228",
+    href: "tel:+254711965228",
   },
   {
     icon: <Mail size={18} strokeWidth={1.8} />,
     label: "General Email",
-    value: "info@elixirbiotech.com",
-    href: "mailto:info@elixirbiotech.com",
+    value: "info@elixirbiotech.co.ke",
+    href: "mailto:info@elixirbiotech.co.ke",
   },
   {
     icon: <MapPin size={18} strokeWidth={1.8} />,
@@ -53,25 +53,25 @@ const CONTACT_DETAILS = [
 const DEPARTMENTS = [
   {
     title: "Partnerships & Distribution",
-    email: "partnerships@elixirbiotech.com",
+    email: "partnerships@elixirbiotech.co.ke",
     description: "For distributors, ecosystem collaborators, and regional scaling inquiries.",
     icon: <Briefcase size={20} strokeWidth={1.6} />,
   },
   {
     title: "Innovation & R&D",
-    email: "innovation@elixirbiotech.com",
+    email: "innovation@elixirbiotech.co.ke",
     description: "For technical data, fuel formulation queries, and pilot program insights.",
     icon: <FlaskConical size={20} strokeWidth={1.6} />,
   },
   {
     title: "Press & Media",
-    email: "press@elixirbiotech.com",
+    email: "press@elixirbiotech.co.ke",
     description: "For journalists, story pitches, and brand asset requests.",
     icon: <PenTool size={20} strokeWidth={1.6} />,
   },
   {
     title: "General Support",
-    email: "info@elixirbiotech.com",
+    email: "info@elixirbiotech.co.ke",
     description: "For community questions, waste collector inquiries, and general help.",
     icon: <Radio size={20} strokeWidth={1.6} />,
   },
@@ -119,11 +119,12 @@ const ContactPage = () => {
             </p>
 
             <div className="contact-hero-chips">
-              <a href="tel:+254700000000" className="hero-chip">
-                <Phone size={13} /> +254 700 000 000
+              <a href="tel:+254711965228" className="hero-chip">
+                <Phone size={13} /> +254 711 965228
+              
               </a>
-              <a href="mailto:info@elixirbiotech.com" className="hero-chip">
-                <Mail size={13} /> info@elixirbiotech.com
+              <a href="mailto:info@elixirbiotech.co.ke" className="hero-chip">
+                <Mail size={13} /> info@elixirbiotech.co.ke
               </a>
             </div>
           </div>

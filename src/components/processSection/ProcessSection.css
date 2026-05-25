@@ -1,223 +1,470 @@
-/* ── VARIABLES ── */
+/* ─────────────────────────────────────────────
+   IMPORTS
+───────────────────────────────────────────── */
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap");
+
 :root {
-  --primary-yellow: #0f1a20;       /* Your new Dark Logo Accent */
-  --primary-yellow-dark: #0a1215;  /* Even darker for hover states */
-  --primary-green: #82AF24;        /* Your Logo Green */
-  --primary-green-light: #9BC43F;  /* Lighter version for hovers */
-  --primary-green-dark: #6E931E;   /* Darker version for deep accents */
-  --text-light: #ffffff;
-  --text-dark: #0f1a20;           /* Updated dark text to match the new accent */
-  --text-muted: #666666;
-  --font-primary: "Poppins", sans-serif;
+  --navy:         #0f1a20;
+  --navy-deep:    #0a1215;
+  --green:        #82AF24;
+  --green-light:  #9BC43F;
+  --green-dark:   #6E931E;
+  --green-faint:  rgba(130,175,36,0.07);
+  --green-glow:   rgba(130,175,36,0.20);
+  --off-white:    #f7f8f5;
+  --white:        #ffffff;
+  --white-50:     rgba(255,255,255,0.50);
+  --white-12:     rgba(255,255,255,0.12);
+  --text-body:    #4a5260;
+  --border:       rgba(130,175,36,0.14);
+  --ease-out:     cubic-bezier(0.22,1,0.36,1);
+  --ease-spring:  cubic-bezier(0.34,1.56,0.64,1);
+  --font-main:    "Poppins", sans-serif;
+  --font-body:    "DM Sans", sans-serif;
 }
 
-/* ── PROCESS SECTION ── */
-.process-section {
-  padding: 80px 0;
-  background: #f8f9fa;
+
+/* ─────────────────────────────────────────────
+   SECTION BASE — dark navy for contrast
+───────────────────────────────────────────── */
+.ps-section {
+  position: relative;
+  padding: 96px 0 80px;
+  background: var(--navy);
+  overflow: hidden;
 }
 
-.process-section .container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
+/* Subtle crosshatch */
+.ps-bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.022) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
 }
 
-/* ── HEADING ── */
-.process-heading {
+/* Green glow — top-center */
+.ps-bg-glow {
+  position: absolute;
+  top: -100px; left: 50%; transform: translateX(-50%);
+  width: 700px; height: 350px; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(130,175,36,0.10) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+
+/* ─────────────────────────────────────────────
+   HEADING
+───────────────────────────────────────────── */
+.ps-heading {
   text-align: center;
-  max-width: 700px;
-  margin: 0 auto 50px;
+  max-width: 640px;
+  margin: 0 auto 72px;
+  opacity: 0; transform: translateY(22px);
+  transition: opacity 0.75s var(--ease-out), transform 0.75s var(--ease-out);
 }
 
-.process-subtitle {
+.ps-heading.is-in { opacity:1; transform:translateY(0); }
+.ps-heading.is-in .ps-title-bar { width:100%; transition-delay:0.55s; }
+
+/* Label pill */
+.ps-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body);
+  font-size: 0.70rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--green-light);
+  background: rgba(130,175,36,0.12);
+  border: 1px solid rgba(130,175,36,0.28);
+  padding: 4px 12px 4px 9px; border-radius: 20px;
+  margin-bottom: 18px;
+}
+
+.ps-dot {
   display: inline-block;
-  font-family: var(--font-primary);
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+  animation: psDotPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes psDotPulse {
+  0%,100% { opacity:1; transform:scale(1);    }
+  50%      { opacity:.4; transform:scale(.65); }
+}
+
+/* Title */
+.ps-title {
+  font-family: var(--font-main);
+  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  font-weight: 800;
+  color: var(--white);
+  line-height: 1.16; letter-spacing: -0.025em;
+  margin: 0 0 16px;
+}
+
+.ps-title-accent {
+  position: relative; color: var(--green-light); display: inline-block;
+}
+
+.ps-title-bar {
+  position: absolute; bottom: 2px; left: 0;
+  height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--green-dark), var(--green-light));
+  border-radius: 3px;
+  transition: width 0.70s var(--ease-out);
+}
+
+.ps-desc {
+  font-family: var(--font-body);
+  font-size: 0.95rem; line-height: 1.76;
+  color: var(--white-50);
+}
+
+
+/* ─────────────────────────────────────────────
+   FLOW GRID
+   Layout: [card] [connector] [card] [connector] [card]
+───────────────────────────────────────────── */
+.ps-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0;
+  position: relative;
+}
+
+/* Invisible horizontal track line behind the nodes */
+.ps-flow-track {
+  position: absolute;
+  top: 62px;               /* vertically centred on the icon-zone row */
+  left: calc(50% / 3);    /* rough alignment with first node */
+  right: calc(50% / 3);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(130,175,36,0.25) 20%, rgba(130,175,36,0.25) 80%, transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.0s var(--ease-out) 0.25s;
+}
+
+.ps-flow-track.track-draw { transform: scaleX(1); }
+
+/* Each "item" = [card] + optional [connector] */
+.ps-flow-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+}
+
+
+/* ─────────────────────────────────────────────
+   CONNECTOR (arrow between cards)
+───────────────────────────────────────────── */
+.ps-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  width: 48px;
+  padding-top: 0;          /* aligned to icon-zone height */
+  opacity: 0;
+}
+
+.ps-connector.is-in {
+  animation: connectorFade 0.40s var(--ease-out) both;
+  animation-delay: calc(0.35s + var(--ci, 0) * 0.18s);
+}
+
+@keyframes connectorFade {
+  from { opacity:0; transform:scale(0.7); }
+  to   { opacity:1; transform:scale(1);   }
+}
+
+.ps-connector-line {
+  width: 1px; height: 32px;
+  background: linear-gradient(to bottom, transparent, rgba(130,175,36,0.40), transparent);
+  display: none;           /* show only when vertical */
+}
+
+.ps-connector-arrow {
+  color: var(--green);
+  opacity: 0.60;
+}
+
+
+/* ─────────────────────────────────────────────
+   PROCESS CARD
+───────────────────────────────────────────── */
+.ps-card {
+  flex: 1;
+  position: relative;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--white-12);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex; flex-direction: column;
+  /* Entry */
+  opacity: 0; transform: translateY(28px);
+  transition:
+    background   0.25s ease,
+    border-color 0.25s ease,
+    transform    0.30s var(--ease-spring),
+    box-shadow   0.30s ease;
+}
+
+.ps-card.is-in {
+  animation: psCardIn 0.65s var(--ease-out) both;
+  animation-delay: calc(0.08s + var(--pi, 0) * 0.14s);
+}
+
+@keyframes psCardIn {
+  from { opacity:0; transform:translateY(28px); }
+  to   { opacity:1; transform:translateY(0);    }
+}
+
+.ps-card:hover {
+  background: rgba(255,255,255,0.07);
+  border-color: rgba(130,175,36,0.35);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 56px rgba(0,0,0,0.30), 0 6px 20px rgba(0,0,0,0.16);
+}
+
+/* Watermark step number */
+.ps-card-watermark {
+  position: absolute;
+  bottom: -12px; right: 10px;
+  font-family: var(--font-main);
+  font-size: 6rem; font-weight: 800;
+  color: rgba(130,175,36,0.05);
+  line-height: 1; letter-spacing: -0.04em;
+  pointer-events: none; user-select: none;
+  transition: color 0.25s ease;
+}
+
+.ps-card:hover .ps-card-watermark { color: rgba(130,175,36,0.09); }
+
+
+/* ── Icon zone ── */
+.ps-card-icon-zone {
+  position: relative;
+  padding: 36px 0 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: linear-gradient(180deg, rgba(130,175,36,0.08) 0%, transparent 100%);
+  border-bottom: 1px solid var(--white-12);
+}
+
+/* Node dot sits on the horizontal track */
+.ps-node {
+  position: absolute;
+  top: -1px; left: 50%; transform: translateX(-50%);
+  width: 10px; height: 10px; border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 3px rgba(130,175,36,0.25), 0 0 0 6px rgba(130,175,36,0.10);
+}
+
+.ps-icon-box {
+  display: flex; align-items: center; justify-content: center;
+  width: 80px; height: 80px; border-radius: 18px;
+  background: rgba(130,175,36,0.12);
+  border: 1px solid rgba(130,175,36,0.25);
+  color: var(--green-light);
+  transition: background 0.25s ease, transform 0.30s var(--ease-spring), box-shadow 0.25s ease;
+}
+
+.ps-card:hover .ps-icon-box {
+  background: rgba(130,175,36,0.22);
+  transform: rotate(-6deg) scale(1.08);
+  box-shadow: 0 8px 28px var(--green-glow);
+}
+
+
+/* ── Body ── */
+.ps-card-body {
+  padding: 24px 24px 26px;
+  display: flex; flex-direction: column; gap: 0;
+  flex: 1;
+  position: relative; z-index: 1;
+}
+
+.ps-card-top {
+  display: flex; align-items: center;
+  justify-content: space-between;
   margin-bottom: 12px;
 }
 
-.process-title {
-  font-family: var(--font-primary);
-  font-size: clamp(2rem, 3.5vw, 2.8rem);
-  font-weight: 700;
-  color: var(--primary-green);
-  line-height: 1.2;
-  margin-bottom: 16px;
+.ps-step-badge {
+  font-family: var(--font-body);
+  font-size: 0.68rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 0.12em;
+  color: var(--green);
+  background: rgba(130,175,36,0.10);
+  border: 1px solid rgba(130,175,36,0.22);
+  padding: 3px 10px; border-radius: 20px;
 }
 
-.process-description {
-  font-family: var(--font-primary);
-  font-size: 0.95rem;
-  line-height: 1.7;
-  color: var(--text-muted);
+.ps-step-detail {
+  font-family: var(--font-body);
+  font-size: 0.68rem; font-weight: 500;
+  color: var(--white-50);
+  letter-spacing: 0.02em;
 }
 
-/* ── GRID ── */
-.process-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+.ps-card-title {
+  font-family: var(--font-main);
+  font-size: 1.10rem; font-weight: 700;
+  color: var(--white);
+  margin: 0 0 10px;
+  letter-spacing: -0.015em;
+  line-height: 1.28;
+  transition: color 0.22s ease;
 }
 
-/* ── CARD ── */
-.process-card {
-  background: var(--text-light);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-  opacity: 0;
-  transform: translateY(30px);
+.ps-card:hover .ps-card-title { color: var(--green-light); }
+
+.ps-card-desc {
+  font-family: var(--font-body);
+  font-size: 0.87rem; line-height: 1.68;
+  color: var(--white-50);
+  margin: 0 0 20px;
+  flex: 1;
 }
 
-.is-visible .process-card {
-  animation: slideUp 0.6s ease forwards;
-  animation-delay: calc(var(--i, 0) * 0.15s);
-}
-
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.process-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
-
-/* ── Card Image ── */
-.process-card-image {
-  height: 200px;
-  background: var(--primary-green);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.process-card-image-placeholder {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--primary-green), var(--primary-green-light));
-}
-
-.process-card-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--primary-yellow); /* Added to color the SVG icons */
-  opacity: 0.9;
-}
-
-/* ── Card Content ── */
-.process-card-content {
-  padding: 28px 24px 32px;
-}
-
-.process-card-title {
-  font-family: var(--font-primary);
-  font-size: 1.15rem;
-  font-weight: 600;
-  color: var(--primary-green);
-  margin-bottom: 10px;
-}
-
-.process-card-description {
-  font-family: var(--font-primary);
-  font-size: 0.92rem;
-  line-height: 1.6;
-  color: var(--text-muted);
-  margin-bottom: 20px;
-}
-
-.process-card-link {
-  font-family: var(--font-primary);
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--primary-yellow);
+/* Learn more link */
+.ps-card-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--font-body);
+  font-size: 0.80rem; font-weight: 600;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--green);
   text-decoration: none;
-  transition: color 0.3s ease;
+  border-bottom: 1px solid rgba(130,175,36,0.25);
+  padding-bottom: 1px;
+  width: fit-content;
+  transition: color 0.20s ease, border-color 0.20s ease, gap 0.20s var(--ease-spring);
 }
 
-.process-card-link:hover {
-  color: var(--primary-yellow-dark);
+.ps-link-arrow { transition: transform 0.20s var(--ease-spring); }
+
+.ps-card-link:hover {
+  color: var(--green-light);
+  border-color: rgba(155,196,63,0.50);
+  gap: 9px;
 }
 
-/* ── RESPONSIVE ── */
-@media (max-width: 992px) {
-  .process-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
+.ps-card-link:hover .ps-link-arrow { transform: translateX(3px); }
+
+/* Bottom sweep line */
+.ps-card-line {
+  position: absolute; bottom: 0; left: 0;
+  height: 2px; width: 0%;
+  background: linear-gradient(90deg, var(--green-dark), var(--green-light));
+  transition: width 0.38s var(--ease-out);
+  border-radius: 0 2px 2px 0;
 }
 
-@media (max-width: 768px) {
-  .process-section {
-    padding: 60px 0;
-  }
-  
-  .process-grid {
-    grid-template-columns: 1fr;
-    max-width: 480px;
-    margin: 0 auto;
-  }
-  
-  .process-card-image {
-    height: 180px;
-  }
-  
-  .process-card-content {
-    padding: 24px 20px 28px;
-  }
+.ps-card:hover .ps-card-line { width: 100%; }
+
+
+/* ─────────────────────────────────────────────
+   FOOTER NOTE
+───────────────────────────────────────────── */
+.ps-footer {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  margin-top: 48px;
+  font-family: var(--font-body);
+  font-size: 0.82rem; font-weight: 400;
+  color: var(--white-50);
+  font-style: italic;
+  letter-spacing: 0.01em;
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 0.60s var(--ease-out) 0.50s, transform 0.60s var(--ease-out) 0.50s;
 }
 
-@media (max-width: 480px) {
-  .process-section {
-    padding: 40px 0;
+.ps-footer.is-in { opacity:1; transform:translateY(0); }
+
+.ps-footer-dot {
+  display: inline-block;
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--green); flex-shrink: 0;
+}
+
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ps-flow {
+    flex-direction: column;
+    gap: 16px;
   }
-  
-  .process-title {
-    font-size: 1.8rem;
+
+  .ps-flow-item {
+    flex-direction: column;
+    align-items: stretch;
+    flex: none;
   }
-  
-  .process-card-image {
-    height: 160px;
+
+  .ps-connector {
+    flex-direction: row;
+    width: auto; height: 40px;
+    justify-content: center;
+    align-items: center;
   }
-  
-  .process-card-icon svg {
-    width: 36px; /* Scale down SVGs on mobile */
-    height: 36px;
+
+  .ps-connector-line {
+    display: block;
+    width: 32px; height: 1px;
   }
-  
-  .process-card-title {
-    font-size: 1rem;
+
+  .ps-connector-arrow {
+    transform: rotate(90deg);
   }
-  
-  .process-card-description {
-    font-size: 0.85rem;
-  }
+
+  /* Track doesn't make sense vertically */
+  .ps-flow-track { display: none; }
+
+  .ps-card-icon-zone { padding: 28px 0 22px; }
+
+  .ps-node { top: -1px; }
+}
+
+@media (max-width: 600px) {
+  .ps-section { padding: 72px 0 60px; }
+
+  .ps-card-body { padding: 20px 20px 22px; }
+
+  .ps-card-watermark { font-size: 4.5rem; }
+
+  .ps-icon-box { width: 66px; height: 66px; border-radius: 14px; }
+  .ps-icon-box svg { width: 28px; height: 28px; }
+}
+
+@media (max-width: 400px) {
+  .ps-card-top { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
 
 /* ── REDUCED MOTION ── */
 @media (prefers-reduced-motion: reduce) {
-  .process-card {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-  }
-  
-  .process-card:hover {
-    transform: none !important;
-  }
+  .ps-dot { animation: none !important; }
+
+  .ps-heading { transition: none !important; opacity:1 !important; transform:none !important; }
+
+  .ps-title-bar { width:100% !important; transition:none !important; }
+
+  .ps-flow-track  { transform: scaleX(1) !important; transition: none !important; }
+
+  .ps-card        { animation: none !important; opacity:1 !important; transform:none !important; }
+
+  .ps-connector   { animation: none !important; opacity:1 !important; }
+
+  .ps-footer      { transition: none !important; opacity:1 !important; transform:none !important; }
+
+  .ps-card-line   { display: none !important; }
+
+  .ps-card:hover,
+  .ps-card:hover .ps-icon-box { transform: none !important; }
 }

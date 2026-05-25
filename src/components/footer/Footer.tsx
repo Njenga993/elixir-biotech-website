@@ -161,11 +161,11 @@ const Footer = () => {
             <ul className="footer-contact">
               <li>
                 <div className="contact-icon-wrap"><Phone size={15} /></div>
-                <a href="tel:+254700000000">+254 700 000 000</a>
+                <a href="tel:+254711965228">+254 711 965228</a>
               </li>
               <li>
                 <div className="contact-icon-wrap"><Mail size={15} /></div>
-                <a href="mailto:info@elixirbiotech.com">info@elixirbiotech.com</a>
+                <a href="mailto:info@elixirbiotech.co.ke">info@elixirbiotech.co.ke</a>
               </li>
               <li>
                 <div className="contact-icon-wrap"><MapPin size={15} /></div>
@@ -211,18 +211,32 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* ── BOTTOM BAR ── */}
-      <div className="footer-bottom">
-        <div className="footer-bottom-rule" aria-hidden="true" />
-        <div className="container footer-bottom-container">
-          <p className="footer-copy">
-            &copy; {new Date().getFullYear()} Elixir Biotech. All Rights Reserved.
-          </p>
-          <p className="footer-made">
-            Built with purpose, powered by science.
-          </p>
-        </div>
-      </div>
+     {/* ── BOTTOM BAR — replace the existing one with this ── */}
+<div className="footer-bottom">
+  <div className="footer-bottom-rule" aria-hidden="true" />
+  <div className="container footer-bottom-container">
+    <p className="footer-copy">
+      &copy; {new Date().getFullYear()} Elixir Biotech. All Rights Reserved.
+    </p>
+ 
+    {/* ── DEVELOPER CREDIT ── */}
+    <p className="footer-dev-credit">
+      Developed by{" "}
+      <a
+        href="https://njenga993.github.io/kspace/"   // ← replace with your URL
+        target="_blank"
+        rel="noopener noreferrer"
+        className="footer-dev-link"
+      >
+        Kspace
+      </a>
+    </p>
+ 
+    <p className="footer-made">
+      Built with purpose, powered by science.
+    </p>
+  </div>
+</div>
     </footer>
   );
 };

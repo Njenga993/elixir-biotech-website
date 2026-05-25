@@ -23,14 +23,14 @@ const CONTACT_DETAILS = [
   {
     icon: <Phone size={18} strokeWidth={1.8} />,
     label: "Phone",
-    value: "+254 700 000 000",
-    href: "tel:+254700000000",
+    value: "+254 711 965228",
+    href: "tel:+254711965228",
   },
   {
     icon: <Mail size={18} strokeWidth={1.8} />,
     label: "General Email",
-    value: "info@elixirbiotech.com",
-    href: "mailto:info@elixirbiotech.com",
+    value: "info@elixirbiotech.co.ke",
+    href: "mailto:info@elixirbiotech.co.ke",
   },
   {
     icon: <MapPin size={18} strokeWidth={1.8} />,

@@ -1,57 +1,259 @@
+import { useEffect, useRef, useState } from "react";
 import "./ProductsPage.css";
 import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import {
+  ArrowRight, CheckCircle2, Phone, Mail,
+  Leaf, ShieldCheck, TrendingUp, Users,
+} from "lucide-react";
 
 import ProductsPreview from "../../components/productsPreview/ProductsPreview";
-import ProcessSection from "../../components/processSection/ProcessSection";
-import ImpactSection from "../../components/impactSection/ImpactSection";
+import ProcessSection  from "../../components/processSection/ProcessSection";
+import ImpactSection   from "../../components/impactSection/ImpactSection";
+
+/* ── Scroll-reveal hook ── */
+function useInView(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => { if (e.isIntersecting) { setInView(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, inView };
+}
+
+const TRUST_CHIPS = [
+  { icon: <Leaf        size={13} strokeWidth={2} />, label: "Carbon-negative fuel" },
+  { icon: <ShieldCheck size={13} strokeWidth={2} />, label: "Non-toxic & non-spill" },
+  { icon: <TrendingUp  size={13} strokeWidth={2} />, label: "83% repeat customers"  },
+  { icon: <Users       size={13} strokeWidth={2} />, label: "110+ households served" },
+];
+
+const WHY_POINTS = [
+  "Drop-in replacement for charcoal, kerosene & firewood — no new equipment needed",
+  "Up to 60% lower indoor air pollution than traditional solid fuels",
+  "Closed-loop packaging: refill, return, repeat",
+  "Locally sourced from organic waste — supports community waste collectors",
+  "Competitively priced and available through neighbourhood refill points",
+];
 
 const ProductsPage = () => {
+  const [heroLoaded, setHeroLoaded] = useState(false);
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 80);
+    return () => clearTimeout(t);
+  }, []);
+
+  const { ref: whyRef,   inView: whyIn   } = useInView(0.10);
+  const { ref: outroRef, inView: outroIn } = useInView(0.10);
+
   return (
-    <main className="products-page">
-      {/* ── HERO ── */}
-      <section className="products-hero">
+    <main className="pp-page">
+
+      {/* ══ HERO ══════════════════════════════════════════════ */}
+      <section className="pp-hero">
+        <div className="pp-hero-grid"   aria-hidden="true" />
+        <div className="pp-hero-glow-l" aria-hidden="true" />
+        <div className="pp-hero-glow-r" aria-hidden="true" />
+
         <div className="container">
-          <div className="products-hero-content">
-            <span className="products-hero-subtitle">Our Products</span>
-            <h1 className="products-hero-title">
-              Efficient Solutions for a <br />
-              Greener Tomorrow
+          <div className={`pp-hero-content ${heroLoaded ? "is-loaded" : ""}`}>
+
+            <div className="pp-badge">
+              <span className="pp-dot" aria-hidden="true" />
+              Our Products
+            </div>
+
+            <h1 className="pp-hero-title">
+              <span className="pp-title-line line-1">Efficient Solutions</span>
+              <span className="pp-title-line line-2">
+                for a{" "}
+                <span className="pp-title-accent">
+                  Greener Tomorrow
+                  <span className="pp-title-bar" aria-hidden="true" />
+                </span>
+              </span>
             </h1>
-            <p className="products-hero-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-              tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+
+            <p className="pp-hero-desc">
+              Every product in the Elixir Biotech ecosystem is designed around one
+              principle: clean energy should be <em>easier</em> to access than the
+              polluting alternatives it replaces — not harder.
             </p>
+
+            {/* Trust chips */}
+            <div className="pp-trust-chips">
+              {TRUST_CHIPS.map(({ icon, label }, i) => (
+                <span key={i} className="pp-trust-chip">
+                  {icon}
+                  {label}
+                </span>
+              ))}
+            </div>
+
+            {/* Dual CTA */}
+            <div className="pp-hero-ctas">
+              <a href="#products-grid" className="pp-cta-primary">
+                <span>Explore Products</span>
+                <ArrowRight size={16} className="pp-cta-arrow" />
+                <span className="pp-cta-shimmer" aria-hidden="true" />
+              </a>
+              <Link to="/contact" className="pp-cta-ghost">
+                Talk to Us
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="pp-hero-cut" aria-hidden="true" />
+      </section>
+
+      {/* ══ PRODUCTS PREVIEW ══════════════════════════════════ */}
+      <div id="products-grid">
+        <ProductsPreview />
+      </div>
+
+      {/* ══ WHY CHOOSE US ═════════════════════════════════════ */}
+      <section className="pp-why">
+        <div className="pp-why-blob" aria-hidden="true" />
+
+        <div className="container">
+          <div
+            className={`pp-why-inner ${whyIn ? "is-in" : ""}`}
+            ref={whyRef}
+          >
+            {/* Left: text */}
+            <div className="pp-why-left">
+              <div className="pp-section-label">
+                <span className="pp-dot pp-dot-sm" aria-hidden="true" />
+                Why Elixir Biotech
+              </div>
+
+              <h2 className="pp-why-title">
+                The smarter switch to{" "}
+                <span className="pp-why-accent">
+                  clean cooking
+                  <span className="pp-why-bar" aria-hidden="true" />
+                </span>
+              </h2>
+
+              <p className="pp-why-desc">
+                Switching to cleaner fuel shouldn't mean spending more or changing
+                how you cook. Our products slot directly into your existing routine —
+                same pots, same stoves, zero compromise.
+              </p>
+
+              <ul className="pp-why-list">
+                {WHY_POINTS.map((pt, i) => (
+                  <li
+                    key={i}
+                    className="pp-why-item"
+                    style={{ "--wi": i } as React.CSSProperties}
+                  >
+                    <CheckCircle2 size={15} className="pp-check" strokeWidth={2} />
+                    {pt}
+                  </li>
+                ))}
+              </ul>
+
+              <Link to="/contact" className="pp-why-cta">
+                <span>Become a Distribution Partner</span>
+                <ArrowRight size={15} className="pp-cta-arrow" />
+                <span className="pp-cta-shimmer" aria-hidden="true" />
+              </Link>
+            </div>
+
+            {/* Right: stat cards */}
+            <div className="pp-why-right">
+              {[
+                { val: "110+",   sub: "Households Served",         note: "and growing every month" },
+                { val: "83%",    sub: "Repeat Customer Rate",      note: "families keep coming back" },
+                { val: "60%+",   sub: "Emissions Reduction",       note: "vs. charcoal & kerosene"  },
+                { val: "$10.2k", sub: "Grant Funding Secured",     note: "validating the model"     },
+              ].map(({ val, sub, note }, i) => (
+                <div
+                  key={i}
+                  className="pp-stat-card"
+                  style={{ "--si": i } as React.CSSProperties}
+                >
+                  <span className="pp-stat-val">{val}</span>
+                  <span className="pp-stat-sub">{sub}</span>
+                  <span className="pp-stat-note">{note}</span>
+                  <span className="pp-stat-line" aria-hidden="true" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── PRODUCTS PREVIEW ── */}
-      <ProductsPreview />
-
-      {/* ── PROCESS SECTION ── */}
+      {/* ══ PROCESS ═══════════════════════════════════════════ */}
       <ProcessSection />
 
-      {/* ── IMPACT SECTION ── */}
+      {/* ══ IMPACT ════════════════════════════════════════════ */}
       <ImpactSection />
 
-      {/* ── OUTRO CTA ── */}
-      <section className="products-outro">
+      {/* ══ CONVERSION OUTRO ══════════════════════════════════ */}
+      <section className="pp-outro">
+        <div className="pp-outro-grid-bg" aria-hidden="true" />
+        <div className="pp-outro-glow"    aria-hidden="true" />
+
         <div className="container">
-          <div className="products-outro-content">
-            <h2 className="products-outro-title">
+          <div
+            className={`pp-outro-content ${outroIn ? "is-in" : ""}`}
+            ref={outroRef}
+          >
+            {/* Eyebrow */}
+            <div className="pp-badge pp-badge-light">
+              <span className="pp-dot" aria-hidden="true" />
               Ready to make a difference?
+            </div>
+
+            <h2 className="pp-outro-title">
+              Join the movement toward<br />
+              <span className="pp-outro-accent">
+                cleaner kitchens
+                <span className="pp-outro-bar" aria-hidden="true" />
+              </span>
             </h2>
-            <p className="products-outro-description">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit
-              tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
+
+            <p className="pp-outro-desc">
+              Whether you're a household looking to switch, a distributor exploring
+              new markets, or an investor backing impact — there's a place for you
+              in the Elixir Biotech ecosystem.
             </p>
-            <Link to="/contact" className="products-outro-btn">
-              Get Started <ArrowRight size={18} />
-            </Link>
+
+            {/* CTA buttons */}
+            <div className="pp-outro-ctas">
+              <Link to="/contact" className="pp-outro-btn-primary">
+                <span>Partner With Us</span>
+                <ArrowRight size={16} className="pp-cta-arrow" />
+                <span className="pp-cta-shimmer" aria-hidden="true" />
+              </Link>
+              <Link to="/about" className="pp-outro-btn-ghost">
+                Learn Our Story
+              </Link>
+            </div>
+
+            {/* Quick contact strip */}
+            <div className="pp-outro-contact">
+              <a href="tel:+254711965228" className="pp-outro-contact-item">
+                <Phone size={13} /> +254 711 965228
+              </a>
+              <span className="pp-outro-sep" aria-hidden="true" />
+              <a href="mailto:info@elixirbiotech.co.ke" className="pp-outro-contact-item">
+                <Mail size={13} /> info@elixirbiotech.co.ke
+              </a>
+            </div>
           </div>
         </div>
       </section>
+
     </main>
   );
 };

@@ -50,13 +50,13 @@ const Navbar = () => {
       <div className="top-bar">
         <div className="container top-bar-container">
           <div className="top-bar-left">
-            <a href="tel:+254700000000" className="top-item top-item-link">
+            <a href="tel:+254711965228" className="top-item top-item-link">
               <Phone size={13} />
-              <span>+254 700 000 000</span>
+              <span>+254 7</span>
             </a>
-            <a href="mailto:info@elixirbiotech.com" className="top-item top-item-link">
+            <a href="mailto:info@elixirbiotech.co.ke" className="top-item top-item-link">
               <Mail size={13} />
-              <span>info@elixirbiotech.com</span>
+              <span>info@elixirbiotech.co.ke</span>
             </a>
             <span className="top-item">
               <MapPin size={13} />
@@ -180,11 +180,11 @@ const Navbar = () => {
 
         {/* Contact strip */}
         <div className="sidebar-contact">
-          <a href="tel:+254700000000" className="sidebar-contact-item">
-            <Phone size={14} /> +254 700 000 000
+          <a href="tel:+254711965228" className="sidebar-contact-item">
+            <Phone size={14} /> +254 711 965228
           </a>
-          <a href="mailto:info@elixirbiotech.com" className="sidebar-contact-item">
-            <Mail size={14} /> info@elixirbiotech.com
+          <a href="mailto:info@elixirbiotech.co.ke" className="sidebar-contact-item">
+            <Mail size={14} /> info@elixirbiotech.co.ke
           </a>
         </div>
 

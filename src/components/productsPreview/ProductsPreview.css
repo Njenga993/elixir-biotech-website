@@ -471,3 +471,66 @@
   .pp-card-line,
   .pp-card-link-shimmer { display: none !important; }
 }
+/* ─────────────────────────────────────────────
+   IMAGE FIX — paste these rules into
+   ProductsPreview.css, replacing the existing
+   .pp-card-img-wrap and its children rules
+───────────────────────────────────────────── */
+
+/* Image wrapper — taller to give bottle room */
+.pp-card-img-wrap {
+  position: relative;
+  height: 260px;               /* slightly taller */
+  overflow: hidden;
+  background: var(--navy);     /* dark background behind transparent/padded bottle */
+}
+
+/* Bottle image — contain so the full bottle is visible */
+.pp-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;         /* ← was cover; now shows the whole bottle */
+  object-position: center;
+  display: block;
+  padding: 20px 24px;          /* breathing room around the bottle */
+  box-sizing: border-box;
+  transition: transform 0.70s var(--ease-out);
+}
+
+.pp-card:hover .pp-card-img-wrap img {
+  transform: scale(1.06);      /* gentle zoom — still shows full bottle */
+}
+
+/* Overlay — lighter since background is already dark */
+.pp-card-img-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(15,26,32,0.10) 0%,
+    transparent          45%,
+    rgba(15,26,32,0.55) 100%
+  );
+  pointer-events: none;
+  transition: background 0.30s ease;
+}
+
+.pp-card:hover .pp-card-img-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(15,26,32,0.18) 0%,
+    transparent          40%,
+    rgba(15,26,32,0.72) 100%
+  );
+}
+
+/* On mobile — reduce padding slightly */
+@media (max-width: 600px) {
+  .pp-card-img-wrap       { height: 230px; }
+  .pp-card-img-wrap img   { padding: 16px 20px; }
+}
+
+@media (max-width: 420px) {
+  .pp-card-img-wrap       { height: 200px; }
+  .pp-card-img-wrap img   { padding: 12px 16px; }
+}
