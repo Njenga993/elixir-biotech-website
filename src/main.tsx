@@ -5,35 +5,21 @@ import { HelmetProvider } from "react-helmet-async";
 import App from "./App";
 import "./styles/global.css";
 
-// ✅ Get the root element with error handling
 const rootElement = document.getElementById("root");
 
 if (!rootElement) {
-  throw new Error(
-    "Failed to find the root element. Make sure there is a <div id='root'></div> in your index.html."
-  );
+  throw new Error("Root element not found");
 }
+
+// ✅ Create helmet context with default values
+const helmetContext = {};
 
 ReactDOM.createRoot(rootElement).render(
   <React.StrictMode>
-    <HelmetProvider>
+    <HelmetProvider context={helmetContext}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </HelmetProvider>
   </React.StrictMode>
 );
-
-// ✅ Optional: Register Service Worker for offline support (PWA)
-if ("serviceWorker" in navigator && import.meta.env.PROD) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("/sw.js")
-      .then((registration) => {
-        console.log("SW registered:", registration.scope);
-      })
-      .catch((error) => {
-        console.log("SW registration failed:", error);
-      });
-  });
-}

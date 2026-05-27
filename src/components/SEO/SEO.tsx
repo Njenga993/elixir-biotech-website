@@ -1,5 +1,4 @@
-import React from "react";
-import { Helmet } from "react-helmet-async";
+import { useEffect } from "react";
 
 interface SEOProps {
   title: string;
@@ -7,8 +6,8 @@ interface SEOProps {
   image?: string;
   path?: string;
   keywords?: string[];
-  jsonLd?: object | object[];  // Allow multiple schemas
-  type?: "website" | "article" | "product";  // Dynamic OG type
+  jsonLd?: object | object[];
+  type?: "website" | "article" | "product";
   publishedTime?: string;
   modifiedTime?: string;
 }
@@ -28,69 +27,111 @@ const SEO: React.FC<SEOProps> = ({
   const siteName = "Elixir Biotech";
   const url = `${siteUrl}${path}`;
   const fullImage = image.startsWith('http') ? image : `${siteUrl}${image}`;
-  const keywordsString = keywords ? keywords.join(', ') : '';
   
-  // Construct JSON-LD
-  const jsonLdArray = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
+  useEffect(() => {
+    // ✅ Update page title
+    document.title = `${title} | ${siteName}`;
+    
+    // ✅ Helper function to set or create meta tags
+    const setMetaTag = (name: string, value: string, isProperty = false) => {
+      const selector = isProperty ? `meta[property="${name}"]` : `meta[name="${name}"]`;
+      let element = document.querySelector(selector) as HTMLMetaElement;
+      
+      if (!element) {
+        element = document.createElement('meta');
+        if (isProperty) {
+          element.setAttribute('property', name);
+        } else {
+          element.setAttribute('name', name);
+        }
+        document.head.appendChild(element);
+      }
+      
+      element.setAttribute('content', value);
+    };
+
+    // ✅ Helper to set or create link tags
+    const setLinkTag = (rel: string, href: string, attributes: Record<string, string> = {}) => {
+      let element = document.querySelector(`link[rel="${rel}"]`) as HTMLLinkElement;
+      
+      if (!element) {
+        element = document.createElement('link');
+        element.setAttribute('rel', rel);
+        document.head.appendChild(element);
+      }
+      
+      element.setAttribute('href', href);
+      Object.entries(attributes).forEach(([key, value]) => {
+        element.setAttribute(key, value);
+      });
+    };
+
+    // ✅ Update all meta tags
+    setMetaTag('description', description);
+    setMetaTag('keywords', keywords ? keywords.join(', ') : '');
+    
+    // Open Graph
+    setMetaTag('og:type', type, true);
+    setMetaTag('og:url', url, true);
+    setMetaTag('og:title', `${title} | ${siteName}`, true);
+    setMetaTag('og:description', description, true);
+    setMetaTag('og:image', fullImage, true);
+    setMetaTag('og:image:width', '1200', true);
+    setMetaTag('og:image:height', '630', true);
+    setMetaTag('og:site_name', siteName, true);
+    setMetaTag('og:locale', 'en_KE', true);
+    
+    // Article specific
+    if (type === "article" && publishedTime) {
+      setMetaTag('article:published_time', publishedTime, true);
+    }
+    if (type === "article" && modifiedTime) {
+      setMetaTag('article:modified_time', modifiedTime, true);
+    }
+    
+    // Twitter
+    setMetaTag('twitter:card', 'summary_large_image');
+    setMetaTag('twitter:site', '@elixirbiotech');
+    setMetaTag('twitter:url', url);
+    setMetaTag('twitter:title', `${title} | ${siteName}`);
+    setMetaTag('twitter:description', description);
+    setMetaTag('twitter:image', fullImage);
+    setMetaTag('twitter:image:alt', title);
+    
+    // Canonical URL
+    setLinkTag('canonical', url);
+    
+    // Alternate language links
+    setLinkTag('alternate', url, { hrefLang: 'en-KE' });
+    
+    // ✅ Handle JSON-LD structured data
+    if (jsonLd) {
+      // Remove old JSON-LD scripts
+      document.querySelectorAll('script[type="application/ld+json"]').forEach(el => el.remove());
+      
+      const jsonLdArray = Array.isArray(jsonLd) ? jsonLd : [jsonLd];
+      
+      jsonLdArray.forEach((schema) => {
+        const script = document.createElement('script');
+        script.type = 'application/ld+json';
+        script.textContent = JSON.stringify(schema);
+        document.head.appendChild(script);
+      });
+    }
+    
+    // // console.log('✅ SEO Updated:', { 
+    //   title: document.title, 
+    //   description, 
+    //   url,
+    //   type,
+    //   hasKeywords: !!keywords,
+    //   hasJsonLd: !!jsonLd
+    // });
+    
+  }, [title, description, image, path, keywords, jsonLd, type, publishedTime, modifiedTime, url, fullImage, siteName]);
   
-  return (
-    <Helmet>
-      {/* Primary Meta Tags */}
-      <title>{title} | {siteName}</title>
-      <meta name="description" content={description} />
-      <meta name="robots" content="index, follow, max-image-preview:large" />
-      
-      {/* Canonical & Language - FIXED: hrefLang not hreflang */}
-      <link rel="canonical" href={url} />
-      <link rel="alternate" hrefLang="en-KE" href={url} />
-      <link rel="alternate" hrefLang="x-default" href={url} />
-      
-      {/* Keywords (less important but included) */}
-      {keywordsString && <meta name="keywords" content={keywordsString} />}
-      
-      {/* Open Graph / Facebook */}
-      <meta property="og:type" content={type} />
-      <meta property="og:url" content={url} />
-      <meta property="og:title" content={`${title} | ${siteName}`} />
-      <meta property="og:description" content={description} />
-      <meta property="og:image" content={fullImage} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:site_name" content={siteName} />
-      <meta property="og:locale" content="en_KE" />
-      
-      {/* Article-specific OG tags */}
-      {type === "article" && publishedTime && (
-        <meta property="article:published_time" content={publishedTime} />
-      )}
-      {type === "article" && modifiedTime && (
-        <meta property="article:modified_time" content={modifiedTime} />
-      )}
-      
-      {/* Twitter Card */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@elixirbiotech" />
-      <meta name="twitter:url" content={url} />
-      <meta name="twitter:title" content={`${title} | ${siteName}`} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={fullImage} />
-      <meta name="twitter:image:alt" content={title} />
-      
-      {/* Mobile & PWA */}
-      <meta name="theme-color" content="#0f1a20" />
-      <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-      <meta name="apple-mobile-web-app-title" content={siteName} />
-      <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-      
-      {/* Structured Data */}
-      {jsonLdArray.map((schema, index) => (
-        <script key={index} type="application/ld+json">
-          {JSON.stringify(schema)}
-        </script>
-      ))}
-    </Helmet>
-  );
+  // This component doesn't render anything visible
+  return null;
 };
 
 export default SEO;

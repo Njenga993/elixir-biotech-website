@@ -12,7 +12,7 @@ const Home = () => {
     <>
       {/* ⭐⭐⭐ ADVANCED SEO SECTION ⭐⭐⭐ */}
       <SEO
-        title="Clean Bioethanol Fuel in Kenya | Sustainable Cooking Solutions"
+        title="Home | Clean Bioethanol Fuel in Kenya | Sustainable Cooking Solutions"
         description="Elixir Biotech transforms organic waste into affordable bioethanol gel fuel. A safe, non-toxic, and sustainable alternative to charcoal and kerosene for households in Nairobi."
         path="/"
         type="website"
