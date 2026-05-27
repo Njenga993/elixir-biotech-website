@@ -20,6 +20,7 @@ const Home = lazy(() => import("./pages/Home/Home"));
 const About = lazy(() => import("./pages/About/About"));
 const Products = lazy(() => import("./pages/Products/Products"));
 const Contact = lazy(() => import("./pages/Contact/Contact"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound")); // ✅ Import 404
 
 const PageLoader = () => (
   <div style={{
@@ -58,7 +59,7 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
           <Route path="/contact" element={<Contact />} />
-          
+          <Route path="*" element={<NotFound />} /> {/* ✅ Catch-all route for 404 */}
         </Routes>
       </Suspense>
 
