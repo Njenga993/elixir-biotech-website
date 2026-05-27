@@ -2,6 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import "./AboutPage.css";
 import { Link } from "react-router-dom";
 import aboutImage from "../../assets/images/image.png";
+
+// 👇 IMPORT SEO COMPONENT
+import SEO from "../../components/SEO/SEO";
+
 import {
   Wind, Trash2, Zap,
   Truck, FlaskConical, Recycle,
@@ -25,6 +29,7 @@ function useInView(threshold = 0.12) {
   return { ref, inView };
 }
 
+// ... (Your existing CHALLENGES, ECOSYSTEM, MANDATE_CARDS, PROOF_POINTS arrays) ...
 const CHALLENGES = [
   {
     icon: <Wind size={26} strokeWidth={1.5} />,
@@ -99,251 +104,319 @@ const AboutPage = () => {
   const { ref: ecoRef,       inView: ecoIn       } = useInView(0.10);
 
   return (
-    <main className="about-page">
+    <>
+      {/* ⭐⭐⭐ ADVANCED SEO SECTION ⭐⭐⭐ */}
+      <SEO
+        title="About Elixir Biotech – Clean Cooking & Waste-to-Energy Solutions in Kenya"
+        description="Discover Elixir Biotech's mission to transform organic waste into clean bioethanol gel fuel. Learn about our circular economy model, impact in Nairobi, and vision for sustainable cooking."
+        path="/about"
+        image={aboutImage}
+        
+        // 👇 Targeted Keywords for Local & Niche SEO
+        keywords={[
+          "Elixir Biotech",
+          "bioethanol gel fuel Kenya",
+          "clean cooking solutions Nairobi",
+          "waste to energy Kenya",
+          "renewable cooking fuel",
+          "organic waste recycling",
+          "sustainable energy Kenya",
+          "affordable cooking fuel",
+          "circular economy Africa",
+          "green energy startup Kenya"
+        ]}
+        
+        // 👇 Structured Data (JSON-LD)
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "AboutPage",
+          "name": "About Elixir Biotech",
+          "description": "Elixir Biotech transforms organic waste into clean bioethanol gel fuel, providing a safer, affordable alternative to charcoal and kerosene in Kenya.",
+          "url": "https://elixirbiotech.co.ke/about",
+          "publisher": {
+            "@type": "Organization",
+            "name": "Elixir Biotech",
+            "url": "https://elixirbiotech.co.ke",
+            "logo": "https://elixirbiotech.co.ke/assets/images/logo.png", // Update with your real logo path
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Nairobi",
+              "addressCountry": "KE"
+            }
+          },
+          "mainEntity": {
+            "@type": "Organization",
+            "name": "Elixir Biotech",
+            "foundingDate": "2023", // Update with actual year if known
+            "founders": []
+          }
+        }}
+      />
 
-      {/* ══ HERO ══════════════════════════════════════════════ */}
-      <section className="ap-hero">
-        <div className="ap-hero-grid"   aria-hidden="true" />
-        <div className="ap-hero-glow-l" aria-hidden="true" />
-        <div className="ap-hero-glow-r" aria-hidden="true" />
+      {/* 👇 Hidden H1 for SEO (Ranking) - Hidden from users but seen by Google */}
+      <h1 style={{
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: '0',
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        border: '0'
+      }}>
+        About Elixir Biotech – Sustainable Bioethanol Fuel and Circular Waste Management in Nairobi
+      </h1>
 
-        <div className="container">
-          <div className={`ap-hero-content ${heroLoaded ? "is-loaded" : ""}`}>
+      {/* ═════════════════════════════════════════════════
+          PAGE CONTENT
+      ═════════════════════════════════════════════════ */}
+      <main className="about-page">
 
-            <div className="ap-hero-badge">
-              <span className="ap-dot" aria-hidden="true" />
-              About Elixir Biotech
-            </div>
+        {/* ══ HERO ══════════════════════════════════════════════ */}
+        <section className="ap-hero">
+          <div className="ap-hero-grid"   aria-hidden="true" />
+          <div className="ap-hero-glow-l" aria-hidden="true" />
+          <div className="ap-hero-glow-r" aria-hidden="true" />
 
-            <h1 className="ap-hero-title">
-              <span className="ap-title-line line-1">Pioneering the Future</span>
-              <span className="ap-title-line line-2">
-                of{" "}
-                <span className="ap-title-accent">
-                  Clean Cooking
-                  <span className="ap-title-bar" aria-hidden="true" />
-                </span>
-              </span>
-            </h1>
+          <div className="container">
+            <div className={`ap-hero-content ${heroLoaded ? "is-loaded" : ""}`}>
 
-            <p className="ap-hero-desc">
-              Elixir Biotech operates a closed-loop production and distribution
-              model — transforming discarded organic materials into affordable,
-              low-emission cooking fuel, then cycling it right back into the system.
-            </p>
-          </div>
-        </div>
+              <div className="ap-hero-badge">
+                <span className="ap-dot" aria-hidden="true" />
+                About Elixir Biotech
+              </div>
 
-        <div className="ap-hero-cut" aria-hidden="true" />
-      </section>
-
-      {/* ══ ABOUT MAIN ════════════════════════════════════════ */}
-      <section className="ap-main">
-        <div className="container">
-          <div className="ap-main-grid">
-
-            {/* LEFT: Image */}
-            <div
-              className={`ap-img-col ${imgIn ? "is-in" : ""}`}
-              ref={imgRef}
-            >
-              <div className="ap-frame-accent" aria-hidden="true" />
-
-              <div className="ap-image-wrapper">
-                <div className="ap-image-container">
-                  <img src={aboutImage} alt="Elixir Biotech clean cooking solutions" />
-                  <div className="ap-img-overlay" aria-hidden="true" />
-                </div>
-
-                {/* Primary badge */}
-                <div className="ap-badge ap-badge-primary">
-                  <span className="ap-badge-number">
-                    110<span className="ap-badge-plus">+</span>
+              <h2 className="ap-hero-title"> {/* Changed H1 to H2 visually because we have a hidden H1 for SEO */}
+                <span className="ap-title-line line-1">Pioneering the Future</span>
+                <span className="ap-title-line line-2">
+                  of{" "}
+                  <span className="ap-title-accent">
+                    Clean Cooking
+                    <span className="ap-title-bar" aria-hidden="true" />
                   </span>
-                  <span className="ap-badge-text">Households<br />Served</span>
-                </div>
-
-                {/* Secondary chip */}
-                <div className="ap-badge ap-badge-chip">
-                  <span className="ap-chip-dot" aria-hidden="true" />
-                  <span>Est. Nairobi, Kenya</span>
-                </div>
-              </div>
-
-              <div className="ap-side-bar" aria-hidden="true" />
-            </div>
-
-            {/* RIGHT: Content */}
-            <div
-              className={`ap-content-col ${contentIn ? "is-in" : ""}`}
-              ref={contentRef}
-            >
-              <div className="ap-section-label">
-                <span className="ap-dot ap-dot-sm" aria-hidden="true" />
-                Our Mandate
-              </div>
-
-              <h2 className="ap-section-title">
-                Our Vision for<br />
-                <span className="ap-accent-word">
-                  Cleaner Cooking
-                  <span className="ap-accent-bar" aria-hidden="true" />
                 </span>
               </h2>
 
-              <p className="ap-description">
-                Elixir Biotech converts organic waste into affordable bioethanol
-                gel fuel — replacing charcoal, kerosene, and firewood with a
-                cleaner alternative that fits the way families already cook.
+              <p className="ap-hero-desc">
+                Elixir Biotech operates a closed-loop production and distribution
+                model — transforming discarded organic materials into affordable,
+                low-emission cooking fuel, then cycling it right back into the system.
               </p>
+            </div>
+          </div>
 
-              {/* Proof points */}
-              <ul className="ap-proof-list">
-                {PROOF_POINTS.map((pt, i) => (
-                  <li key={i} className="ap-proof-item">
-                    <CheckCircle2 size={14} className="ap-check" strokeWidth={2} />
-                    {pt}
-                  </li>
-                ))}
-              </ul>
+          <div className="ap-hero-cut" aria-hidden="true" />
+        </section>
 
-              {/* Vision / Mission cards */}
-              <div className="ap-cards">
-                {MANDATE_CARDS.map((card, i) => (
-                  <div
-                    key={i}
-                    className="ap-card"
-                    style={{ "--ci": i } as React.CSSProperties}
-                  >
-                    <div className="ap-card-header">
-                      <div className="ap-card-icon">{card.icon}</div>
-                      <h3 className="ap-card-title">{card.title}</h3>
-                    </div>
-                    <p className="ap-card-text">{card.text}</p>
-                    <span className="ap-card-line" aria-hidden="true" />
+        {/* ══ ABOUT MAIN ════════════════════════════════════════ */}
+        <section className="ap-main">
+          <div className="container">
+            <div className="ap-main-grid">
+
+              {/* LEFT: Image */}
+              <div
+                className={`ap-img-col ${imgIn ? "is-in" : ""}`}
+                ref={imgRef}
+              >
+                <div className="ap-frame-accent" aria-hidden="true" />
+
+                <div className="ap-image-wrapper">
+                  <div className="ap-image-container">
+                    {/* 👇 ENHANCED ALT TEXT for SEO */}
+                    <img src={aboutImage} alt="Elixir Biotech team facilitating clean cooking solutions in Nairobi using bioethanol gel fuel" />
+                    <div className="ap-img-overlay" aria-hidden="true" />
                   </div>
-                ))}
+
+                  {/* Primary badge */}
+                  <div className="ap-badge ap-badge-primary">
+                    <span className="ap-badge-number">
+                      110<span className="ap-badge-plus">+</span>
+                    </span>
+                    <span className="ap-badge-text">Households<br />Served</span>
+                  </div>
+
+                  {/* Secondary chip */}
+                  <div className="ap-badge ap-badge-chip">
+                    <span className="ap-chip-dot" aria-hidden="true" />
+                    <span>Est. Nairobi, Kenya</span>
+                  </div>
+                </div>
+
+                <div className="ap-side-bar" aria-hidden="true" />
               </div>
 
-              <Link to="/contact" className="ap-cta">
-                <span>Partner With Us</span>
-                <ArrowRight size={15} className="ap-cta-arrow" />
-                <span className="ap-cta-shimmer" aria-hidden="true" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ══ THE CHALLENGE ═════════════════════════════════════ */}
-      <section className="ap-challenge">
-        <div className="ap-challenge-grid-bg" aria-hidden="true" />
-        <div className="ap-challenge-glow"    aria-hidden="true" />
-
-        <div className="container">
-          <div
-            className={`ap-challenge-header ${challengeIn ? "is-in" : ""}`}
-            ref={challengeRef}
-          >
-            <div className="ap-section-label ap-label-light">
-              <span className="ap-dot" aria-hidden="true" />
-              The Challenge
-            </div>
-            <h2 className="ap-challenge-title">
-              Why We Must{" "}
-              <span className="ap-title-accent-light">
-                Act Now
-                <span className="ap-title-bar" aria-hidden="true" />
-              </span>
-            </h2>
-            <p className="ap-challenge-subtitle">
-              Three converging crises create the urgency — and the opportunity.
-            </p>
-          </div>
-
-          <div className="ap-challenge-cards">
-            {CHALLENGES.map((item, i) => (
+              {/* RIGHT: Content */}
               <div
-                key={i}
-                className={`ap-challenge-card ${challengeIn ? "is-in" : ""}`}
-                style={{ "--chi": i } as React.CSSProperties}
+                className={`ap-content-col ${contentIn ? "is-in" : ""}`}
+                ref={contentRef}
               >
-                {/* Large watermark stat */}
-                <span className="ap-challenge-watermark" aria-hidden="true">
-                  {item.stat}
-                </span>
+                <div className="ap-section-label">
+                  <span className="ap-dot ap-dot-sm" aria-hidden="true" />
+                  Our Mandate
+                </div>
 
-                <div className="ap-challenge-icon">{item.icon}</div>
+                <h2 className="ap-section-title">
+                  Our Vision for<br />
+                  <span className="ap-accent-word">
+                    Cleaner Cooking
+                    <span className="ap-accent-bar" aria-hidden="true" />
+                  </span>
+                </h2>
 
-                <div className="ap-challenge-stat">{item.stat}</div>
-                <h3 className="ap-challenge-card-title">{item.title}</h3>
-                <p className="ap-challenge-card-desc">{item.description}</p>
+                <p className="ap-description">
+                  Elixir Biotech converts organic waste into affordable bioethanol
+                  gel fuel — replacing charcoal, kerosene, and firewood with a
+                  cleaner alternative that fits the way families already cook.
+                </p>
 
-                <span className="ap-challenge-line" aria-hidden="true" />
+                {/* Proof points */}
+                <ul className="ap-proof-list">
+                  {PROOF_POINTS.map((pt, i) => (
+                    <li key={i} className="ap-proof-item">
+                      <CheckCircle2 size={14} className="ap-check" strokeWidth={2} />
+                      {pt}
+                    </li>
+                  ))}
+                </ul>
+
+                {/* Vision / Mission cards */}
+                <div className="ap-cards">
+                  {MANDATE_CARDS.map((card, i) => (
+                    <div
+                      key={i}
+                      className="ap-card"
+                      style={{ "--ci": i } as React.CSSProperties}
+                    >
+                      <div className="ap-card-header">
+                        <div className="ap-card-icon">{card.icon}</div>
+                        <h3 className="ap-card-title">{card.title}</h3>
+                      </div>
+                      <p className="ap-card-text">{card.text}</p>
+                      <span className="ap-card-line" aria-hidden="true" />
+                    </div>
+                  ))}
+                </div>
+
+                <Link to="/contact" className="ap-cta">
+                  <span>Partner With Us</span>
+                  <ArrowRight size={15} className="ap-cta-arrow" />
+                  <span className="ap-cta-shimmer" aria-hidden="true" />
+                </Link>
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══ CIRCULAR ECOSYSTEM ════════════════════════════════ */}
-      <section className="ap-ecosystem">
-        <div className="ap-eco-dots" aria-hidden="true" />
-        <div className="ap-eco-blob"  aria-hidden="true" />
-
-        <div className="container">
-          <div
-            className={`ap-eco-header ${ecoIn ? "is-in" : ""}`}
-            ref={ecoRef}
-          >
-            <div className="ap-section-label">
-              <span className="ap-dot ap-dot-sm" aria-hidden="true" />
-              Our Process
             </div>
-            <h2 className="ap-eco-title">
-              The Circular{" "}
-              <span className="ap-accent-word">
-                Ecosystem
-                <span className="ap-accent-bar" aria-hidden="true" />
-              </span>
-            </h2>
-            <p className="ap-eco-subtitle">
-              From waste collection to clean cooking and back again — nothing is lost.
-            </p>
           </div>
+        </section>
 
-          <div className="ap-eco-steps">
-            {/* Animated vertical track */}
+        {/* ══ THE CHALLENGE ═════════════════════════════════════ */}
+        <section className="ap-challenge">
+          <div className="ap-challenge-grid-bg" aria-hidden="true" />
+          <div className="ap-challenge-glow"    aria-hidden="true" />
+
+          <div className="container">
             <div
-              className={`ap-eco-track ${ecoIn ? "track-draw" : ""}`}
-              aria-hidden="true"
-            />
-
-            {ECOSYSTEM.map((item, i) => (
-              <div
-                key={i}
-                className={`ap-eco-step ${ecoIn ? "is-in" : ""}`}
-                style={{ "--ei": i } as React.CSSProperties}
-              >
-                {/* Node on the track */}
-                <div className="ap-eco-node">
-                  <div className="ap-eco-icon-box">{item.icon}</div>
-                </div>
-
-                {/* Content card */}
-                <div className="ap-eco-card">
-                  <span className="ap-eco-step-num">{item.step}</span>
-                  <h3 className="ap-eco-step-title">{item.title}</h3>
-                  <p className="ap-eco-step-desc">{item.description}</p>
-                  <span className="ap-eco-card-line" aria-hidden="true" />
-                </div>
+              className={`ap-challenge-header ${challengeIn ? "is-in" : ""}`}
+              ref={challengeRef}
+            >
+              <div className="ap-section-label ap-label-light">
+                <span className="ap-dot" aria-hidden="true" />
+                The Challenge
               </div>
-            ))}
-          </div>
-        </div>
-      </section>
+              <h2 className="ap-challenge-title">
+                Why We Must{" "}
+                <span className="ap-title-accent-light">
+                  Act Now
+                  <span className="ap-title-bar" aria-hidden="true" />
+                </span>
+              </h2>
+              <p className="ap-challenge-subtitle">
+                Three converging crises create the urgency — and the opportunity.
+              </p>
+            </div>
 
-    </main>
+            <div className="ap-challenge-cards">
+              {CHALLENGES.map((item, i) => (
+                <div
+                  key={i}
+                  className={`ap-challenge-card ${challengeIn ? "is-in" : ""}`}
+                  style={{ "--chi": i } as React.CSSProperties}
+                >
+                  {/* Large watermark stat */}
+                  <span className="ap-challenge-watermark" aria-hidden="true">
+                    {item.stat}
+                  </span>
+
+                  <div className="ap-challenge-icon">{item.icon}</div>
+
+                  <div className="ap-challenge-stat">{item.stat}</div>
+                  <h3 className="ap-challenge-card-title">{item.title}</h3>
+                  <p className="ap-challenge-card-desc">{item.description}</p>
+
+                  <span className="ap-challenge-line" aria-hidden="true" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ══ CIRCULAR ECOSYSTEM ════════════════════════════════ */}
+        <section className="ap-ecosystem">
+          <div className="ap-eco-dots" aria-hidden="true" />
+          <div className="ap-eco-blob"  aria-hidden="true" />
+
+          <div className="container">
+            <div
+              className={`ap-eco-header ${ecoIn ? "is-in" : ""}`}
+              ref={ecoRef}
+            >
+              <div className="ap-section-label">
+                <span className="ap-dot ap-dot-sm" aria-hidden="true" />
+                Our Process
+              </div>
+              <h2 className="ap-eco-title">
+                The Circular{" "}
+                <span className="ap-accent-word">
+                  Ecosystem
+                  <span className="ap-accent-bar" aria-hidden="true" />
+                </span>
+              </h2>
+              <p className="ap-eco-subtitle">
+                From waste collection to clean cooking and back again — nothing is lost.
+              </p>
+            </div>
+
+            <div className="ap-eco-steps">
+              {/* Animated vertical track */}
+              <div
+                className={`ap-eco-track ${ecoIn ? "track-draw" : ""}`}
+                aria-hidden="true"
+              />
+
+              {ECOSYSTEM.map((item, i) => (
+                <div
+                  key={i}
+                  className={`ap-eco-step ${ecoIn ? "is-in" : ""}`}
+                  style={{ "--ei": i } as React.CSSProperties}
+                >
+                  {/* Node on the track */}
+                  <div className="ap-eco-node">
+                    <div className="ap-eco-icon-box">{item.icon}</div>
+                  </div>
+
+                  {/* Content card */}
+                  <div className="ap-eco-card">
+                    <span className="ap-eco-step-num">{item.step}</span>
+                    <h3 className="ap-eco-step-title">{item.title}</h3>
+                    <p className="ap-eco-step-desc">{item.description}</p>
+                    <span className="ap-eco-card-line" aria-hidden="true" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </>
   );
 };
 

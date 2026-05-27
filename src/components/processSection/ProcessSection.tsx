@@ -3,6 +3,11 @@ import { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Truck, FlaskConical, Recycle, ArrowRight, ChevronRight } from "lucide-react";
 
+// ── Swap these for your actual process images ──────────────────
+import wasteImg      from "../../assets/images/waste.jpeg";
+import conversionImg from "../../assets/images/image2.png";
+import refillImg     from "../../assets/images/gel.jpeg";
+
 /* ── Scroll-reveal hook ── */
 function useInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
@@ -26,24 +31,30 @@ const STEPS = [
     title: "Waste Sourcing",
     description:
       "Organic and high-cellulose waste materials are sourced through local waste collectors and community partnerships, diverting waste from landfills.",
-    icon: <Truck size={36} strokeWidth={1.4} />,
+    icon: <Truck size={28} strokeWidth={1.4} />,
     detail: "10+ active collectors",
+    image: wasteImg,
+    imageAlt: "Organic waste collection",
   },
   {
     num: "02",
     title: "Fuel Conversion",
     description:
       "Collected biomass undergoes controlled microbial fermentation and distillation to produce our clean-burning, non-spill bioethanol gel.",
-    icon: <FlaskConical size={36} strokeWidth={1.4} />,
+    icon: <FlaskConical size={28} strokeWidth={1.4} />,
     detail: "Lab-grade fermentation",
+    image: conversionImg,
+    imageAlt: "Bioethanol production process",
   },
   {
     num: "03",
     title: "Community Refill",
     description:
       "Refillable packaging and local micro-entrepreneurs ensure that clean fuel access is affordable, practical, and continuously circular.",
-    icon: <Recycle size={36} strokeWidth={1.4} />,
+    icon: <Recycle size={28} strokeWidth={1.4} />,
     detail: "Closed-loop distribution",
+    image: refillImg,
+    imageAlt: "Bioethanol gel fuel ready for household use",
   },
 ];
 
@@ -54,8 +65,8 @@ const ProcessSection = () => {
   return (
     <section className="ps-section">
       {/* Background */}
-      <div className="ps-bg-grid"  aria-hidden="true" />
-      <div className="ps-bg-glow"  aria-hidden="true" />
+      <div className="ps-bg-grid" aria-hidden="true" />
+      <div className="ps-bg-glow" aria-hidden="true" />
 
       <div className="container">
 
@@ -96,25 +107,35 @@ const ProcessSection = () => {
           {STEPS.map((step, i) => (
             <div key={i} className="ps-flow-item">
 
-              {/* Step card */}
+              {/* ── STEP CARD ── */}
               <div
                 className={`ps-card ${gridIn ? "is-in" : ""}`}
                 style={{ "--pi": i } as React.CSSProperties}
               >
-                {/* Number watermark */}
+                {/* Watermark number */}
                 <span className="ps-card-watermark" aria-hidden="true">
                   {step.num}
                 </span>
 
-                {/* Icon zone */}
-                <div className="ps-card-icon-zone">
-                  {/* Connecting node dot on track */}
+                {/* ── IMAGE ZONE ── */}
+                <div className="ps-card-image-zone">
+                  {/* Node dot sits on the horizontal track */}
                   <div className="ps-node" aria-hidden="true" />
 
-                  <div className="ps-icon-box">{step.icon}</div>
+                  <img
+                    src={step.image}
+                    alt={step.imageAlt}
+                    className="ps-card-img"
+                  />
+
+                  {/* Icon badge overlaid on bottom-right of image */}
+                  <div className="ps-icon-badge">{step.icon}</div>
+
+                  {/* Step chip overlaid top-left of image */}
+                  <span className="ps-img-step-chip">{step.num}</span>
                 </div>
 
-                {/* Body */}
+                {/* ── BODY ── */}
                 <div className="ps-card-body">
                   <div className="ps-card-top">
                     <span className="ps-step-badge">{step.num}</span>
@@ -134,9 +155,10 @@ const ProcessSection = () => {
                 <span className="ps-card-line" aria-hidden="true" />
               </div>
 
-              {/* Arrow connector between cards (not after last) */}
+              {/* Arrow connector between cards */}
               {i < STEPS.length - 1 && (
-                <div className={`ps-connector ${gridIn ? "is-in" : ""}`}
+                <div
+                  className={`ps-connector ${gridIn ? "is-in" : ""}`}
                   style={{ "--ci": i } as React.CSSProperties}
                   aria-hidden="true"
                 >

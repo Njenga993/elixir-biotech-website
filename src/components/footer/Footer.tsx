@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import {
   Mail, Phone, MapPin,
-  Home, TrendingUp, Recycle, Award,
+  Home, TrendingUp, Recycle,
   ChevronRight, ArrowUpRight,
 } from "lucide-react";
 import logo from "../../assets/images/logo_tech.jpeg";
@@ -73,7 +73,7 @@ const Footer = () => {
     { icon: <Home size={28} strokeWidth={1.5} />, rawValue: 110, suffix: "+", label: "Households Served" },
     { icon: <TrendingUp size={28} strokeWidth={1.5} />, rawValue: 83, suffix: "%", label: "Repeat Customers" },
     { icon: <Recycle size={28} strokeWidth={1.5} />, rawValue: 10, suffix: "+", label: "Waste Collectors" },
-    { icon: <Award size={28} strokeWidth={1.5} />, rawValue: 10200, suffix: "", prefix: "$", label: "Grant Funding Secured" },
+    
   ];
 
   const NAV_LINKS = [
@@ -113,7 +113,7 @@ const Footer = () => {
                 </div>
                 <div className="footer-logo-text-group">
                   <span className="footer-logo-name">Elixir Biotech</span>
-                  <span className="footer-logo-tagline">Life Science Solutions</span>
+                  
                 </div>
               </div>
             </Link>
@@ -161,7 +161,7 @@ const Footer = () => {
             <ul className="footer-contact">
               <li>
                 <div className="contact-icon-wrap"><Phone size={15} /></div>
-                <a href="tel:+254711965228">+254 711 965228</a>
+                <a href="tel:+254 0105939692">+254 0105939692</a>
               </li>
               <li>
                 <div className="contact-icon-wrap"><Mail size={15} /></div>
@@ -193,7 +193,7 @@ const Footer = () => {
                 </svg>
                 <span>Twitter</span>
               </a>
-              <a href="#" aria-label="LinkedIn" className="social-card">
+              <a href="Linkedin:https://www.linkedin.com/company/elixir-biotechn/" aria-label="LinkedIn" className="social-card" target = "_blank" rel="noopener noreferrer">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
                   <rect x="2" y="9" width="4" height="12"/>

@@ -2,15 +2,32 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Hero.css";
 import heroImage from "../../assets/images/image2.png";
+
+// 👇 IMPORT YOUR 3 CARD IMAGES HERE
+// Ensure these files exist in src/assets/images/
+import cardImage1 from "../../assets/images/waste.jpeg";
+import cardImage2 from "../../assets/images/image2.png";
+import cardImage3 from "../../assets/images/gel.jpeg";
+
 import { Truck, FlaskConical, ShieldCheck, ChevronDown, ArrowRight } from "lucide-react";
 
-const FLOATING_CARDS = [
+// ── Type Definition for Cards ────────────────────────
+interface CardProps {
+  num: string;
+  title: string;
+  description: string;
+  icon: React.ReactNode;
+  image: string; // New property for the image
+}
+
+const FLOATING_CARDS: CardProps[] = [
   {
     num: "01",
     title: "Waste Sourcing",
     description:
       "Organic waste materials are sourced through local collectors, diverting waste from landfills into productive use.",
     icon: <Truck size={22} strokeWidth={1.5} />,
+    image: cardImage1,
   },
   {
     num: "02",
@@ -18,6 +35,7 @@ const FLOATING_CARDS = [
     description:
       "Collected biomass undergoes controlled microbial fermentation to produce clean, efficient combustion gel.",
     icon: <FlaskConical size={22} strokeWidth={1.5} />,
+    image: cardImage2,
   },
   {
     num: "03",
@@ -25,6 +43,7 @@ const FLOATING_CARDS = [
     description:
       "Non-spill gel fuel designed for safer household handling, replacing toxic charcoal and kerosene.",
     icon: <ShieldCheck size={22} strokeWidth={1.5} />,
+    image: cardImage3,
   },
 ];
 
@@ -34,7 +53,6 @@ export default function Hero() {
   const [cardsVisible, setCardsVisible] = useState(false);
 
   useEffect(() => {
-    // Slight delay so CSS transitions don't fire before paint
     const t = setTimeout(() => setLoaded(true), 80);
     return () => clearTimeout(t);
   }, []);
@@ -78,14 +96,14 @@ export default function Hero() {
       <div className="hero-content">
         <div className="container hero-container">
           <div className={`hero-text ${loaded ? "is-loaded" : ""}`}>
-
+            
             {/* Badge */}
             <div className="hero-badge">
               <span className="badge-dot" aria-hidden="true" />
               Welcome to Elixir Biotech
             </div>
 
-            {/* Title — each line staggers in */}
+            {/* Title */}
             <h1 className="hero-title">
               <span className="title-line title-line-1">Innovative Solutions</span>
               <span className="title-line title-line-2">
@@ -148,6 +166,11 @@ export default function Hero() {
                 <span className="card-watermark" aria-hidden="true">
                   {card.num}
                 </span>
+
+                {/* ── ADDED IMAGE CONTAINER ── */}
+                <div className="hero-card-image-wrapper">
+                  <img src={card.image} alt={card.title} className="hero-card-img" />
+                </div>
 
                 <div className="hero-card-icon">
                   <span className="icon-wrapper">{card.icon}</span>

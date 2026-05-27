@@ -6,6 +6,9 @@ import {
   ChevronRight,
 } from "lucide-react";
 
+// 👇 IMPORT SEO COMPONENT
+import SEO from "../../components/SEO/SEO";
+
 /* ── Scroll-reveal hook ── */
 function useInView(threshold = 0.12) {
   const ref = useRef<HTMLDivElement>(null);
@@ -27,8 +30,8 @@ const CONTACT_DETAILS = [
   {
     icon: <Phone size={18} strokeWidth={1.8} />,
     label: "Phone",
-    value: "+254 711 965228",
-    href: "tel:+254711965228",
+    value: "+254  0105939692",
+    href: "tel:+254 0105939692",
   },
   {
     icon: <Mail size={18} strokeWidth={1.8} />,
@@ -87,6 +90,80 @@ const ContactPage = () => {
   return (
     <main className="contact-page">
 
+      {/* ⭐⭐⭐ ADVANCED SEO SECTION ⭐⭐⭐ */}
+      <SEO
+        title="Contact Elixir Biotech | Nairobi Office & Customer Support"
+        description="Get in touch with Elixir Biotech in Nairobi. Call us at +254 0105939692 for partnerships, distribution inquiries, and support regarding clean cooking fuel solutions."
+        path="/contact"
+        // Let SEO component use default fallback or update with a specific office photo if available
+        // image="/assets/images/office-contact.jpg" 
+        
+        keywords={[
+          "Contact Elixir Biotech",
+          "Elixir Biotech Nairobi office",
+          "clean cooking support Kenya",
+          "bioethanol fuel distributor contact",
+          "waste to energy partnership",
+          "Elixir Biotech email",
+          "clean energy customer service"
+        ]}
+        
+        // 👇 Structured Data (JSON-LD) - Specific for Contact Pages
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact Elixir Biotech",
+          "description": "Contact information for Elixir Biotech, including phone, email, and office location in Nairobi, Kenya.",
+          "url": "https://elixirbiotech.co.ke/contact",
+          "mainEntity": {
+            "@type": "Organization",
+            "name": "Elixir Biotech",
+            "url": "https://elixirbiotech.co.ke",
+            "logo": "https://elixirbiotech.co.ke/assets/images/logo.png",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Nairobi",
+              "addressCountry": "KE"
+            },
+            "contactPoint": [
+              {
+                "@type": "ContactPoint",
+                "telephone": "+254-0105939692",
+                "contactType": "customer service",
+                "areaServed": "KE",
+                "availableLanguage": "English"
+              },
+              {
+                "@type": "ContactPoint",
+                "email": "info@elixirbiotech.co.ke",
+                "contactType": "sales",
+                "areaServed": "KE"
+              },
+              {
+                "@type": "ContactPoint",
+                "email": "partnerships@elixirbiotech.co.ke",
+                "contactType": "business development",
+                "areaServed": "KE"
+              }
+            ]
+          }
+        }}
+      />
+
+      {/* 👇 Hidden H1 for SEO (Local & Intent Keywords) */}
+      <h1 style={{
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: '0',
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        border: '0'
+      }}>
+        Contact Elixir Biotech – Nairobi Office, Customer Support & Partnership Inquiries
+      </h1>
+
       {/* ── HERO ── */}
       <section className="contact-hero">
         <div className="hero-bg-grid"   aria-hidden="true" />
@@ -101,7 +178,8 @@ const ContactPage = () => {
               Get In Touch
             </div>
 
-            <h1 className="contact-hero-title">
+            {/* Changed H1 to H2 visually */}
+            <h2 className="contact-hero-title">
               <span className="hero-title-line line-1">Let's Build</span>
               <span className="hero-title-line line-2">
                 Something{" "}
@@ -110,7 +188,7 @@ const ContactPage = () => {
                   <span className="title-green-bar" aria-hidden="true" />
                 </span>
               </span>
-            </h1>
+            </h2>
 
             <p className="contact-hero-description">
               Elixir Biotech operates as a distributed network of researchers,
@@ -119,8 +197,8 @@ const ContactPage = () => {
             </p>
 
             <div className="contact-hero-chips">
-              <a href="tel:+254711965228" className="hero-chip">
-                <Phone size={13} /> +254 711 965228
+              <a href="tel:+254 0105939692" className="hero-chip">
+                <Phone size={13} /> +254  0105939692
               
               </a>
               <a href="mailto:info@elixirbiotech.co.ke" className="hero-chip">
@@ -151,7 +229,9 @@ const ContactPage = () => {
                     <span className="badge-dot badge-dot-sm" aria-hidden="true" />
                     Basecamp Directory
                   </div>
-                  <h2 className="contact-info-title">Reach Us Directly</h2>
+                  <h3 className="contact-info-title"> {/* Changed to H3 for hierarchy */}
+                    Reach Us Directly
+                  </h3>
                   <p className="contact-info-description">
                     Reach out for partnerships, distributor inquiries,
                     or general support on our clean cooking solutions.
@@ -206,7 +286,9 @@ const ContactPage = () => {
                   <span className="badge-dot badge-dot-sm" aria-hidden="true" />
                   Direct Stations
                 </div>
-                <h2 className="contact-departments-title">Choose a Department</h2>
+                <h3 className="contact-departments-title"> {/* Changed to H3 for hierarchy */}
+                  Choose a Department
+                </h3>
                 <p className="contact-departments-description">
                   Select the team best suited to handle your inquiry for a faster, more focused response.
                 </p>
@@ -227,7 +309,7 @@ const ContactPage = () => {
                       <ChevronRight size={16} className="station-chevron" />
                     </div>
 
-                    <h3 className="station-title">{dept.title}</h3>
+                    <h4 className="station-title">{dept.title}</h4>
                     <p className="station-description">{dept.description}</p>
 
                     <span className="station-email">

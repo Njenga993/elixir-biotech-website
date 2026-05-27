@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────
-   IMPORTS (matches Navbar & Footer fonts)
+   IMPORTS
 ───────────────────────────────────────────── */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=DM+Sans:wght@400;500&display=swap");
 
@@ -19,7 +19,7 @@
   --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
   --font-main:    "Poppins", sans-serif;
   --font-body:    "DM Sans", sans-serif;
-  /* nav heights — keep in sync with Navbar.css */
+  /* nav heights */
   --top-bar-h:    40px;
   --nav-h:        72px;
 }
@@ -33,7 +33,6 @@
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  /* Push content below the fixed navbar stack */
   padding-top: calc(var(--top-bar-h) + var(--nav-h));
   overflow: hidden;
 }
@@ -58,7 +57,6 @@
   height: 100%;
   object-fit: cover;
   object-position: center 30%;
-  /* Very subtle zoom-in on load */
   animation: bgZoom 12s ease-out forwards;
 }
 
@@ -77,7 +75,7 @@
   background: rgba(5, 12, 16, 0.48);
 }
 
-/* Strong left vignette — keeps text crisp */
+/* Strong left vignette */
 .hero-overlay-left {
   background: linear-gradient(
     100deg,
@@ -87,7 +85,7 @@
   );
 }
 
-/* Bottom gradient — bleeds into card section */
+/* Bottom gradient */
 .hero-overlay-bottom {
   background: linear-gradient(
     to bottom,
@@ -97,7 +95,7 @@
   );
 }
 
-/* Subtle green ambient glow at bottom-left */
+/* Subtle green ambient glow */
 .hero-overlay-green {
   background: radial-gradient(
     ellipse 60% 40% at 0% 100%,
@@ -118,7 +116,7 @@
   flex-direction: column;
   align-items: stretch;
   justify-content: center;
-  padding: 60px 0 180px; /* extra bottom for cards overlap */
+  padding: 60px 0 180px;
 }
 
 .hero-container {
@@ -129,11 +127,7 @@
   max-width: 680px;
 }
 
-
-/* ─────────────────────────────────────────────
-   STAGGERED LOAD ANIMATIONS
-   Each child has its own clip/translate reveal
-───────────────────────────────────────────── */
+/* Staggered Animations */
 .hero-badge,
 .hero-title .title-line,
 .hero-description,
@@ -210,7 +204,6 @@
   display: block;
 }
 
-/* Green accent word with animated underline bar */
 .title-accent {
   position: relative;
   color: var(--green-light);
@@ -294,7 +287,6 @@
   transform: translateX(4px);
 }
 
-/* Shimmer sweep */
 .cta-shimmer {
   position: absolute;
   top: 0;
@@ -315,7 +307,7 @@
 }
 
 .hero-cta-primary:hover {
-  background: var(--navy-deep, #0a1215);
+  background: var(--navy-deep);
   color: var(--white);
   transform: translateY(-2px);
   box-shadow:
@@ -368,7 +360,7 @@
 ───────────────────────────────────────────── */
 .hero-scroll-btn {
   position: absolute;
-  bottom: 148px; /* sits above cards */
+  bottom: 148px;
   left: 50%;
   transform: translateX(-50%) translateY(10px);
   opacity: 0;
@@ -412,7 +404,7 @@
 
 
 /* ─────────────────────────────────────────────
-   FLOATING CARDS
+   FLOATING CARDS (UPDATED FOR WHITE BG & IMAGES)
 ───────────────────────────────────────────── */
 .hero-cards-section {
   position: relative;
@@ -429,19 +421,25 @@
 
 .hero-card {
   position: relative;
-  background: var(--green);
-  padding: 36px 28px 32px;
-  border-radius: 8px;
+  /* WHITE BACKGROUND */
+  background: var(--white);
+  padding: 0; /* Padding removed so image touches edges */
+  border-radius: 12px;
   overflow: hidden;
+  
   /* entry state */
   opacity: 0;
   transform: translateY(36px);
   transition:
     opacity 0.65s var(--ease-out),
     transform 0.65s var(--ease-out),
-    background 0.25s ease,
     box-shadow 0.25s ease;
   transition-delay: calc(var(--card-i, 0) * 0.12s);
+  
+  /* Add shadow for depth against dark bg */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
 }
 
 .hero-card.card-visible {
@@ -449,40 +447,77 @@
   transform: translateY(0);
 }
 
-/* Glossy top sheen */
-.hero-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 40%;
-  background: linear-gradient(to bottom, rgba(255,255,255,0.12), transparent);
-  pointer-events: none;
-  border-radius: 8px 8px 0 0;
-}
-
 .hero-card:hover {
-  background: var(--green-light);
-  transform: translateY(-6px);
-  box-shadow:
-    0 20px 60px rgba(0,0,0,0.30),
-    0 6px 20px rgba(110, 147, 30, 0.25);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
 }
 
-/* Large watermark number */
+/* ─── IMAGE CONTAINER ─── */
+.hero-card-image-wrapper {
+  width: 100%;
+  height: 200px; /* Fixed height for the image area */
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Crops image to fill container */
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+/* Subtle zoom on hover */
+.hero-card:hover .hero-card-img {
+  transform: scale(1.05);
+}
+
+/* ─── CARD CONTENT BODY ─── */
+/* We create an internal body wrapper for padding */
+.hero-card > *:not(.hero-card-image-wrapper):not(.card-watermark):not(.card-accent-line) {
+  padding-left: 28px;
+  padding-right: 28px;
+}
+
+/* Spacing for elements inside the card body */
+.hero-card-icon {
+  margin-top: 24px; /* Space below image */
+  margin-bottom: 12px;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: rgba(130, 175, 36, 0.1); /* Light Green BG */
+  border-radius: 10px;
+  color: var(--green); /* Green Icon */
+  transition: background 0.25s ease, transform 0.3s var(--ease-spring);
+}
+
+.hero-card:hover .icon-wrapper {
+  background: var(--green);
+  color: var(--white); /* Icon turns white on hover */
+  transform: rotate(-5deg) scale(1.08);
+}
+
+/* Large watermark number - Darker for white bg */
 .card-watermark {
   position: absolute;
-  top: -8px;
-  right: 16px;
+  top: 160px; /* Pushed down to sit over image/content boundary */
+  right: 10px;
   font-family: var(--font-main);
   font-size: 5rem;
   font-weight: 800;
-  color: rgba(255,255,255,0.08);
+  color: rgba(15, 26, 32, 0.04); /* Very subtle navy */
   line-height: 1;
   pointer-events: none;
   user-select: none;
   letter-spacing: -0.04em;
+  z-index: 1;
 }
 
 /* Small numbered badge */
@@ -492,61 +527,45 @@
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: rgba(255,255,255,0.55);
-  background: rgba(255,255,255,0.12);
+  color: rgba(15, 26, 32, 0.5); /* Dark Grey */
+  background: rgba(15, 26, 32, 0.05); /* Very light grey */
   border-radius: 4px;
-  padding: 3px 8px;
-  margin-bottom: 14px;
-}
-
-.hero-card-icon {
-  margin-bottom: 16px;
-}
-
-.icon-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: rgba(255,255,255,0.18);
-  border-radius: 10px;
-  color: var(--white);
-  transition: background 0.25s ease, transform 0.3s var(--ease-spring);
-}
-
-.hero-card:hover .icon-wrapper {
-  background: rgba(255,255,255,0.28);
-  transform: rotate(-5deg) scale(1.08);
+  padding: 4px 10px;
+  margin-bottom: 12px;
 }
 
 .hero-card-title {
   font-family: var(--font-main);
-  font-size: 1.1rem;
+  font-size: 1.25rem;
   font-weight: 700;
-  color: var(--white);
+  color: var(--navy); /* Dark Navy Text */
   margin: 0 0 10px;
   letter-spacing: -0.01em;
+  position: relative;
+  z-index: 2;
 }
 
 .hero-card-desc {
   font-family: var(--font-body);
-  font-size: 0.88rem;
-  line-height: 1.68;
-  color: rgba(255,255,255,0.80);
-  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(15, 26, 32, 0.7); /* Dark Grey Text */
+  margin: 0 0 24px;
+  position: relative;
+  z-index: 2;
 }
 
-/* Animated bottom accent line */
+/* Animated bottom accent line - Green now */
 .card-accent-line {
   position: absolute;
   bottom: 0;
   left: 0;
-  height: 3px;
+  height: 4px;
   width: 0%;
-  background: rgba(255,255,255,0.40);
-  border-radius: 0 3px 3px 0;
+  background: var(--green);
+  border-radius: 0 4px 4px 0;
   transition: width 0.35s var(--ease-out);
+  z-index: 2;
 }
 
 .hero-card:hover .card-accent-line {
@@ -589,8 +608,8 @@
     gap: 14px;
   }
 
-  .hero-card {
-    padding: 28px 24px 26px;
+  .hero-card-image-wrapper {
+    height: 180px;
   }
 
   .hero-scroll-btn {
@@ -611,12 +630,9 @@
     padding: 12px 18px;
   }
 
-  .hero-card {
-    padding: 24px 20px 22px;
-  }
-
   .card-watermark {
     font-size: 4rem;
+    top: 140px;
   }
 }
 
@@ -651,4 +667,203 @@
   .hero-card:hover {
     transform: none !important;
   }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HERO PATCH — image contain + full responsiveness
+   Paste these rules into Hero.css, replacing the matching blocks
+═══════════════════════════════════════════════════════════════ */
+
+
+/* ─────────────────────────────────────────────
+   CARD IMAGE — contained, white background
+───────────────────────────────────────────── */
+.hero-card-image-wrapper {
+  width: 100%;
+  height: 210px;
+  overflow: hidden;
+  position: relative;
+  background: #ffffff;           /* white canvas behind the image */
+  border-bottom: 1px solid rgba(15, 26, 32, 0.06); /* subtle rule separating image from body */
+}
+
+.hero-card-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;           /* ← full image visible, never cropped */
+  object-position: center;
+  padding: 18px 24px;            /* breathing room so image never kisses the edges */
+  box-sizing: border-box;
+  display: block;
+  transition: transform 0.55s var(--ease-out, cubic-bezier(0.22,1,0.36,1));
+}
+
+.hero-card:hover .hero-card-img {
+  transform: scale(1.05);        /* gentle zoom — still shows the full product */
+}
+
+
+/* ─────────────────────────────────────────────
+   HERO SHELL — full responsive height
+───────────────────────────────────────────── */
+.hero {
+  min-height: 100svh;            /* svh = small viewport height; avoids mobile-browser-bar issues */
+}
+
+/* HERO CONTENT — responsive padding */
+.hero-content {
+  padding: 60px 0 200px;        /* desktop: enough room for overlapping cards */
+}
+
+/* HERO TEXT — cap width so it doesn't stretch on ultra-wide */
+.hero-text {
+  max-width: min(680px, 90vw);
+}
+
+/* HERO TITLE — tighter clamp for very small screens */
+.hero-title {
+  font-size: clamp(2rem, 5.5vw, 4.4rem);
+}
+
+/* HERO DESCRIPTION — readable on small phones */
+.hero-description {
+  font-size: clamp(0.88rem, 2.5vw, 1.05rem);
+  max-width: min(500px, 100%);
+}
+
+
+/* ─────────────────────────────────────────────
+   SCROLL BUTTON — stay above card overlap
+───────────────────────────────────────────── */
+.hero-scroll-btn {
+  bottom: 168px;                 /* sits above the card section overlap */
+}
+
+
+/* ─────────────────────────────────────────────
+   CARDS SECTION
+───────────────────────────────────────────── */
+.hero-cards-section {
+  margin-top: -140px;            /* deeper overlap on desktop */
+}
+
+.hero-cards-grid {
+  gap: 20px;
+}
+
+.hero-card {
+  border-radius: 12px;
+  /* ensure the white card pops against the dark hero */
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.20),
+    0 2px 8px rgba(0,0,0,0.10);
+}
+
+
+/* ─────────────────────────────────────────────
+   BREAKPOINT — tablet landscape (≤1024px)
+───────────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .hero-content          { padding: 56px 0 190px; }
+  .hero-scroll-btn       { bottom: 150px; }
+  .hero-card-image-wrapper { height: 190px; }
+}
+
+
+/* ─────────────────────────────────────────────
+   BREAKPOINT — tablet portrait (≤820px)
+───────────────────────────────────────────── */
+@media (max-width: 820px) {
+  .hero-content {
+    padding: 44px 0 170px;
+  }
+
+  .hero-cards-section {
+    margin-top: -100px;
+    padding-bottom: 48px;
+  }
+
+  .hero-cards-grid {
+    grid-template-columns: 1fr 1fr; /* 2-column on tablet */
+    gap: 14px;
+  }
+
+  /* Make 3rd card span full width so it doesn't sit alone */
+  .hero-card:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .hero-card-image-wrapper { height: 200px; }
+
+  .hero-scroll-btn { bottom: 125px; }
+}
+
+
+/* ─────────────────────────────────────────────
+   BREAKPOINT — large phone (≤640px)
+───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .hero-content {
+    padding: 40px 0 155px;
+  }
+
+  .hero-cards-section {
+    margin-top: -80px;
+    padding-bottom: 36px;
+  }
+
+  .hero-cards-grid {
+    grid-template-columns: 1fr;  /* single column on phones */
+    gap: 12px;
+  }
+
+  .hero-card:last-child {
+    grid-column: auto;           /* reset the span */
+  }
+
+  .hero-card-image-wrapper { height: 185px; }
+  .hero-card-img            { padding: 14px 20px; }
+
+  .hero-scroll-btn { bottom: 108px; }
+
+  .hero-ctas {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .hero-cta {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* ─────────────────────────────────────────────
+   BREAKPOINT — small phone (≤420px)
+───────────────────────────────────────────── */
+@media (max-width: 420px) {
+  :root {
+    --top-bar-h: 36px;
+    --nav-h:     56px;
+  }
+
+  .hero-content {
+    padding: 32px 0 140px;
+  }
+
+  .hero-cards-section  { margin-top: -60px; }
+
+  .hero-card-image-wrapper { height: 160px; }
+  .hero-card-img            { padding: 10px 16px; }
+
+  .hero-scroll-btn { bottom: 90px; }
+}
+
+
+/* ─────────────────────────────────────────────
+   REDUCED MOTION (extend existing rule)
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .hero-card-img { transition: none !important; }
 }

@@ -6,6 +6,9 @@ import {
   Leaf, ShieldCheck, TrendingUp, Users,
 } from "lucide-react";
 
+// 👇 IMPORT SEO COMPONENT
+import SEO from "../../components/SEO/SEO";
+
 import ProductsPreview from "../../components/productsPreview/ProductsPreview";
 import ProcessSection  from "../../components/processSection/ProcessSection";
 import ImpactSection   from "../../components/impactSection/ImpactSection";
@@ -55,6 +58,70 @@ const ProductsPage = () => {
   return (
     <main className="pp-page">
 
+      {/* ⭐⭐⭐ ADVANCED SEO SECTION ⭐⭐⭐ */}
+      <SEO
+        title="Buy Bioethanol Gel Fuel in Kenya | Clean Cooking Products"
+        description="Shop safe, affordable bioethanol gel fuel in Nairobi. A non-spill, non-toxic alternative to charcoal and kerosene designed for Kenyan households."
+        path="/products"
+        // 👇 Ideally import a product image here, e.g., import productHero from "../../assets/images/product-hero.jpg"
+        image="/assets/images/products-hero.jpg" 
+        
+        keywords={[
+          "bioethanol gel fuel Kenya",
+          "buy clean cooking fuel",
+          "charcoal alternative Kenya",
+          "kerosene substitute",
+          "gel fuel price",
+          "non-toxic cooking fuel",
+          "affordable energy solutions",
+          "eco-friendly stove fuel",
+          "household cooking fuel Nairobi",
+          "renewable biofuel"
+        ]}
+        
+        // 👇 Structured Data (JSON-LD) for Products
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "ItemPage",
+          "name": "Elixir Biotech Products",
+          "description": "Overview of bioethanol gel fuel products offered by Elixir Biotech in Kenya.",
+          "url": "https://elixirbiotech.co.ke/products",
+          "mainEntity": {
+            "@type": "Product",
+            "name": "Bioethanol Gel Fuel",
+            "description": "Clean-burning, non-toxic gel fuel made from organic waste. A safe alternative to charcoal and kerosene.",
+            "brand": {
+              "@type": "Brand",
+              "name": "Elixir Biotech"
+            },
+            "offers": {
+              "@type": "Offer",
+              "availability": "https://schema.org/InStock",
+              "priceCurrency": "KES",
+              "url": "https://elixirbiotech.co.ke/products",
+              "seller": {
+                "@type": "Organization",
+                "name": "Elixir Biotech"
+              }
+            }
+          }
+        }}
+      />
+
+      {/* 👇 Hidden H1 for SEO (Transactional Keywords) */}
+      <h1 style={{
+        position: 'absolute',
+        width: '1px',
+        height: '1px',
+        padding: '0',
+        margin: '-1px',
+        overflow: 'hidden',
+        clip: 'rect(0, 0, 0, 0)',
+        border: '0'
+      }}>
+        Buy Bioethanol Gel Fuel – Safe & Affordable Clean Cooking Products in Kenya
+      </h1>
+
       {/* ══ HERO ══════════════════════════════════════════════ */}
       <section className="pp-hero">
         <div className="pp-hero-grid"   aria-hidden="true" />
@@ -69,7 +136,8 @@ const ProductsPage = () => {
               Our Products
             </div>
 
-            <h1 className="pp-hero-title">
+            {/* Changed H1 to H2 visually */}
+            <h2 className="pp-hero-title">
               <span className="pp-title-line line-1">Efficient Solutions</span>
               <span className="pp-title-line line-2">
                 for a{" "}
@@ -78,7 +146,7 @@ const ProductsPage = () => {
                   <span className="pp-title-bar" aria-hidden="true" />
                 </span>
               </span>
-            </h1>
+            </h2>
 
             <p className="pp-hero-desc">
               Every product in the Elixir Biotech ecosystem is designed around one
@@ -134,13 +202,13 @@ const ProductsPage = () => {
                 Why Elixir Biotech
               </div>
 
-              <h2 className="pp-why-title">
+              <h3 className="pp-why-title"> {/* H2 for hierarchy */}
                 The smarter switch to{" "}
                 <span className="pp-why-accent">
                   clean cooking
                   <span className="pp-why-bar" aria-hidden="true" />
                 </span>
-              </h2>
+              </h3>
 
               <p className="pp-why-desc">
                 Switching to cleaner fuel shouldn't mean spending more or changing
@@ -242,8 +310,8 @@ const ProductsPage = () => {
 
             {/* Quick contact strip */}
             <div className="pp-outro-contact">
-              <a href="tel:+254711965228" className="pp-outro-contact-item">
-                <Phone size={13} /> +254 711 965228
+              <a href="tel:+254 0105939692" className="pp-outro-contact-item">
+                <Phone size={13} /> +254  0105939692
               </a>
               <span className="pp-outro-sep" aria-hidden="true" />
               <a href="mailto:info@elixirbiotech.co.ke" className="pp-outro-contact-item">

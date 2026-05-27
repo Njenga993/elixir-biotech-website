@@ -220,7 +220,15 @@
   border-color: rgba(130,175,36,0.25);
 }
 
+/* ── Paste this into ProductsPreview.css, replacing the matching rule ── */
 
+.pp-card-img-wrap {
+  position: relative;
+  height: 260px;
+  overflow: hidden;
+  background: #ffffff;          /* ← was var(--navy); now white */
+  border-bottom: 1px solid rgba(15, 26, 32, 0.06); /* subtle separator */
+}
 /* ── Card image ── */
 .pp-card-img-wrap {
   position: relative;
@@ -478,12 +486,7 @@
 ───────────────────────────────────────────── */
 
 /* Image wrapper — taller to give bottle room */
-.pp-card-img-wrap {
-  position: relative;
-  height: 260px;               /* slightly taller */
-  overflow: hidden;
-  background: var(--navy);     /* dark background behind transparent/padded bottle */
-}
+
 
 /* Bottle image — contain so the full bottle is visible */
 .pp-card-img-wrap img {

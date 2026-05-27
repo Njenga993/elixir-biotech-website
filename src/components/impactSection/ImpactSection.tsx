@@ -1,6 +1,6 @@
 import "./ImpactSection.css";
 import { useRef, useEffect, useState } from "react";
-import { Home, TrendingUp, Recycle, Award } from "lucide-react";
+import { Home, TrendingUp, Recycle,  } from "lucide-react";
 
 const impactStats = [
   {
@@ -18,11 +18,7 @@ const impactStats = [
     label: "Waste Collectors",
     icon: <Recycle size={28} strokeWidth={1.5} />
   },
-  {
-    value: "$10.2k",
-    label: "Grant Funding Secured",
-    icon: <Award size={28} strokeWidth={1.5} />
-  }
+  
 ];
 
 const ImpactSection = () => {

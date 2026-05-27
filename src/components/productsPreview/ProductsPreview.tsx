@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { ArrowRight, Flame, Wrench, RefreshCw } from "lucide-react";
 
 import fuelImage   from "../../assets/images/gel.jpeg";
-import insertImage from "../../assets/images/gel.jpeg";
-import refillImage from "../../assets/images/gel.jpeg";
+import insertImage from "../../assets/images/stove.jpeg";
+import refillImage from "../../assets/images/refill.jpeg";
 
 /* ── Scroll-reveal hook ── */
 function useInView(threshold = 0.12) {

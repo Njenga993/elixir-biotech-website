@@ -3,7 +3,7 @@ import "./whatsAppButton.css";
 
 const WhatsAppButton = () => {
   // Replace with your actual WhatsApp number (format: country code + number, no + sign)
-  const phoneNumber = "254711965228";
+  const phoneNumber = "254 0105939692";
   const message = "Hello! I would like to make an inquiry about Indigenous Seeds Village.";
   
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
