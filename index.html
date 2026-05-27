@@ -1,72 +1,104 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-KE">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- 
-      1. BETTER TITLE 
-      This shows in the browser tab before React loads.
-    -->
+    <!-- ✅ PRIMARY META TAGS -->
     <title>Elixir Biotech | Clean Bioethanol Fuel in Kenya</title>
-
-    <!-- 
-      2. FALLBACK META DESCRIPTION 
-      Static description for crawlers that execute JS slowly.
-    -->
     <meta name="description" content="Elixir Biotech transforms organic waste into affordable bioethanol gel fuel. A safe, sustainable alternative to charcoal and kerosene for households in Nairobi." />
-
-    <!-- 
-      3. OPEN GRAPH (Social Media) FALLBACKS 
-      If someone shares your site on Twitter/Facebook and JS hasn't loaded yet,
-      these tags ensure a preview still shows up.
-    -->
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="author" content="Elixir Biotech" />
+    
+    <!-- ✅ FAVICONS (Multiple sizes for all devices) -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- ✅ CANONICAL URL (Prevents duplicate content issues) -->
+    <link rel="canonical" href="https://elixirbiotech.co.ke/" />
+    
+    <!-- ✅ OPEN GRAPH (Facebook/LinkedIn) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://elixirbiotech.co.ke/" />
     <meta property="og:title" content="Elixir Biotech | Clean Bioethanol Fuel in Kenya" />
-    <meta property="og:description" content="Elixir Biotech transforms organic waste into affordable bioethanol gel fuel." />
+    <meta property="og:description" content="Elixir Biotech transforms organic waste into affordable bioethanol gel fuel. A safe, sustainable alternative to charcoal and kerosene for households in Nairobi." />
     <meta property="og:image" content="https://elixirbiotech.co.ke/assets/images/image2.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Elixir Biotech bioethanol gel fuel production" />
     <meta property="og:site_name" content="Elixir Biotech" />
-
-    <!-- Twitter Card -->
+    <meta property="og:locale" content="en_KE" />
+    
+    <!-- ✅ TWITTER CARD -->
     <meta name="twitter:card" content="summary_large_image" />
-
-    <!-- 
-      4. THEME COLOR
-      Matches your Navy (#0f1a20) for the address bar on mobile devices.
-    -->
+    <meta name="twitter:site" content="@elixirbiotech" />
+    <meta name="twitter:creator" content="@elixirbiotech" />
+    <meta name="twitter:url" content="https://elixirbiotech.co.ke/" />
+    <meta name="twitter:title" content="Elixir Biotech | Clean Bioethanol Fuel in Kenya" />
+    <meta name="twitter:description" content="Elixir Biotech transforms organic waste into affordable bioethanol gel fuel." />
+    <meta name="twitter:image" content="https://elixirbiotech.co.ke/assets/images/image2.png" />
+    <meta name="twitter:image:alt" content="Elixir Biotech bioethanol gel fuel production" />
+    
+    <!-- ✅ MOBILE OPTIMIZATION -->
     <meta name="theme-color" content="#0f1a20" />
-
-    <!-- 
-      5. PRECONNECT
-      Speeds up loading of Google Fonts (if you use them).
-    -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Elixir Biotech" />
+    <meta name="format-detection" content="telephone=yes" />
+    
+    <!-- ✅ PERFORMANCE HINTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <!-- 
-      6. NOSCRIPT FALLBACK STYLES
-      If a user has JS disabled, they will see this clean error message 
-      instead of a blank white page.
-    -->
+    <link rel="dns-prefetch" href="https://elixirbiotech.co.ke" />
+    
+    <!-- ✅ SECURITY HEADERS (via meta) -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
+    
+    <!-- ✅ NOSCRIPT FALLBACK STYLES -->
     <style>
       .no-js-fallback {
         margin: 0;
         padding: 0;
-        font-family: sans-serif;
-        background-color: #0f1a20; /* Navy */
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background-color: #0f1a20;
         color: #ffffff;
-        height: 100vh;
+        min-height: 100vh;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         text-align: center;
         padding: 20px;
+        box-sizing: border-box;
       }
-      .no-js-fallback h1 { margin-bottom: 10px; color: #82AF24; }
-      .no-js-fallback a { color: #82AF24; text-decoration: underline; }
+      .no-js-fallback h1 {
+        margin-bottom: 10px;
+        color: #82AF24;
+        font-size: 2rem;
+      }
+      .no-js-fallback p {
+        max-width: 400px;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        opacity: 0.9;
+      }
+      .no-js-fallback a {
+        color: #82AF24;
+        text-decoration: underline;
+        font-weight: 600;
+        padding: 10px 20px;
+        border: 2px solid #82AF24;
+        border-radius: 6px;
+        transition: all 0.3s ease;
+      }
+      .no-js-fallback a:hover {
+        background-color: #82AF24;
+        color: #0f1a20;
+      }
     </style>
   </head>
   <body>
@@ -76,8 +108,13 @@
     <noscript>
       <div class="no-js-fallback">
         <h1>Elixir Biotech</h1>
-        <p>Please enable JavaScript to view this website.</p>
-        <a href="https://www.enable-javascript.com/">How to enable JavaScript</a>
+        <p>
+          Transforming organic waste into clean bioethanol fuel for Kenyan households.
+          Please enable JavaScript to experience our full website.
+        </p>
+        <a href="https://www.enable-javascript.com/" target="_blank" rel="noopener noreferrer">
+          How to enable JavaScript
+        </a>
       </div>
     </noscript>
 

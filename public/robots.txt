@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+
+Sitemap: https://elixirbiotech.co.ke/sitemap.xml
+
+# Crawl-delay: 10

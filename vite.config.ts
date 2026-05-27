@@ -10,9 +10,22 @@ export default defineConfig({
     
     // Layer 4: Sitemap (Kept - this works!)
     sitemap({
-      hostname: SITE_URL,
-      dynamicRoutes: ['/', '/about', '/products', '/contact'],
-    }),
+  hostname: SITE_URL,
+  dynamicRoutes: [
+    '/', 
+    '/about', 
+    '/products', 
+    '/contact'
+  ],
+  exclude: ['/private', '/admin'],
+  changefreq: 'weekly',
+  priority: {
+    '/': 1.0,
+    '/products': 0.9,
+    '/about': 0.7,
+    '/contact': 0.6
+  }
+}),
 
     // ❌ REMOVED: vite-plugin-prerender 
     // Reason: It is incompatible with "type": "module" and crashes the dev server.

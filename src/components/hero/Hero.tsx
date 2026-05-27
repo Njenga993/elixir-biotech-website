@@ -2,9 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "./Hero.css";
 import heroImage from "../../assets/images/image2.png";
-
-// 👇 IMPORT YOUR 3 CARD IMAGES HERE
-// Ensure these files exist in src/assets/images/
 import cardImage1 from "../../assets/images/waste.jpeg";
 import cardImage2 from "../../assets/images/image2.png";
 import cardImage3 from "../../assets/images/gel.jpeg";
@@ -17,7 +14,7 @@ interface CardProps {
   title: string;
   description: string;
   icon: React.ReactNode;
-  image: string; // New property for the image
+  image: string;
 }
 
 const FLOATING_CARDS: CardProps[] = [
@@ -78,17 +75,21 @@ export default function Hero() {
   };
 
   return (
-    <section className="hero">
+    <section className="hero" aria-label="Hero section">
       {/* ── BACKGROUND ── */}
       <div className="hero-background" aria-hidden="true">
         <div className="hero-image-wrapper">
-          <img src={heroImage} alt="" />
+          <img 
+            src={heroImage} 
+            alt="Elixir Biotech bioethanol gel fuel production facility" // ✅ Added descriptive alt text
+            width="1200"
+            height="800"
+            loading="eager" // ✅ Hero image loads immediately
+          />
         </div>
-        {/* Layered overlays for depth */}
         <div className="hero-overlay hero-overlay-base" />
         <div className="hero-overlay hero-overlay-left" />
         <div className="hero-overlay hero-overlay-bottom" />
-        {/* Ambient green tint at bottom-left to connect with cards */}
         <div className="hero-overlay hero-overlay-green" />
       </div>
 
@@ -103,7 +104,7 @@ export default function Hero() {
               Welcome to Elixir Biotech
             </div>
 
-            {/* Title */}
+            {/* ✅ H1 is perfect - good keyword placement */}
             <h1 className="hero-title">
               <span className="title-line title-line-1">Innovative Solutions</span>
               <span className="title-line title-line-2">
@@ -146,7 +147,7 @@ export default function Hero() {
         <button
           className={`hero-scroll-btn ${loaded ? "is-loaded" : ""}`}
           onClick={scrollToCards}
-          aria-label="Scroll to learn more"
+          aria-label="Scroll to learn more about Elixir Biotech's process"
         >
           <ChevronDown size={20} />
         </button>
@@ -167,9 +168,16 @@ export default function Hero() {
                   {card.num}
                 </span>
 
-                {/* ── ADDED IMAGE CONTAINER ── */}
+                {/* Card image with optimized attributes */}
                 <div className="hero-card-image-wrapper">
-                  <img src={card.image} alt={card.title} className="hero-card-img" />
+                  <img 
+                    src={card.image} 
+                    alt={`${card.title} - ${card.description.substring(0, 60)}`} // ✅ Better alt text
+                    className="hero-card-img" 
+                    loading="lazy" // ✅ Lazy load below-fold images
+                    width="400"
+                    height="300"
+                  />
                 </div>
 
                 <div className="hero-card-icon">

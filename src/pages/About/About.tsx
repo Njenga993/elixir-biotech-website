@@ -3,7 +3,6 @@ import "./AboutPage.css";
 import { Link } from "react-router-dom";
 import aboutImage from "../../assets/images/image.png";
 
-// 👇 IMPORT SEO COMPONENT
 import SEO from "../../components/SEO/SEO";
 
 import {
@@ -29,7 +28,6 @@ function useInView(threshold = 0.12) {
   return { ref, inView };
 }
 
-// ... (Your existing CHALLENGES, ECOSYSTEM, MANDATE_CARDS, PROOF_POINTS arrays) ...
 const CHALLENGES = [
   {
     icon: <Wind size={26} strokeWidth={1.5} />,
@@ -107,65 +105,74 @@ const AboutPage = () => {
     <>
       {/* ⭐⭐⭐ ADVANCED SEO SECTION ⭐⭐⭐ */}
       <SEO
-        title="About Elixir Biotech – Clean Cooking & Waste-to-Energy Solutions in Kenya"
-        description="Discover Elixir Biotech's mission to transform organic waste into clean bioethanol gel fuel. Learn about our circular economy model, impact in Nairobi, and vision for sustainable cooking."
+        title="About Elixir Biotech | Clean Cooking & Waste-to-Energy in Kenya"
+        description="Discover Elixir Biotech's mission to transform organic waste into clean bioethanol gel fuel. Learn about our circular economy model, impact in Nairobi, and vision for sustainable cooking in Kenya."
         path="/about"
         image={aboutImage}
+        type="website"
         
-        // 👇 Targeted Keywords for Local & Niche SEO
         keywords={[
-          "Elixir Biotech",
-          "bioethanol gel fuel Kenya",
-          "clean cooking solutions Nairobi",
-          "waste to energy Kenya",
-          "renewable cooking fuel",
-          "organic waste recycling",
-          "sustainable energy Kenya",
-          "affordable cooking fuel",
+          "Elixir Biotech about",
+          "bioethanol fuel company Kenya",
+          "clean cooking mission Nairobi",
+          "waste to energy startup Kenya",
+          "renewable cooking fuel Africa",
+          "organic waste recycling Kenya",
+          "sustainable energy company",
           "circular economy Africa",
-          "green energy startup Kenya"
+          "green energy mission Kenya",
+          "clean cooking technology"
         ]}
         
-        // 👇 Structured Data (JSON-LD)
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "AboutPage",
-          "name": "About Elixir Biotech",
-          "description": "Elixir Biotech transforms organic waste into clean bioethanol gel fuel, providing a safer, affordable alternative to charcoal and kerosene in Kenya.",
-          "url": "https://elixirbiotech.co.ke/about",
-          "publisher": {
-            "@type": "Organization",
-            "name": "Elixir Biotech",
-            "url": "https://elixirbiotech.co.ke",
-            "logo": "https://elixirbiotech.co.ke/assets/images/logo.png", // Update with your real logo path
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Nairobi",
-              "addressCountry": "KE"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "AboutPage",
+            "name": "About Elixir Biotech",
+            "description": "Elixir Biotech transforms organic waste into clean bioethanol gel fuel, providing a safer, affordable alternative to charcoal and kerosene in Kenya.",
+            "url": "https://elixirbiotech.co.ke/about",
+            "mainEntity": {
+              "@type": "Organization",
+              "name": "Elixir Biotech",
+              "url": "https://elixirbiotech.co.ke",
+              "logo": "https://elixirbiotech.co.ke/assets/images/logo.png",
+              "foundingDate": "2023", // Update with actual year
+              "description": "Transforming organic waste into affordable bioethanol gel fuel in Nairobi, Kenya.",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Nairobi",
+                "addressCountry": "KE"
+              },
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "telephone": "+254-105939692",
+                "contactType": "customer service",
+                "email": "info@elixirbiotech.co.ke"
+              }
             }
           },
-          "mainEntity": {
-            "@type": "Organization",
-            "name": "Elixir Biotech",
-            "foundingDate": "2023", // Update with actual year if known
-            "founders": []
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://elixirbiotech.co.ke"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "About",
+                "item": "https://elixirbiotech.co.ke/about"
+              }
+            ]
           }
-        }}
+        ]}
       />
 
-      {/* 👇 Hidden H1 for SEO (Ranking) - Hidden from users but seen by Google */}
-      <h1 style={{
-        position: 'absolute',
-        width: '1px',
-        height: '1px',
-        padding: '0',
-        margin: '-1px',
-        overflow: 'hidden',
-        clip: 'rect(0, 0, 0, 0)',
-        border: '0'
-      }}>
-        About Elixir Biotech – Sustainable Bioethanol Fuel and Circular Waste Management in Nairobi
-      </h1>
+      {/* ❌ REMOVED hidden H1 - Using visible H1 in hero section below */}
 
       {/* ═════════════════════════════════════════════════
           PAGE CONTENT
@@ -186,7 +193,8 @@ const AboutPage = () => {
                 About Elixir Biotech
               </div>
 
-              <h2 className="ap-hero-title"> {/* Changed H1 to H2 visually because we have a hidden H1 for SEO */}
+              {/* ✅ CHANGED to H1 - Now visible and SEO-friendly */}
+              <h1 className="ap-hero-title">
                 <span className="ap-title-line line-1">Pioneering the Future</span>
                 <span className="ap-title-line line-2">
                   of{" "}
@@ -195,7 +203,7 @@ const AboutPage = () => {
                     <span className="ap-title-bar" aria-hidden="true" />
                   </span>
                 </span>
-              </h2>
+              </h1>
 
               <p className="ap-hero-desc">
                 Elixir Biotech operates a closed-loop production and distribution
@@ -222,8 +230,13 @@ const AboutPage = () => {
 
                 <div className="ap-image-wrapper">
                   <div className="ap-image-container">
-                    {/* 👇 ENHANCED ALT TEXT for SEO */}
-                    <img src={aboutImage} alt="Elixir Biotech team facilitating clean cooking solutions in Nairobi using bioethanol gel fuel" />
+                    <img 
+                      src={aboutImage} 
+                      alt="Elixir Biotech team facilitating clean cooking solutions in Nairobi using bioethanol gel fuel" 
+                      loading="lazy"
+                      width="600"
+                      height="750"
+                    />
                     <div className="ap-img-overlay" aria-hidden="true" />
                   </div>
 
@@ -255,6 +268,7 @@ const AboutPage = () => {
                   Our Mandate
                 </div>
 
+                {/* ✅ Proper H2 hierarchy */}
                 <h2 className="ap-section-title">
                   Our Vision for<br />
                   <span className="ap-accent-word">
@@ -321,6 +335,7 @@ const AboutPage = () => {
                 <span className="ap-dot" aria-hidden="true" />
                 The Challenge
               </div>
+              {/* ✅ Proper H2 hierarchy */}
               <h2 className="ap-challenge-title">
                 Why We Must{" "}
                 <span className="ap-title-accent-light">
@@ -347,7 +362,7 @@ const AboutPage = () => {
 
                   <div className="ap-challenge-icon">{item.icon}</div>
 
-                  <div className="ap-challenge-stat">{item.stat}</div>
+                  <div className="ap-challenge-stat" aria-hidden="true">{item.stat}</div>
                   <h3 className="ap-challenge-card-title">{item.title}</h3>
                   <p className="ap-challenge-card-desc">{item.description}</p>
 
@@ -372,6 +387,7 @@ const AboutPage = () => {
                 <span className="ap-dot ap-dot-sm" aria-hidden="true" />
                 Our Process
               </div>
+              {/* ✅ Proper H2 hierarchy */}
               <h2 className="ap-eco-title">
                 The Circular{" "}
                 <span className="ap-accent-word">

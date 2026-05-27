@@ -6,9 +6,7 @@ import {
   Leaf, ShieldCheck, TrendingUp, Users,
 } from "lucide-react";
 
-// 👇 IMPORT SEO COMPONENT
 import SEO from "../../components/SEO/SEO";
-
 import ProductsPreview from "../../components/productsPreview/ProductsPreview";
 import ProcessSection  from "../../components/processSection/ProcessSection";
 import ImpactSection   from "../../components/impactSection/ImpactSection";
@@ -63,9 +61,8 @@ const ProductsPage = () => {
         title="Buy Bioethanol Gel Fuel in Kenya | Clean Cooking Products"
         description="Shop safe, affordable bioethanol gel fuel in Nairobi. A non-spill, non-toxic alternative to charcoal and kerosene designed for Kenyan households."
         path="/products"
-        // 👇 Ideally import a product image here, e.g., import productHero from "../../assets/images/product-hero.jpg"
         image="/assets/images/products-hero.jpg" 
-        
+        type="product"
         keywords={[
           "bioethanol gel fuel Kenya",
           "buy clean cooking fuel",
@@ -79,17 +76,20 @@ const ProductsPage = () => {
           "renewable biofuel"
         ]}
         
-        // 👇 Structured Data (JSON-LD) for Products
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "ItemPage",
-          "name": "Elixir Biotech Products",
-          "description": "Overview of bioethanol gel fuel products offered by Elixir Biotech in Kenya.",
-          "url": "https://elixirbiotech.co.ke/products",
-          "mainEntity": {
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemPage",
+            "name": "Elixir Biotech Products - Bioethanol Gel Fuel",
+            "description": "Overview of bioethanol gel fuel products offered by Elixir Biotech in Kenya.",
+            "url": "https://elixirbiotech.co.ke/products"
+          },
+          {
+            "@context": "https://schema.org",
             "@type": "Product",
             "name": "Bioethanol Gel Fuel",
-            "description": "Clean-burning, non-toxic gel fuel made from organic waste. A safe alternative to charcoal and kerosene.",
+            "description": "Clean-burning, non-toxic gel fuel made from organic waste. A safe alternative to charcoal and kerosene for Kenyan households.",
+            "image": "https://elixirbiotech.co.ke/assets/images/products-hero.jpg",
             "brand": {
               "@type": "Brand",
               "name": "Elixir Biotech"
@@ -104,23 +104,27 @@ const ProductsPage = () => {
                 "name": "Elixir Biotech"
               }
             }
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://elixirbiotech.co.ke"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Products",
+                "item": "https://elixirbiotech.co.ke/products"
+              }
+            ]
           }
-        }}
+        ]}
       />
-
-      {/* 👇 Hidden H1 for SEO (Transactional Keywords) */}
-      <h1 style={{
-        position: 'absolute',
-        width: '1px',
-        height: '1px',
-        padding: '0',
-        margin: '-1px',
-        overflow: 'hidden',
-        clip: 'rect(0, 0, 0, 0)',
-        border: '0'
-      }}>
-        Buy Bioethanol Gel Fuel – Safe & Affordable Clean Cooking Products in Kenya
-      </h1>
 
       {/* ══ HERO ══════════════════════════════════════════════ */}
       <section className="pp-hero">
@@ -136,8 +140,8 @@ const ProductsPage = () => {
               Our Products
             </div>
 
-            {/* Changed H1 to H2 visually */}
-            <h2 className="pp-hero-title">
+            {/* ✅ FIXED: Changed to H1 with proper SEO content */}
+            <h1 className="pp-hero-title">
               <span className="pp-title-line line-1">Efficient Solutions</span>
               <span className="pp-title-line line-2">
                 for a{" "}
@@ -146,7 +150,7 @@ const ProductsPage = () => {
                   <span className="pp-title-bar" aria-hidden="true" />
                 </span>
               </span>
-            </h2>
+            </h1>
 
             <p className="pp-hero-desc">
               Every product in the Elixir Biotech ecosystem is designed around one
@@ -202,13 +206,14 @@ const ProductsPage = () => {
                 Why Elixir Biotech
               </div>
 
-              <h3 className="pp-why-title"> {/* H2 for hierarchy */}
+              {/* ✅ FIXED: Proper H2 after H1 */}
+              <h2 className="pp-why-title">
                 The smarter switch to{" "}
                 <span className="pp-why-accent">
                   clean cooking
                   <span className="pp-why-bar" aria-hidden="true" />
                 </span>
-              </h3>
+              </h2>
 
               <p className="pp-why-desc">
                 Switching to cleaner fuel shouldn't mean spending more or changing
@@ -242,7 +247,7 @@ const ProductsPage = () => {
                 { val: "110+",   sub: "Households Served",         note: "and growing every month" },
                 { val: "83%",    sub: "Repeat Customer Rate",      note: "families keep coming back" },
                 { val: "60%+",   sub: "Emissions Reduction",       note: "vs. charcoal & kerosene"  },
-                { val: "$10.2k", sub: "Grant Funding Secured",     note: "validating the model"     },
+                { val: "100%+",  sub: "Locally Sourced Materials", note: "supporting Kenyan waste collectors" },
               ].map(({ val, sub, note }, i) => (
                 <div
                   key={i}
@@ -310,8 +315,8 @@ const ProductsPage = () => {
 
             {/* Quick contact strip */}
             <div className="pp-outro-contact">
-              <a href="tel:+254 0105939692" className="pp-outro-contact-item">
-                <Phone size={13} /> +254  0105939692
+              <a href="tel:+254105939692" className="pp-outro-contact-item">
+                <Phone size={13} /> +254 105939692
               </a>
               <span className="pp-outro-sep" aria-hidden="true" />
               <a href="mailto:info@elixirbiotech.co.ke" className="pp-outro-contact-item">

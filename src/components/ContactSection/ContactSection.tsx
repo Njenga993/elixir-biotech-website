@@ -23,8 +23,8 @@ const CONTACT_DETAILS = [
   {
     icon: <Phone size={18} strokeWidth={1.8} />,
     label: "Phone",
-    value: "+254  0105939692",
-    href: "tel:+254 105939692",
+    value: "+254 105939692",
+    href: "tel:+254105939692",
   },
   {
     icon: <Mail size={18} strokeWidth={1.8} />,

@@ -5,7 +5,6 @@ import ProductsPreview from "../../components/productsPreview/ProductsPreview";
 import ImpactSection from "../../components/impactSection/ImpactSection";
 import ContactSection from "../../components/ContactSection/ContactSection";
 
-// 👇 IMPORT SEO COMPONENT
 import SEO from "../../components/SEO/SEO";
 
 const Home = () => {
@@ -13,65 +12,125 @@ const Home = () => {
     <>
       {/* ⭐⭐⭐ ADVANCED SEO SECTION ⭐⭐⭐ */}
       <SEO
-        title="Home | Elixir Biotech - Clean Bioethanol Fuel in Kenya"
-        description="Elixir Biotech transforms organic waste into affordable bioethanol gel fuel in Nairobi. A safe, non-toxic, and sustainable alternative to charcoal and kerosene."
+        title="Clean Bioethanol Fuel in Kenya | Sustainable Cooking Solutions"
+        description="Elixir Biotech transforms organic waste into affordable bioethanol gel fuel. A safe, non-toxic, and sustainable alternative to charcoal and kerosene for households in Nairobi."
         path="/"
-        
+        type="website"
         keywords={[
-          "Elixir Biotech",
-          "bioethanol gel fuel Kenya",
-          "clean cooking solutions",
+          "bioethanol fuel Kenya",
+          "clean cooking solutions Nairobi",
           "renewable energy Kenya",
-          "waste to energy",
+          "waste to energy Africa",
           "organic waste recycling",
-          "charcoal alternative",
+          "charcoal alternative Kenya",
           "kerosene substitute",
           "affordable cooking fuel",
-          "green energy startup Africa"
+          "green energy startup Kenya",
+          "sustainable fuel Nairobi"
         ]}
         
-        // 👇 Structured Data (JSON-LD) - WebSite Schema
-        jsonLd={{
-          "@context": "https://schema.org",
-          "@type": "WebSite",
-          "name": "Elixir Biotech",
-          "url": "https://elixirbiotech.co.ke/",
-          "description": "Transforming organic waste into affordable bioethanol gel fuel in Kenya.",
-          "potentialAction": {
-            "@type": "SearchAction",
-            "target": {
-              "@type": "EntryPoint",
-              "urlTemplate": "https://elixirbiotech.co.ke/search?q={search_term_string}"
-            },
-            "query-input": "required name=search_term_string"
-          },
-          "publisher": {
+        jsonLd={[
+          // 1. Organization Schema (Main)
+          {
+            "@context": "https://schema.org",
             "@type": "Organization",
+            "@id": "https://elixirbiotech.co.ke/#organization",
             "name": "Elixir Biotech",
-            "logo": "https://elixirbiotech.co.ke/assets/images/logo.png",
             "url": "https://elixirbiotech.co.ke",
+            "logo": "https://elixirbiotech.co.ke/assets/images/logo.png",
+            "image": "https://elixirbiotech.co.ke/assets/images/image2.png",
+            "description": "Elixir Biotech converts organic waste into affordable bioethanol gel fuel — replacing charcoal, kerosene, and firewood in Kenyan households.",
+            "foundingDate": "2024", // Update with actual year
             "address": {
               "@type": "PostalAddress",
               "addressLocality": "Nairobi",
               "addressCountry": "KE"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+254105939692",
+              "contactType": "customer service",
+              "email": "info@elixirbiotech.co.ke",
+              "availableLanguage": ["English", "Swahili"]
+            },
+            "areaServed": {
+              "@type": "City",
+              "name": "Nairobi"
+            },
+            "sameAs": [
+              // Add your social media URLs
+              // "https://twitter.com/elixirbiotech",
+              // "https://facebook.com/elixirbiotech",
+              // "https://linkedin.com/company/elixirbiotech"
+            ]
+          },
+          // 2. LocalBusiness Schema (For local SEO in Nairobi)
+          {
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "@id": "https://elixirbiotech.co.ke/#localbusiness",
+            "name": "Elixir Biotech",
+            "image": "https://elixirbiotech.co.ke/assets/images/image2.png",
+            "url": "https://elixirbiotech.co.ke",
+            "telephone": "+254105939692",
+            "email": "info@elixirbiotech.co.ke",
+            "priceRange": "KES 200 - KES 2000",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Nairobi",
+              "addressCountry": "KE"
+            },
+            "areaServed": {
+              "@type": "City",
+              "name": "Nairobi"
+            },
+            "openingHoursSpecification": {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": [
+                "Monday",
+                "Tuesday",
+                "Wednesday",
+                "Thursday",
+                "Friday"
+              ],
+              "opens": "08:00",
+              "closes": "17:00"
             }
+          },
+          // 3. WebSite Schema (For search functionality)
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "@id": "https://elixirbiotech.co.ke/#website",
+            "name": "Elixir Biotech",
+            "url": "https://elixirbiotech.co.ke",
+            "description": "Transforming organic waste into affordable bioethanol gel fuel in Kenya.",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://elixirbiotech.co.ke/search?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          },
+          // 4. BreadcrumbList Schema
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://elixirbiotech.co.ke"
+              }
+            ]
           }
-        }}
+        ]}
       />
 
-      {/* 👇 Hidden H1 for SEO (Primary Brand & Service Keywords) */}
-      <h1 style={{
-        position: 'absolute',
-        width: '1px',
-        height: '1px',
-        padding: '0',
-        margin: '-1px',
-        overflow: 'hidden',
-        clip: 'rect(0, 0, 0, 0)',
-        border: '0'
-      }}>
-        Elixir Biotech: Transforming Organic Waste into Clean Cooking Fuel in Nairobi
-      </h1>
+      {/* ✅ REMOVED hidden H1 - Hero component should have the H1 */}
 
       <main>
         <Hero />

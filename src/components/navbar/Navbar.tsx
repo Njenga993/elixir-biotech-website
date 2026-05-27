@@ -50,9 +50,9 @@ const Navbar = () => {
       <div className="top-bar">
         <div className="container top-bar-container">
           <div className="top-bar-left">
-            <a href="tel:+254 0105939692" className="top-item top-item-link">
+            <a href="tel:+254105939692" className="top-item top-item-link">
               <Phone size={13} />
-              <span>+254 0105939692</span>
+              <span>+254 105939692</span>
             </a>
             <a href="mailto:info@elixirbiotech.co.ke" className="top-item top-item-link">
               <Mail size={13} />
@@ -180,8 +180,8 @@ const Navbar = () => {
 
         {/* Contact strip */}
         <div className="sidebar-contact">
-          <a href="tel:+254 0105939692" className="sidebar-contact-item">
-            <Phone size={14} /> +254 0105939692
+          <a href="tel:+254105939692" className="sidebar-contact-item">
+            <Phone size={14} /> +254 105939692
           </a>
           <a href="mailto:info@elixirbiotech.co.ke" className="sidebar-contact-item">
             <Mail size={14} /> info@elixirbiotech.co.ke
