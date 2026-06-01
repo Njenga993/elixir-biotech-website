@@ -777,3 +777,41 @@ a.contact-detail-value:hover { color: var(--green-light); }
 
   .station-line, .cta-shimmer { display: none !important; }
 }
+
+/* ─────────────────────────────────────────────
+   CONTACT FORM SECTION
+───────────────────────────────────────────── */
+.contact-form-section {
+  padding: 0 0 80px;
+  background: var(--off-white);
+}
+
+.contact-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.contact-form-col {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+.contact-form-col.is-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .contact-form-section {
+    padding: 0 0 60px;
+  }
+}
+
+@media (max-width: 560px) {
+  .contact-form-section {
+    padding: 0 0 40px;
+  }
+}

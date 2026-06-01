@@ -5,6 +5,7 @@ import {
   ArrowRight, Briefcase, FlaskConical, PenTool, Radio,
   ChevronRight,
 } from "lucide-react";
+import ContactForm from "../../components/contactform/ContactForm";
 
 import SEO from "../../components/SEO/SEO";
 
@@ -88,6 +89,7 @@ const ContactPage = () => {
 
   const { ref: infoRef, inView: infoIn } = useInView(0.1);
   const { ref: deptRef, inView: deptIn } = useInView(0.1);
+  const { ref: formRef, inView: formIn } = useInView(0.1);
 
   return (
     <main className="contact-page">
@@ -182,8 +184,6 @@ const ContactPage = () => {
         ]}
       />
 
-      {/* ❌ REMOVED hidden H1 - Now using visible H1 below */}
-
       {/* ── HERO ── */}
       <section className="contact-hero">
         <div className="hero-bg-grid"   aria-hidden="true" />
@@ -198,7 +198,6 @@ const ContactPage = () => {
               Get In Touch
             </div>
 
-            {/* ✅ CHANGED to H1 with proper SEO content */}
             <h1 className="contact-hero-title">
               <span className="hero-title-line line-1">Let's Build</span>
               <span className="hero-title-line line-2">
@@ -248,7 +247,6 @@ const ContactPage = () => {
                     <span className="badge-dot badge-dot-sm" aria-hidden="true" />
                     Basecamp Directory
                   </div>
-                  {/* ✅ Proper H2 hierarchy */}
                   <h2 className="contact-info-title">
                     Reach Us Directly
                   </h2>
@@ -307,7 +305,6 @@ const ContactPage = () => {
                   <span className="badge-dot badge-dot-sm" aria-hidden="true" />
                   Direct Stations
                 </div>
-                {/* ✅ Proper H2 hierarchy */}
                 <h2 className="contact-departments-title">
                   Choose a Department
                 </h2>
@@ -331,7 +328,6 @@ const ContactPage = () => {
                       <ChevronRight size={16} className="station-chevron" />
                     </div>
 
-                    {/* ✅ Changed H4 to H3 for proper hierarchy */}
                     <h3 className="station-title">{dept.title}</h3>
                     <p className="station-description">{dept.description}</p>
 
@@ -352,6 +348,20 @@ const ContactPage = () => {
               </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ── CONTACT FORM SECTION ── */}
+      <section className="contact-form-section" aria-label="Contact form">
+        <div className="container">
+          <div className="contact-form-grid">
+            <div
+              className={`contact-form-col ${formIn ? "is-in" : ""}`}
+              ref={formRef}
+            >
+              <ContactForm />
+            </div>
           </div>
         </div>
       </section>
